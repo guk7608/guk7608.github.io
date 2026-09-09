@@ -68,12 +68,16 @@
   main{padding:48px 0 80px;}
 
   .devo-card{
+    position:relative; overflow:hidden;
     background:linear-gradient(160deg, var(--dawn-1), var(--dawn-2) 55%, var(--dawn-3) 100%);
     color:#f7f1e4; border-radius:8px;
     padding:clamp(28px,6vw,52px);
     box-shadow:var(--shadow);
     margin-bottom:36px;
   }
+  .card-motif{position:absolute; inset:0; z-index:0; pointer-events:none;}
+  .card-motif svg{position:absolute; bottom:0; left:0; width:100%; height:auto; display:block;}
+  .card-body{position:relative; z-index:1;}
   .devo-date{
     font-size:0.82rem; letter-spacing:0.08em; color:#f4dfae; font-weight:700;
     display:flex; align-items:center; gap:10px; margin-bottom:20px;
@@ -124,10 +128,34 @@
 <main>
   <div class="wrap">
     <div class="devo-card">
-      <div class="devo-date" id="devo-date">불러오는 중…</div>
-      <blockquote class="devo-verse" id="devo-verse"></blockquote>
-      <div class="devo-ref" id="devo-ref"></div>
-      <div class="devo-series" id="devo-series"></div>
+      <div class="card-motif" aria-hidden="true">
+        <svg viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax slice">
+          <g stroke="#f4dfae" stroke-width="1" opacity="0.35">
+            <line x1="320" y1="6" x2="70" y2="210"/>
+            <line x1="320" y1="6" x2="150" y2="210"/>
+            <line x1="320" y1="6" x2="230" y2="210"/>
+            <line x1="320" y1="6" x2="320" y2="210"/>
+            <line x1="320" y1="6" x2="410" y2="210"/>
+            <line x1="320" y1="6" x2="490" y2="210"/>
+            <line x1="320" y1="6" x2="570" y2="210"/>
+          </g>
+          <g stroke="#f4dfae" stroke-width="3" stroke-linecap="round" opacity="0.55">
+            <line x1="320" y1="0" x2="320" y2="34"/>
+            <line x1="306" y1="12" x2="334" y2="12"/>
+          </g>
+          <g stroke="#f4dfae" stroke-width="1.6" fill="none" opacity="0.3">
+            <path d="M215,220 v-46 a35,35 0 0 1 70,0 v46 z"/>
+            <path d="M285,220 v-46 a35,35 0 0 1 70,0 v46 z"/>
+            <path d="M355,220 v-46 a35,35 0 0 1 70,0 v46 z"/>
+          </g>
+        </svg>
+      </div>
+      <div class="card-body">
+        <div class="devo-date" id="devo-date">불러오는 중…</div>
+        <blockquote class="devo-verse" id="devo-verse"></blockquote>
+        <div class="devo-ref" id="devo-ref"></div>
+        <div class="devo-series" id="devo-series"></div>
+      </div>
     </div>
 
     <div class="reflection">

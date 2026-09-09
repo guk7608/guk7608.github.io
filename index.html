@@ -184,6 +184,9 @@
   .lede{color:var(--ink-soft); font-size:1rem; max-width:60ch; margin:10px 0 0;}
 
   /* verse card */
+  .card-motif{position:absolute; inset:0; z-index:0; pointer-events:none;}
+  .card-motif svg{position:absolute; bottom:0; left:0; width:100%; height:auto; display:block;}
+  .card-body{position:relative; z-index:1;}
   .verse-card{
     display:block;
     background:linear-gradient(160deg, var(--dawn-1), var(--dawn-2) 55%, var(--dawn-3) 100%);
@@ -200,7 +203,6 @@
     transform:translateY(-2px);
     box-shadow:0 22px 46px -20px rgba(32,36,44,0.45);
   }
-  .verse-card .arch-row{position:absolute; inset:auto 0 0 0; opacity:0.18; line-height:0;}
   .verse-more{
     margin-top:20px; font-size:0.88rem; font-weight:700; color:var(--gold);
   }
@@ -220,6 +222,23 @@
   /* about */
   .about-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:40px; align-items:start;}
   .about-grid p{color:var(--ink-soft); margin:0 0 14px;}
+  .motto{
+    font-family:"Noto Serif KR",serif; font-weight:600;
+    font-size:1.2rem; color:var(--brick); margin:2px 0 16px;
+  }
+  .mission-list{
+    list-style:none; margin:18px 0 20px; padding:0;
+    display:flex; flex-direction:column; gap:14px;
+  }
+  .mission-list li{
+    display:flex; align-items:baseline; gap:14px;
+    font-weight:600; color:var(--ink); font-size:1.02rem;
+  }
+  .mission-num{
+    font-family:"Noto Serif KR",serif; font-weight:700; color:var(--gold);
+    font-size:0.95rem; flex:none; width:26px;
+  }
+  .about-closing{font-size:0.95rem;}
   .fact-box{
     background:var(--surface); border:1px solid var(--line); border-radius:6px;
     padding:22px 24px;
@@ -321,11 +340,35 @@
       <p class="lede">새벽설교(사사기 강해)에서 함께 나눈 본문 중 오늘 하루 붙잡을 한 구절입니다.</p>
     </div>
     <a class="verse-card" id="verse-card" href="devotion.html">
-      <div class="verse-date" id="verse-date">불러오는 중…</div>
-      <blockquote class="verse-text" id="verse-text">말씀을 준비하고 있습니다.</blockquote>
-      <div class="verse-ref" id="verse-ref"></div>
-      <div class="verse-series" id="verse-series"></div>
-      <div class="verse-more">묵상문 읽기 →</div>
+      <div class="card-motif" aria-hidden="true">
+        <svg viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax slice">
+          <g stroke="#f4dfae" stroke-width="1" opacity="0.35">
+            <line x1="320" y1="6" x2="70" y2="210"/>
+            <line x1="320" y1="6" x2="150" y2="210"/>
+            <line x1="320" y1="6" x2="230" y2="210"/>
+            <line x1="320" y1="6" x2="320" y2="210"/>
+            <line x1="320" y1="6" x2="410" y2="210"/>
+            <line x1="320" y1="6" x2="490" y2="210"/>
+            <line x1="320" y1="6" x2="570" y2="210"/>
+          </g>
+          <g stroke="#f4dfae" stroke-width="3" stroke-linecap="round" opacity="0.55">
+            <line x1="320" y1="0" x2="320" y2="34"/>
+            <line x1="306" y1="12" x2="334" y2="12"/>
+          </g>
+          <g stroke="#f4dfae" stroke-width="1.6" fill="none" opacity="0.3">
+            <path d="M215,220 v-46 a35,35 0 0 1 70,0 v46 z"/>
+            <path d="M285,220 v-46 a35,35 0 0 1 70,0 v46 z"/>
+            <path d="M355,220 v-46 a35,35 0 0 1 70,0 v46 z"/>
+          </g>
+        </svg>
+      </div>
+      <div class="card-body">
+        <div class="verse-date" id="verse-date">불러오는 중…</div>
+        <blockquote class="verse-text" id="verse-text">말씀을 준비하고 있습니다.</blockquote>
+        <div class="verse-ref" id="verse-ref"></div>
+        <div class="verse-series" id="verse-series"></div>
+        <div class="verse-more">묵상문 읽기 →</div>
+      </div>
     </a>
   </div>
 </section>
@@ -335,8 +378,15 @@
     <div>
       <p class="kicker">About</p>
       <h2>교회소개</h2>
-      <p>성광감리교회는 강원특별자치도 삼척시 도계읍에 자리한 감리교회입니다. 오랜 세월 도계의 이웃들과 함께 예배하며, 말씀과 기도로 하루하루를 세워가고 있습니다.</p>
-      <p>주일 예배와 오후찬양예배, 청년부 모임을 통해 모든 세대가 함께 신앙을 나누는 공동체를 이루어가길 소망합니다. 삼척, 도계 지역에서 함께 예배드릴 교회를 찾고 계시다면 언제든 성광감리교회로 오세요.</p>
+      <p class="motto">“복음의 빛으로 세상을 비추는 교회”</p>
+      <p>성광감리교회는 강원특별자치도 삼척시 도계읍에 자리한 감리교회입니다. 아래 네 가지 방향을 따라 오늘도 한 걸음씩 나아갑니다.</p>
+      <ol class="mission-list">
+        <li><span class="mission-num">01</span>지역사회에 복음의 빛을 비추는 교회</li>
+        <li><span class="mission-num">02</span>예수님의 사람으로 날마다 성장하는 성도</li>
+        <li><span class="mission-num">03</span>지역과 나라를 넘어 세계선교를 향하여 전진하는 교회</li>
+        <li><span class="mission-num">04</span>주님 다시 오실 때까지 멈추지 않고 끝까지 나아가는 교회</li>
+      </ol>
+      <p class="about-closing">삼척, 도계 지역에서 함께 예배드릴 교회를 찾고 계시다면 언제든 성광감리교회로 오세요.</p>
     </div>
     <dl class="fact-box">
       <dt>담임목사</dt>

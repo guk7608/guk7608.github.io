@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://guk7608.github.io/sk-church/sitemap.xml
+Sitemap: https://guk7608.github.io/sitemap.xml

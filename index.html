@@ -185,15 +185,25 @@
 
   /* verse card */
   .verse-card{
+    display:block;
     background:linear-gradient(160deg, var(--dawn-1), var(--dawn-2) 55%, var(--dawn-3) 100%);
     color:#f7f1e4;
+    text-decoration:none;
     border-radius:6px;
     padding:40px clamp(24px,5vw,52px);
     box-shadow:var(--shadow);
     position:relative;
     overflow:hidden;
+    transition:transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .verse-card:hover, .verse-card:focus-visible{
+    transform:translateY(-2px);
+    box-shadow:0 22px 46px -20px rgba(32,36,44,0.45);
   }
   .verse-card .arch-row{position:absolute; inset:auto 0 0 0; opacity:0.18; line-height:0;}
+  .verse-more{
+    margin-top:20px; font-size:0.88rem; font-weight:700; color:var(--gold);
+  }
   .verse-date{
     font-size:0.82rem; letter-spacing:0.08em; color:#f4dfae; font-weight:700;
     font-variant-numeric:tabular-nums;
@@ -308,12 +318,13 @@
       <h2>오늘의 새벽묵상</h2>
       <p class="lede">새벽설교(사사기 강해)에서 함께 나눈 본문 중 오늘 하루 붙잡을 한 구절입니다.</p>
     </div>
-    <div class="verse-card">
+    <a class="verse-card" id="verse-card" href="devotion.html">
       <div class="verse-date" id="verse-date">불러오는 중…</div>
       <blockquote class="verse-text" id="verse-text">말씀을 준비하고 있습니다.</blockquote>
       <div class="verse-ref" id="verse-ref"></div>
       <div class="verse-series" id="verse-series"></div>
-    </div>
+      <div class="verse-more">묵상문 읽기 →</div>
+    </a>
   </div>
 </section>
 
@@ -397,25 +408,9 @@
   </div>
 </footer>
 
+<script src="verses-data.js"></script>
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
-
-  // 새벽설교 시리즈의 검증된 본문 구절을 날짜별로 게재합니다.
-  // 이 블록은 scripts/sync-verses.js가 새벽설교 폴더를 읽어 자동으로 재생성합니다. 손으로 고치지 마세요.
-  // AUTO-GENERATED SERMON VERSES START
-  var sermonVerses = [
-    {date:"2026-09-02", series:"새벽설교 1강 · 먼저 여쭙고 나아가라", verse:"여호수아가 죽은 후에 이스라엘 자손이 여호와께 여쭈어 이르되 우리 가운데 누가 먼저 올라가서 가나안 족속과 싸우리이까", ref:"사사기 1:1"},
-    {date:"2026-09-03", series:"새벽설교 2강 · 끝까지 쫓아내라", verse:"여호와께서 유다와 함께 계셨으므로 그가 산지 주민을 쫓아내었으나 골짜기의 주민들은 철 병거가 있으므로 그들을 쫓아내지 못하였으며", ref:"사사기 1:19"},
-    {date:"2026-09-04", series:"새벽설교 3강 · 강성함을 핑계 삼지 말라", verse:"요셉 가문도 벧엘을 치러 올라가니 여호와께서 그와 함께 하시니라", ref:"사사기 1:22"},
-    {date:"2026-09-05", series:"새벽설교 4강 · 보김의 눈물", verse:"여호와의 사자가 이스라엘 모든 자손에게 이 말씀을 이르매 백성이 소리를 높여 운지라", ref:"사사기 2:4"},
-    {date:"2026-09-06", series:"새벽설교 5강 · 여호와를 알지 못하는 세대", verse:"그 세대의 사람도 다 그 조상들에게로 돌아갔고 그 후에 일어난 다른 세대는 여호와를 알지 못하며 여호와께서 이스라엘을 위하여 행하신 일도 알지 못하였더라", ref:"사사기 2:10"},
-    {date:"2026-09-07", series:"새벽설교 6강 · 쫓아내지 않으신 이유", verse:"이는 이스라엘이 그들의 조상들이 지킨 것 같이 나 여호와의 도를 지켜 행하나 아니하나 그들을 시험하려 함이라 하시니라", ref:"사사기 2:22"},
-    {date:"2026-09-08", series:"새벽설교 7강 · 시험의 자리에서 무너지다", verse:"남겨 두신 이 이방 민족들로 이스라엘을 시험하사 여호와께서 모세를 통하여 그들의 조상들에게 이르신 명령들을 순종하는지 알고자 하셨더라", ref:"사사기 3:4"},
-    {date:"2026-09-09", series:"새벽설교 8강 · 부르짖음에 응답하신 하나님", verse:"이스라엘 자손이 여호와께 부르짖으매 여호와께서 이스라엘 자손을 위하여 한 구원자를 세워 그들을 구원하게 하시니 그는 곧 갈렙의 아우 그나스의 아들 옷니엘이라", ref:"사사기 3:9"},
-    {date:"2026-09-10", series:"새벽설교 9강 · 왼손잡이를 세우신 하나님", verse:"이스라엘 자손이 여호와께 부르짖으매 여호와께서 그들을 위하여 한 구원자를 세우셨으니 그는 곧 베냐민 사람 게라의 아들 왼손잡이 에훗이라 이스라엘 자손이 그를 통하여 모압 왕 에글론에게 공물을 바칠 때에", ref:"사사기 3:15"},
-    {date:"2026-09-11", series:"새벽설교 10강 · 다락방에서 이루신 승리", verse:"그 날에 모압이 이스라엘 수하에 굴복하매 그 땅이 팔십 년 동안 평온하였더라", ref:"사사기 3:30"}
-  ];
-  // AUTO-GENERATED SERMON VERSES END
 
   function ymd(d){
     var m = ('0' + (d.getMonth()+1)).slice(-2);
@@ -441,6 +436,7 @@
   document.getElementById('verse-text').textContent = '“' + v.verse + '”';
   document.getElementById('verse-ref').textContent = v.ref;
   document.getElementById('verse-series').textContent = v.series;
+  document.getElementById('verse-card').href = 'devotion.html?date=' + v.date;
 </script>
 </body>
 </html>

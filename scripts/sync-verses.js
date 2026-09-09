@@ -1,4 +1,4 @@
-// 새벽설교 폴더를 읽어 index.html의 새벽묵상 구절 목록을 자동으로 갱신하고,
+// 새벽설교 폴더를 읽어 verses-data.js(새벽묵상 구절+묵상문 목록)를 자동으로 갱신하고,
 // 변경이 있으면 커밋 후 GitHub에 push합니다.
 // 작업 스케줄러가 주기적으로 이 스크립트를 실행합니다. 수동 실행도 가능합니다: node scripts/sync-verses.js
 
@@ -8,12 +8,13 @@ const { execFileSync } = require('child_process');
 
 const SERMON_DIR = 'N:\\개인\\0.클로드 에이전트\\설교집\\새벽설교';
 const PROJECT_DIR = path.join(__dirname, '..');
-const INDEX_HTML = path.join(PROJECT_DIR, 'index.html');
+const DATA_JS = path.join(PROJECT_DIR, 'verses-data.js');
 
 const FILENAME_RE = /^(\d{4}-\d{2}-\d{2}), (\d+)강 (.+)\.md$/;
 const BODY_LINE_RE = /^>\s*본문:\s*([^\s0-9][^\s]*)\s+(\d+):(\d+)/m;
 const TAG_LINE_RE = /^>\s*새벽묵상:\s*([^\s0-9][^\s]*)\s+(\d+):(\d+)/m;
 const VERSE_LINE_RE = /^(?:(\d+):)?(\d+)\.\s+(.+)$/gm;
+const REFLECTION_SECTION_RE = /## 새벽묵상\s*\([^)]*\)\s*\n+([\s\S]*?)(?:\n---|\n## )/;
 
 // "## 본문" 섹션의 번호 매김 줄들을 {chapter, verse, text} 목록으로 파싱한다.
 // "N. 텍스트" 줄은 현재 장(章)을 따르고, "장:절. 텍스트" 줄은 장이 바뀔 때 등장한다.
@@ -72,11 +73,18 @@ function parseSermon(filePath, fileName) {
   }
   if (!chosen) chosen = verseList[0];
 
+  const reflectionMatch = REFLECTION_SECTION_RE.exec(text);
+  const reflection = reflectionMatch ? reflectionMatch[1].trim() : '';
+  if (!reflection) {
+    log(`안내: ${fileName} 에 "## 새벽묵상 (300자 내외)" 섹션이 없어 묵상문 없이 게재됨`);
+  }
+
   return {
     date,
     series: `새벽설교 ${gang}강 · ${title}`,
     verse: chosen.text,
-    ref: `${book} ${chosen.chapter}:${chosen.verse}`
+    ref: `${book} ${chosen.chapter}:${chosen.verse}`,
+    reflection
   };
 }
 
@@ -84,12 +92,13 @@ function jsStringLiteral(s) {
   return '"' + String(s).replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '"';
 }
 
-function buildArrayBlock(entries) {
+function buildDataFile(entries) {
   const lines = entries.map((e, i) => {
     const comma = i === entries.length - 1 ? '' : ',';
-    return `    {date:${jsStringLiteral(e.date)}, series:${jsStringLiteral(e.series)}, verse:${jsStringLiteral(e.verse)}, ref:${jsStringLiteral(e.ref)}}${comma}`;
+    return `  {date:${jsStringLiteral(e.date)}, series:${jsStringLiteral(e.series)}, verse:${jsStringLiteral(e.verse)}, ref:${jsStringLiteral(e.ref)}, reflection:${jsStringLiteral(e.reflection)}}${comma}`;
   });
-  return 'var sermonVerses = [\n' + lines.join('\n') + '\n  ];';
+  return '// 이 파일은 scripts/sync-verses.js가 새벽설교 폴더를 읽어 자동으로 재생성합니다. 손으로 고치지 마세요.\n'
+    + 'var sermonVerses = [\n' + lines.join('\n') + '\n];\n';
 }
 
 function main() {
@@ -111,35 +120,24 @@ function main() {
     return;
   }
 
-  let html = fs.readFileSync(INDEX_HTML, 'utf8');
-  const startMarker = '// AUTO-GENERATED SERMON VERSES START';
-  const endMarker = '// AUTO-GENERATED SERMON VERSES END';
-  const startIdx = html.indexOf(startMarker);
-  const endIdx = html.indexOf(endMarker);
-  if (startIdx === -1 || endIdx === -1 || endIdx < startIdx) {
-    log('index.html에서 AUTO-GENERATED 마커를 찾지 못함 — 중단');
-    return;
-  }
+  const newData = buildDataFile(entries);
+  const oldData = fs.existsSync(DATA_JS) ? fs.readFileSync(DATA_JS, 'utf8') : '';
 
-  const before = html.slice(0, startIdx + startMarker.length);
-  const after = html.slice(endIdx);
-  const newHtml = before + '\n  ' + buildArrayBlock(entries) + '\n  ' + after;
-
-  if (newHtml === html) {
+  if (newData === oldData) {
     log(`변경 없음 (설교 ${entries.length}건, 최신: ${entries[entries.length - 1].date})`);
     return;
   }
 
-  fs.writeFileSync(INDEX_HTML, newHtml, 'utf8');
-  log(`index.html 갱신 완료 (설교 ${entries.length}건, 최신: ${entries[entries.length - 1].date})`);
+  fs.writeFileSync(DATA_JS, newData, 'utf8');
+  log(`verses-data.js 갱신 완료 (설교 ${entries.length}건, 최신: ${entries[entries.length - 1].date})`);
 
   try {
-    const status = execFileSync('git', ['status', '--porcelain', 'index.html'], { cwd: PROJECT_DIR }).toString();
+    const status = execFileSync('git', ['status', '--porcelain', 'verses-data.js'], { cwd: PROJECT_DIR }).toString();
     if (!status.trim()) {
       log('git 변경사항 없음');
       return;
     }
-    execFileSync('git', ['add', 'index.html'], { cwd: PROJECT_DIR });
+    execFileSync('git', ['add', 'verses-data.js'], { cwd: PROJECT_DIR });
     execFileSync('git', ['commit', '-m',
       `새벽묵상 자동 갱신 (${entries[entries.length - 1].date} 기준 ${entries.length}개 구절)\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>`
     ], { cwd: PROJECT_DIR });

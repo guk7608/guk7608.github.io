@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>새벽묵상 · 성광감리교회</title>
+<meta name="description" content="성광감리교회 새벽설교(사사기 강해) 새벽묵상 — 오늘의 말씀과 300자 묵상문.">
+<link rel="canonical" href="https://guk7608.github.io/devotion.html">
+<link rel="icon" type="image/png" href="https://guk7608.github.io/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f6f4ef;
+    --surface:#fffdf9;
+    --ink:#20242c;
+    --ink-soft:#565b66;
+    --line:#e1dccf;
+    --gold:#c99a3c;
+    --gold-ink:#5a4213;
+    --brick:#a85a3c;
+    --dawn-1:#232c47;
+    --dawn-2:#5c4a6e;
+    --dawn-3:#c9793f;
+    --dawn-4:#eec468;
+    --shadow: 0 18px 40px -22px rgba(32,36,44,0.35);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#14161c; --surface:#1b1e26; --ink:#eae7de; --ink-soft:#a9a79e;
+      --line:#31353f; --gold:#e3b357; --gold-ink:#241a08; --brick:#d98a68;
+      --dawn-1:#171b2c; --dawn-2:#3c3150; --dawn-3:#a5623a; --dawn-4:#e3b357;
+      --shadow: 0 18px 40px -20px rgba(0,0,0,0.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#14161c; --surface:#1b1e26; --ink:#eae7de; --ink-soft:#a9a79e;
+    --line:#31353f; --gold:#e3b357; --gold-ink:#241a08; --brick:#d98a68;
+    --dawn-1:#171b2c; --dawn-2:#3c3150; --dawn-3:#a5623a; --dawn-4:#e3b357;
+    --shadow: 0 18px 40px -20px rgba(0,0,0,0.6);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Noto Sans KR", -apple-system, sans-serif; line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,.serif{font-family:"Noto Serif KR", serif; text-wrap:balance; letter-spacing:-0.01em;}
+  a{color:inherit;}
+  .wrap{max-width:680px; margin:0 auto; padding:0 24px;}
+
+  header.site{
+    position:sticky; top:0; z-index:20;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .navbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 24px; max-width:680px; margin:0 auto;
+  }
+  .brand{display:flex; align-items:center; gap:10px; font-family:"Noto Serif KR",serif; font-weight:700; font-size:1.1rem; text-decoration:none;}
+  .brand svg{width:22px; height:22px; flex:none;}
+  .home-link{font-size:0.88rem; font-weight:600; color:var(--ink-soft); text-decoration:none;}
+  .home-link:hover{color:var(--brick);}
+
+  main{padding:48px 0 80px;}
+
+  .devo-card{
+    background:linear-gradient(160deg, var(--dawn-1), var(--dawn-2) 55%, var(--dawn-3) 100%);
+    color:#f7f1e4; border-radius:8px;
+    padding:clamp(28px,6vw,52px);
+    box-shadow:var(--shadow);
+    margin-bottom:36px;
+  }
+  .devo-date{
+    font-size:0.82rem; letter-spacing:0.08em; color:#f4dfae; font-weight:700;
+    display:flex; align-items:center; gap:10px; margin-bottom:20px;
+  }
+  .devo-date::before{content:"☀"; font-size:1rem;}
+  blockquote.devo-verse{
+    margin:0 0 18px; font-family:"Noto Serif KR",serif;
+    font-size:clamp(1.3rem,3.4vw,1.7rem); font-weight:600; line-height:1.6;
+  }
+  .devo-ref{font-weight:700; color:#f4dfae; font-size:0.98rem;}
+  .devo-series{font-size:0.85rem; color:#efe3c8cc; margin-top:4px;}
+
+  .reflection{
+    background:var(--surface); border:1px solid var(--line); border-radius:8px;
+    padding:clamp(24px,5vw,38px);
+  }
+  .reflection .kicker{
+    font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--brick); font-weight:700; margin:0 0 14px;
+  }
+  .reflection p{margin:0; font-size:1.05rem; color:var(--ink);}
+
+  .devo-nav{
+    display:flex; justify-content:space-between; gap:16px; margin-top:32px;
+    font-size:0.9rem; font-weight:600;
+  }
+  .devo-nav a{text-decoration:none; color:var(--ink-soft); padding:8px 4px;}
+  .devo-nav a:hover{color:var(--brick);}
+  .devo-nav .disabled{visibility:hidden;}
+
+  footer{border-top:1px solid var(--line); padding:28px 0 40px; color:var(--ink-soft); font-size:0.85rem; text-align:center;}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="navbar">
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M12 2v20M6 8h12" stroke="var(--brick)" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      성광감리교회
+    </a>
+    <a class="home-link" href="index.html">← 홈으로</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="devo-card">
+      <div class="devo-date" id="devo-date">불러오는 중…</div>
+      <blockquote class="devo-verse" id="devo-verse"></blockquote>
+      <div class="devo-ref" id="devo-ref"></div>
+      <div class="devo-series" id="devo-series"></div>
+    </div>
+
+    <div class="reflection">
+      <p class="kicker">묵상문</p>
+      <p id="devo-reflection">묵상문을 준비하고 있습니다.</p>
+    </div>
+
+    <div class="devo-nav">
+      <a id="nav-prev" href="#">← 이전 새벽묵상</a>
+      <a id="nav-next" href="#">다음 새벽묵상 →</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">© <span id="year"></span> 성광감리교회 · 강원특별자치도 삼척시 도계읍 도계우회로2길 48</div>
+</footer>
+
+<script src="verses-data.js"></script>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  function ymd(d){
+    var m = ('0' + (d.getMonth()+1)).slice(-2);
+    var day = ('0' + d.getDate()).slice(-2);
+    return d.getFullYear() + '-' + m + '-' + day;
+  }
+  function dayOfYear(d){
+    var start = new Date(d.getFullYear(), 0, 0);
+    return Math.floor((d - start) / 86400000);
+  }
+
+  var params = new URLSearchParams(location.search);
+  var requestedDate = params.get('date');
+
+  var idx = -1;
+  if (requestedDate) {
+    idx = sermonVerses.findIndex(function(item){ return item.date === requestedDate; });
+  }
+  if (idx === -1) {
+    var today = new Date();
+    var todayKey = ymd(today);
+    idx = sermonVerses.findIndex(function(item){ return item.date === todayKey; });
+    if (idx === -1) idx = dayOfYear(today) % sermonVerses.length;
+  }
+
+  var v = sermonVerses[idx];
+  var displayDate = new Date(v.date + 'T00:00:00');
+  var dateStr = displayDate.toLocaleDateString('ko-KR', { year:'numeric', month:'long', day:'numeric', weekday:'long' });
+
+  document.title = v.series + ' · 성광감리교회';
+  document.getElementById('devo-date').textContent = dateStr + ' 새벽묵상';
+  document.getElementById('devo-verse').textContent = '“' + v.verse + '”';
+  document.getElementById('devo-ref').textContent = v.ref;
+  document.getElementById('devo-series').textContent = v.series;
+  document.getElementById('devo-reflection').textContent = v.reflection || '이 날짜의 묵상문은 아직 준비되지 않았습니다.';
+
+  var prevEl = document.getElementById('nav-prev');
+  var nextEl = document.getElementById('nav-next');
+  if (idx > 0) {
+    prevEl.href = 'devotion.html?date=' + sermonVerses[idx - 1].date;
+  } else {
+    prevEl.classList.add('disabled');
+  }
+  if (idx < sermonVerses.length - 1) {
+    nextEl.href = 'devotion.html?date=' + sermonVerses[idx + 1].date;
+  } else {
+    nextEl.classList.add('disabled');
+  }
+</script>
+</body>
+</html>

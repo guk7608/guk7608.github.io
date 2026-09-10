@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>말씀 · 성광감리교회</title>
-<meta name="description" content="성광감리교회 새벽설교(사사기 강해) 말씀 — 오늘의 말씀과 300자 묵상문.">
+<meta name="description" content="성광감리교회 새벽설교(사사기 강해) — 본문 성구 전체와 700-800자 말씀 요약.">
 <link rel="canonical" href="https://guk7608.github.io/devotion.html">
 <link rel="icon" type="image/png" href="https://guk7608.github.io/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -87,7 +87,7 @@
   .devo-date::before{content:"☀"; font-size:1rem;}
   blockquote.devo-verse{
     margin:0 0 18px; font-family:"Noto Serif KR",serif;
-    font-size:clamp(1.3rem,3.4vw,1.7rem); font-weight:600; line-height:1.6;
+    font-size:1.05rem; font-weight:500; line-height:1.85;
   }
   .devo-ref{font-weight:700; color:#f4dfae; font-size:0.98rem;}
   .devo-series{font-size:0.85rem; color:#efe3c8cc; margin-top:4px;}
@@ -100,7 +100,8 @@
     font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase;
     color:var(--brick); font-weight:700; margin:0 0 14px;
   }
-  .reflection p{margin:0; font-size:1.05rem; color:var(--ink);}
+  .reflection p{margin:0 0 16px; font-size:1.03rem; color:var(--ink);}
+  .reflection p:last-child{margin-bottom:0;}
 
   .devo-nav{
     display:flex; justify-content:space-between; gap:16px; margin-top:32px;
@@ -161,8 +162,8 @@
     </div>
 
     <div class="reflection">
-      <p class="kicker">묵상문</p>
-      <p id="devo-reflection">묵상문을 준비하고 있습니다.</p>
+      <p class="kicker">말씀 요약</p>
+      <div id="devo-reflection"></div>
     </div>
 
     <div class="devo-nav">
@@ -210,10 +211,17 @@
 
   document.title = v.series + ' · 성광감리교회';
   document.getElementById('devo-date').textContent = dateStr + ' 말씀';
-  document.getElementById('devo-verse').textContent = '“' + v.verse + '”';
-  document.getElementById('devo-ref').textContent = v.ref;
+  document.getElementById('devo-verse').textContent = '“' + (v.fullPassage || v.verse) + '”';
+  document.getElementById('devo-ref').textContent = v.fullRef || v.ref;
   document.getElementById('devo-series').textContent = v.series;
-  document.getElementById('devo-reflection').textContent = v.reflection || '이 날짜의 묵상문은 아직 준비되지 않았습니다.';
+
+  var reflectionHost = document.getElementById('devo-reflection');
+  var reflectionParas = v.reflection ? v.reflection.split(/\n\s*\n/) : ['이 날짜의 말씀 요약은 아직 준비되지 않았습니다.'];
+  reflectionParas.forEach(function(para){
+    var p = document.createElement('p');
+    p.textContent = para.trim();
+    reflectionHost.appendChild(p);
+  });
 
   var prevEl = document.getElementById('nav-prev');
   var nextEl = document.getElementById('nav-next');

@@ -14,7 +14,7 @@ const FILENAME_RE = /^(\d{4}-\d{2}-\d{2}), (\d+)강 (.+)\.md$/;
 const BODY_LINE_RE = /^>\s*본문:\s*([^\s0-9][^\s]*)\s+(\d+):(\d+)/m;
 const TAG_LINE_RE = /^>\s*새벽묵상:\s*([^\s0-9][^\s]*)\s+(\d+):(\d+)/m;
 const VERSE_LINE_RE = /^(?:(\d+):)?(\d+)\.\s+(.+)$/gm;
-const REFLECTION_SECTION_RE = /## 새벽묵상\s*\([^)]*\)\s*\n+([\s\S]*?)(?:\n---|\n## )/;
+const REFLECTION_SECTION_RE = /## 새벽묵상\s*\(700-800자[^)]*\)\s*\n+([\s\S]*?)(?:\n---|\n## )/;
 
 // "## 본문" 섹션의 번호 매김 줄들을 {chapter, verse, text} 목록으로 파싱한다.
 // "N. 텍스트" 줄은 현재 장(章)을 따르고, "장:절. 텍스트" 줄은 장이 바뀔 때 등장한다.
@@ -52,7 +52,11 @@ function parseSermon(filePath, fileName) {
   const [, book, startChapter, startVerse] = bodyMatch;
 
   const bodySectionIdx = text.indexOf('## 본문');
-  const searchArea = bodySectionIdx >= 0 ? text.slice(bodySectionIdx) : text;
+  const afterBody = bodySectionIdx >= 0 ? text.slice(bodySectionIdx) : text;
+  // "## 본문" 섹션은 다음 "---" 구분선에서 끝난다 — 그 뒤(적용 질문/찬송가 등)의
+  // 번호 매김 줄(1. 2. …)이 본문 절로 잘못 섞이지 않도록 여기서 자른다.
+  const sectionEndMatch = /\n---/.exec(afterBody);
+  const searchArea = sectionEndMatch ? afterBody.slice(0, sectionEndMatch.index) : afterBody;
   const verseList = parseVerseList(searchArea, startChapter);
   if (verseList.length === 0) {
     log(`경고: ${fileName} 에서 본문 구절 목록을 찾지 못함 — 건너뜀`);
@@ -76,15 +80,24 @@ function parseSermon(filePath, fileName) {
   const reflectionMatch = REFLECTION_SECTION_RE.exec(text);
   const reflection = reflectionMatch ? reflectionMatch[1].trim() : '';
   if (!reflection) {
-    log(`안내: ${fileName} 에 "## 새벽묵상 (300자 내외)" 섹션이 없어 묵상문 없이 게재됨`);
+    log(`안내: ${fileName} 에 "## 새벽묵상 (700-800자 내외)" 섹션이 없어 묵상문 없이 게재됨`);
   }
+
+  // 본문 전체(모든 절)를 하나의 성구 텍스트로 합친다 — 상세페이지에서 전체 본문을 보여주기 위함.
+  const fullPassage = verseList.map(v => v.text).join(' ');
+  const lastVerse = verseList[verseList.length - 1];
+  const fullRef = verseList.length > 1
+    ? `${book} ${startChapter}:${startVerse}-${lastVerse.chapter !== startChapter ? lastVerse.chapter + ':' : ''}${lastVerse.verse}`
+    : `${book} ${chosen.chapter}:${chosen.verse}`;
 
   return {
     date,
     series: `새벽설교 ${gang}강 · ${title}`,
     verse: chosen.text,
     ref: `${book} ${chosen.chapter}:${chosen.verse}`,
-    reflection
+    reflection,
+    fullPassage,
+    fullRef
   };
 }
 
@@ -100,7 +113,7 @@ function jsStringLiteral(s) {
 function buildDataFile(entries) {
   const lines = entries.map((e, i) => {
     const comma = i === entries.length - 1 ? '' : ',';
-    return `  {date:${jsStringLiteral(e.date)}, series:${jsStringLiteral(e.series)}, verse:${jsStringLiteral(e.verse)}, ref:${jsStringLiteral(e.ref)}, reflection:${jsStringLiteral(e.reflection)}}${comma}`;
+    return `  {date:${jsStringLiteral(e.date)}, series:${jsStringLiteral(e.series)}, verse:${jsStringLiteral(e.verse)}, ref:${jsStringLiteral(e.ref)}, reflection:${jsStringLiteral(e.reflection)}, fullPassage:${jsStringLiteral(e.fullPassage)}, fullRef:${jsStringLiteral(e.fullRef)}}${comma}`;
   });
   return '// 이 파일은 scripts/sync-verses.js가 새벽설교 폴더를 읽어 자동으로 재생성합니다. 손으로 고치지 마세요.\n'
     + 'var sermonVerses = [\n' + lines.join('\n') + '\n];\n';

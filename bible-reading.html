@@ -117,6 +117,35 @@
   }
   .progress-reset:hover{border-color:var(--brick); color:var(--brick);}
 
+  /* 기기 간 동기화 */
+  .sync-block{
+    background:var(--surface); border:1px solid var(--line); border-radius:8px;
+    padding:20px 24px; margin-bottom:32px;
+  }
+  .sync-block .kicker{
+    font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--brick); font-weight:700; margin:0 0 6px;
+  }
+  .sync-block p.desc{margin:0 0 14px; color:var(--ink-soft); font-size:0.88rem;}
+  .sync-row{display:flex; flex-wrap:wrap; gap:10px; align-items:center;}
+  .sync-code-box{
+    font-family:"Noto Serif KR",serif; font-weight:700; font-size:1.15rem;
+    letter-spacing:0.12em; background:var(--bg); border:1px solid var(--line);
+    border-radius:6px; padding:8px 16px; color:var(--brick);
+  }
+  .sync-btn{
+    background:var(--brick); color:#fff8ec; border:none; border-radius:4px;
+    padding:9px 16px; cursor:pointer; font-family:inherit; font-weight:700; font-size:0.85rem;
+  }
+  .sync-btn:hover{filter:brightness(1.08);}
+  .sync-btn.ghost{background:none; border:1px solid var(--line); color:var(--ink);}
+  .sync-input{
+    border:1px solid var(--line); border-radius:4px; padding:8px 12px;
+    font-family:inherit; font-size:0.92rem; letter-spacing:0.1em; text-transform:uppercase;
+    width:110px; background:var(--surface); color:var(--ink);
+  }
+  .sync-status{font-size:0.82rem; color:var(--ink-soft); margin-top:8px;}
+
   /* 월별 목록 */
   .month-group{
     background:var(--surface); border:1px solid var(--line); border-radius:8px;
@@ -182,6 +211,22 @@
       <button class="progress-reset" id="progress-reset" type="button">체크 초기화</button>
     </div>
 
+    <div class="sync-block">
+      <p class="kicker">기기 간 동기화</p>
+      <p class="desc">코드를 만들면 휴대폰·PC 등 다른 기기에서 같은 코드를 입력해 체크 진행률을 이어서 볼 수 있습니다. 로그인은 필요 없습니다.</p>
+      <div class="sync-row" id="sync-no-code">
+        <button class="sync-btn" id="sync-create-btn" type="button">동기화 코드 만들기</button>
+        <input class="sync-input" id="sync-code-input" type="text" placeholder="코드 입력" maxlength="6">
+        <button class="sync-btn ghost" id="sync-connect-btn" type="button">이 코드로 불러오기</button>
+      </div>
+      <div class="sync-row" id="sync-has-code" hidden>
+        <span>내 동기화 코드:</span>
+        <span class="sync-code-box" id="sync-code-display"></span>
+        <button class="sync-btn ghost" id="sync-forget-btn" type="button">연결 해제</button>
+      </div>
+      <p class="sync-status" id="sync-status"></p>
+    </div>
+
     <div id="month-groups"></div>
   </div>
 </main>
@@ -191,6 +236,9 @@
 </footer>
 
 <script src="bible-plan-data.js"></script>
+<script src="firebase-config.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -226,6 +274,7 @@
   });
 
   var STORAGE_KEY = 'skchurch-bible-plan-checked';
+  var SYNC_KEY = 'skchurch-bible-sync-code';
   function loadChecked(){
     try {
       var raw = localStorage.getItem(STORAGE_KEY);
@@ -236,6 +285,25 @@
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(map)); } catch (e) {}
   }
   var checked = loadChecked();
+  var syncCode = null;
+  try { syncCode = localStorage.getItem(SYNC_KEY); } catch (e) {}
+
+  var db = null;
+  try {
+    if (firebaseConfig.apiKey !== 'REPLACE_ME') {
+      firebase.initializeApp(firebaseConfig);
+      db = firebase.firestore();
+    }
+  } catch (e) { db = null; }
+
+  var syncStatusEl = document.getElementById('sync-status');
+  function setSyncStatus(msg){ syncStatusEl.textContent = msg || ''; }
+
+  function pushSync(){
+    if (!db || !syncCode) return;
+    db.collection('syncCodes').doc(syncCode).set({ checked: checked, updatedAt: Date.now() })
+      .catch(function(err){ setSyncStatus('동기화 저장 실패: ' + err.message); });
+  }
 
   var fillEl = document.getElementById('progress-fill');
   var labelEl = document.getElementById('progress-label');
@@ -249,6 +317,8 @@
   var groupsHost = document.getElementById('month-groups');
   var todayMonth = todayEntry.month;
 
+  function buildChecklist(){
+  groupsHost.innerHTML = '';
   for (let m = 1; m <= 12; m++) {
     let monthEntries = biblePlan.filter(function(e){ return e.month === m; });
     let details = document.createElement('details');
@@ -270,6 +340,7 @@
       cb.addEventListener('change', function(){
         checked[entry.day] = cb.checked;
         saveChecked(checked);
+        pushSync();
         textEl.classList.toggle('done', cb.checked);
         updateProgress();
         var countEl = summary.querySelector('.m-count');
@@ -304,21 +375,96 @@
 
     groupsHost.appendChild(details);
   }
-
   updateProgress();
+  }
 
   document.getElementById('progress-reset').addEventListener('click', function(){
     if (!confirm('체크한 통독 기록을 모두 초기화할까요?')) return;
     checked = {};
     saveChecked(checked);
-    document.querySelectorAll('.plan-row input[type="checkbox"]').forEach(function(cb){ cb.checked = false; });
-    document.querySelectorAll('.plan-row .p-text').forEach(function(t){ t.classList.remove('done'); });
-    document.querySelectorAll('.month-group').forEach(function(g){
-      var count = g.querySelectorAll('.plan-row').length;
-      g.querySelector('.m-count').textContent = '0 / ' + count;
-    });
-    updateProgress();
+    pushSync();
+    buildChecklist();
   });
+
+  // 기기 간 동기화 UI
+  var noCodeEl = document.getElementById('sync-no-code');
+  var hasCodeEl = document.getElementById('sync-has-code');
+  var codeDisplayEl = document.getElementById('sync-code-display');
+
+  function renderSyncUI(){
+    if (syncCode) {
+      noCodeEl.hidden = true;
+      hasCodeEl.hidden = false;
+      codeDisplayEl.textContent = syncCode;
+    } else {
+      noCodeEl.hidden = false;
+      hasCodeEl.hidden = true;
+    }
+  }
+
+  function randomSyncCode(){
+    var chars = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+    var s = '';
+    for (var i = 0; i < 6; i++) s += chars[Math.floor(Math.random() * chars.length)];
+    return s;
+  }
+
+  document.getElementById('sync-create-btn').addEventListener('click', function(){
+    if (!db) { setSyncStatus('아직 동기화 서버가 설정되지 않았습니다.'); return; }
+    syncCode = randomSyncCode();
+    setSyncStatus('코드를 만드는 중…');
+    db.collection('syncCodes').doc(syncCode).set({ checked: checked, updatedAt: Date.now() })
+      .then(function(){
+        try { localStorage.setItem(SYNC_KEY, syncCode); } catch (e) {}
+        renderSyncUI();
+        setSyncStatus('동기화 코드가 만들어졌습니다. 다른 기기에서 이 코드를 입력하세요.');
+      })
+      .catch(function(err){ setSyncStatus('코드 생성 실패: ' + err.message); syncCode = null; });
+  });
+
+  document.getElementById('sync-connect-btn').addEventListener('click', function(){
+    if (!db) { setSyncStatus('아직 동기화 서버가 설정되지 않았습니다.'); return; }
+    var input = document.getElementById('sync-code-input').value.trim().toUpperCase();
+    if (!input) { setSyncStatus('코드를 입력해 주세요.'); return; }
+    setSyncStatus('불러오는 중…');
+    db.collection('syncCodes').doc(input).get().then(function(doc){
+      if (!doc.exists) { setSyncStatus('존재하지 않는 코드입니다.'); return; }
+      var data = doc.data();
+      checked = data.checked || {};
+      saveChecked(checked);
+      syncCode = input;
+      try { localStorage.setItem(SYNC_KEY, syncCode); } catch (e) {}
+      renderSyncUI();
+      buildChecklist();
+      setSyncStatus('동기화되었습니다.');
+    }).catch(function(err){ setSyncStatus('불러오기 실패: ' + err.message); });
+  });
+
+  document.getElementById('sync-forget-btn').addEventListener('click', function(){
+    syncCode = null;
+    try { localStorage.removeItem(SYNC_KEY); } catch (e) {}
+    renderSyncUI();
+    setSyncStatus('이 기기의 동기화 연결이 해제되었습니다(기록은 그대로 남아 있습니다).');
+  });
+
+  renderSyncUI();
+
+  if (db && syncCode) {
+    setSyncStatus('불러오는 중…');
+    db.collection('syncCodes').doc(syncCode).get().then(function(doc){
+      if (doc.exists) {
+        checked = doc.data().checked || checked;
+        saveChecked(checked);
+        setSyncStatus('');
+      }
+      buildChecklist();
+    }).catch(function(err){
+      setSyncStatus('동기화 서버에 연결하지 못해 이 기기의 기록으로 표시합니다.');
+      buildChecklist();
+    });
+  } else {
+    buildChecklist();
+  }
 </script>
 </body>
 </html>

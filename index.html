@@ -174,7 +174,7 @@
     font-weight:700; font-size:0.92rem; text-decoration:none;
     border:1px solid transparent; cursor:pointer;
   }
-  .btn-gold{background:rgba(201,154,60,0.5); color:var(--gold-ink); border-color:transparent; text-shadow:0 1px 3px rgba(255,255,255,0.55);}
+  .btn-gold{background:rgba(201,154,60,0.3); color:var(--gold-ink); border-color:transparent; text-shadow:0 1px 3px rgba(255,255,255,0.7);}
   .btn-gold:hover{filter:brightness(1.06);}
   .btn-ghost{border-color:#f4dfae88; color:#f7f1e4;}
   .btn-ghost:hover{background:#ffffff14;}
@@ -251,6 +251,31 @@
   }
   .week-ref{font-weight:700; color:#f4dfae; font-size:0.95rem; margin:0;}
   .week-more{margin-top:20px; font-size:0.88rem; font-weight:700; color:var(--gold);}
+
+  /* album */
+  .album-card{
+    display:block; text-decoration:none; color:inherit;
+    background:var(--surface); border:1px solid var(--line); border-radius:6px;
+    padding:clamp(22px,4vw,34px);
+    box-shadow:var(--shadow);
+    transition:border-color 0.18s ease, transform 0.18s ease;
+  }
+  .album-card:hover, .album-card:focus-visible{
+    border-color:var(--gold); transform:translateY(-2px);
+  }
+  .album-preview{
+    display:grid; grid-template-columns:repeat(auto-fill, minmax(96px,1fr)); gap:10px;
+    margin-bottom:20px;
+  }
+  .album-thumb{
+    width:100%; aspect-ratio:1; object-fit:cover; border-radius:6px; display:block;
+    background:var(--bg);
+  }
+  .album-empty{
+    padding:32px 16px; text-align:center; color:var(--ink-soft); font-size:0.95rem;
+    border:1px dashed var(--line); border-radius:6px; margin-bottom:20px;
+  }
+  .album-more{font-size:0.88rem; font-weight:700; color:var(--brick);}
 
   /* about */
   .about-intro{max-width:60ch; margin-bottom:48px;}
@@ -360,6 +385,7 @@
       <a href="#about">교회소개</a>
       <a href="#verse">오늘의 말씀</a>
       <a href="#thisweek">이주의 말씀</a>
+      <a href="#album">앨범</a>
       <a href="#service">예배시간</a>
       <a href="#location">오시는길</a>
     </nav>
@@ -508,6 +534,20 @@
   </div>
 </section>
 
+<section id="album">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Photo Album</p>
+      <h2>앨범</h2>
+      <p class="lede">성광감리교회의 소중한 순간들을 날짜별로 만나보세요.</p>
+    </div>
+    <a class="album-card" id="album-card" href="album.html">
+      <div class="album-preview" id="album-preview"></div>
+      <div class="album-more" id="album-more">앨범 전체보기 →</div>
+    </a>
+  </div>
+</section>
+
 <section id="service">
   <div class="wrap">
     <div class="section-head">
@@ -599,6 +639,7 @@
 
 <script src="verses-data.js"></script>
 <script src="sunday-word-data.js"></script>
+<script src="album-data.js"></script>
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -648,6 +689,25 @@
   document.getElementById('week-title').textContent = weekParts[1] || currentWeek.series;
   document.getElementById('week-ref').textContent = currentWeek.ref;
   document.getElementById('week-card').href = 'sunday-word.html?date=' + currentWeek.date;
+
+  (function(){
+    var preview = document.getElementById('album-preview');
+    var more = document.getElementById('album-more');
+    if (!window.albumPhotos || albumPhotos.length === 0) {
+      preview.innerHTML = '<div class="album-empty">아직 등록된 사진이 없습니다.<br>새로운 사진이 준비되는 대로 이곳에 표시됩니다.</div>';
+      more.textContent = '앨범 바로가기 →';
+      return;
+    }
+    var recent = albumPhotos.slice(-8).reverse();
+    recent.forEach(function(p){
+      var img = document.createElement('img');
+      img.className = 'album-thumb';
+      img.src = p.file;
+      img.alt = p.caption || p.date;
+      img.loading = 'lazy';
+      preview.appendChild(img);
+    });
+  })();
 </script>
 </body>
 </html>

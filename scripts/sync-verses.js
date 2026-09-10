@@ -14,7 +14,7 @@ const FILENAME_RE = /^(\d{4}-\d{2}-\d{2}), (\d+)강 (.+)\.md$/;
 const BODY_LINE_RE = /^>\s*본문:\s*([^\s0-9][^\s]*)\s+(\d+):(\d+)/m;
 const TAG_LINE_RE = /^>\s*새벽묵상:\s*([^\s0-9][^\s]*)\s+(\d+):(\d+)/m;
 const VERSE_LINE_RE = /^(?:(\d+):)?(\d+)\.\s+(.+)$/gm;
-const REFLECTION_SECTION_RE = /## 새벽묵상\s*\(700-800자[^)]*\)\s*\n+([\s\S]*?)(?:\n---|\n## )/;
+const REFLECTION_SECTION_RE = /## 새벽묵상\s*\([^)]*\)\s*\n+([\s\S]*?)(?:\n---|\n## )/;
 
 // "## 본문" 섹션의 번호 매김 줄들을 {chapter, verse, text} 목록으로 파싱한다.
 // "N. 텍스트" 줄은 현재 장(章)을 따르고, "장:절. 텍스트" 줄은 장이 바뀔 때 등장한다.

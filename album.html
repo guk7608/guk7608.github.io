@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>앨범 · 성광감리교회</title>
+<meta name="description" content="성광감리교회의 사진을 날짜별로 모아봅니다.">
+<link rel="canonical" href="https://guk7608.github.io/album.html">
+<link rel="icon" type="image/png" href="https://guk7608.github.io/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f6f4ef;
+    --surface:#fffdf9;
+    --ink:#20242c;
+    --ink-soft:#565b66;
+    --line:#e1dccf;
+    --gold:#c99a3c;
+    --gold-ink:#5a4213;
+    --brick:#a85a3c;
+    --shadow: 0 18px 40px -22px rgba(32,36,44,0.35);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#14161c; --surface:#1b1e26; --ink:#eae7de; --ink-soft:#a9a79e;
+      --line:#31353f; --gold:#e3b357; --gold-ink:#241a08; --brick:#d98a68;
+      --shadow: 0 18px 40px -20px rgba(0,0,0,0.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#14161c; --surface:#1b1e26; --ink:#eae7de; --ink-soft:#a9a79e;
+    --line:#31353f; --gold:#e3b357; --gold-ink:#241a08; --brick:#d98a68;
+    --shadow: 0 18px 40px -20px rgba(0,0,0,0.6);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Noto Sans KR", -apple-system, sans-serif; line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+    word-break:keep-all;
+    overflow-wrap:break-word;
+  }
+  h1,.serif{font-family:"Noto Serif KR", serif; text-wrap:balance; letter-spacing:-0.01em;}
+  a{color:inherit;}
+  .wrap{max-width:900px; margin:0 auto; padding:0 24px;}
+
+  header.site{
+    position:sticky; top:0; z-index:20;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .navbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 24px; max-width:900px; margin:0 auto;
+  }
+  .brand{display:flex; align-items:center; gap:10px; font-family:"Noto Serif KR",serif; font-weight:700; font-size:1.1rem; text-decoration:none;}
+  .brand svg{width:22px; height:22px; flex:none;}
+  .home-link{font-size:0.88rem; font-weight:600; color:var(--ink-soft); text-decoration:none;}
+  .home-link:hover{color:var(--brick);}
+
+  main{padding:48px 0 80px;}
+  .page-head{margin-bottom:40px;}
+  .page-head .kicker{
+    font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--brick); font-weight:700; margin:0 0 10px;
+  }
+  .page-head h1{font-size:clamp(1.6rem,4vw,2.1rem); margin:0 0 10px; font-weight:700;}
+  .page-head p{color:var(--ink-soft); margin:0; max-width:60ch;}
+
+  .album-empty{
+    padding:56px 20px; text-align:center; color:var(--ink-soft);
+    border:1px dashed var(--line); border-radius:8px; font-size:1rem;
+  }
+
+  .album-date-group{margin-bottom:44px;}
+  .album-date-heading{
+    font-size:1.05rem; font-weight:700; margin:0 0 16px;
+    display:flex; align-items:center; gap:10px; color:var(--ink);
+  }
+  .album-date-heading::before{content:"📷"; font-size:0.95rem;}
+  .album-grid{
+    display:grid; grid-template-columns:repeat(auto-fill, minmax(140px,1fr)); gap:12px;
+  }
+  .album-item{
+    width:100%; aspect-ratio:1; object-fit:cover; border-radius:8px; display:block;
+    cursor:pointer; background:var(--surface); border:1px solid var(--line);
+    box-shadow:var(--shadow);
+    transition:transform 0.15s ease;
+  }
+  .album-item:hover{transform:scale(1.03);}
+
+  .lightbox{
+    position:fixed; inset:0; z-index:100; background:rgba(10,10,12,0.92);
+    display:flex; align-items:center; justify-content:center; padding:24px;
+  }
+  .lightbox[hidden]{display:none;}
+  .lightbox img{max-width:100%; max-height:88vh; border-radius:6px; box-shadow:0 20px 60px rgba(0,0,0,0.5);}
+  .lightbox-caption{
+    position:absolute; bottom:24px; left:0; right:0; text-align:center;
+    color:#f4dfae; font-size:0.9rem;
+  }
+  .lightbox-close{
+    position:absolute; top:20px; right:24px; background:none; border:none;
+    color:#f7f1e4; font-size:2rem; line-height:1; cursor:pointer; padding:6px;
+  }
+
+  footer{border-top:1px solid var(--line); padding:28px 0 40px; color:var(--ink-soft); font-size:0.85rem; text-align:center;}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="navbar">
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M12 2v20M6 8h12" stroke="var(--brick)" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      성광감리교회
+    </a>
+    <a class="home-link" href="index.html">← 홈으로</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="page-head">
+      <p class="kicker">Photo Album</p>
+      <h1>앨범</h1>
+      <p>성광감리교회의 소중한 순간들을 날짜별로 모아봅니다.</p>
+    </div>
+
+    <div id="album-empty" class="album-empty" hidden>
+      아직 등록된 사진이 없습니다.<br>새로운 사진이 준비되는 대로 이곳에 날짜별로 표시됩니다.
+    </div>
+
+    <div id="album-groups"></div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">© <span id="year"></span> 성광감리교회 · 강원특별자치도 삼척시 도계읍 도계우회로2길 48</div>
+</footer>
+
+<div id="lightbox" class="lightbox" hidden>
+  <button id="lightbox-close" class="lightbox-close" type="button" aria-label="닫기">×</button>
+  <img id="lightbox-img" src="" alt="">
+  <div id="lightbox-caption" class="lightbox-caption"></div>
+</div>
+
+<script src="album-data.js"></script>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  var groupsHost = document.getElementById('album-groups');
+  var emptyHost = document.getElementById('album-empty');
+
+  if (!window.albumPhotos || albumPhotos.length === 0) {
+    emptyHost.hidden = false;
+  } else {
+    var byDate = {};
+    var dateOrder = [];
+    albumPhotos.forEach(function(p){
+      if (!byDate[p.date]) { byDate[p.date] = []; dateOrder.push(p.date); }
+      byDate[p.date].push(p);
+    });
+    dateOrder.sort(function(a,b){ return a < b ? 1 : -1; });
+
+    dateOrder.forEach(function(date){
+      var section = document.createElement('div');
+      section.className = 'album-date-group';
+
+      var heading = document.createElement('h2');
+      heading.className = 'album-date-heading';
+      var d = new Date(date + 'T00:00:00');
+      heading.textContent = d.toLocaleDateString('ko-KR', { year:'numeric', month:'long', day:'numeric', weekday:'long' });
+      section.appendChild(heading);
+
+      var grid = document.createElement('div');
+      grid.className = 'album-grid';
+      byDate[date].forEach(function(p){
+        var img = document.createElement('img');
+        img.className = 'album-item';
+        img.src = p.file;
+        img.alt = p.caption || date;
+        img.loading = 'lazy';
+        img.addEventListener('click', function(){ openLightbox(p); });
+        grid.appendChild(img);
+      });
+      section.appendChild(grid);
+      groupsHost.appendChild(section);
+    });
+  }
+
+  var lightbox = document.getElementById('lightbox');
+  var lightboxImg = document.getElementById('lightbox-img');
+  var lightboxCaption = document.getElementById('lightbox-caption');
+
+  function openLightbox(p){
+    lightboxImg.src = p.file;
+    lightboxImg.alt = p.caption || p.date;
+    lightboxCaption.textContent = p.caption || '';
+    lightbox.hidden = false;
+  }
+  function closeLightbox(){
+    lightbox.hidden = true;
+    lightboxImg.src = '';
+  }
+  document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', function(e){ if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeLightbox(); });
+</script>
+</body>
+</html>

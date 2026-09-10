@@ -311,7 +311,7 @@
         var tr = document.createElement('tr');
         if (itemIdx === idx) tr.className = 'current';
         var d = new Date(item.date + 'T00:00:00');
-        var dLabel = d.toLocaleDateString('ko-KR', { month:'short', day:'numeric' });
+        var dLabel = d.toLocaleDateString('ko-KR', { month:'short', day:'numeric', weekday:'short' });
         var tdDate = document.createElement('td');
         tdDate.className = 'board-date';
         tdDate.textContent = dLabel;

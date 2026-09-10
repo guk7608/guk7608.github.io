@@ -307,6 +307,12 @@
     color:var(--ink-soft); font-size:0.88rem;
   }
   footer .wrap{display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;}
+  .visit-stats{
+    justify-content:center; gap:24px; margin-bottom:18px;
+    padding-bottom:18px; border-bottom:1px solid var(--line);
+  }
+  .visit-item{display:flex; align-items:center; gap:8px; font-size:0.82rem; font-weight:600;}
+  .visit-badge{height:18px; width:auto; display:block; border-radius:3px;}
 
   @media (max-width:760px){
     .hero-inner{padding-top:64px; padding-bottom:56px;}
@@ -477,7 +483,7 @@
       </div>
       <div class="service-cell">
         <div class="service-name">중고등부 예배</div>
-        <div class="service-time">주일 오후 1:00</div>
+        <div class="service-time">주일 오후 3:00</div>
         <div class="service-place">소예배실</div>
       </div>
       <div class="service-cell">
@@ -518,6 +524,10 @@
 </section>
 
 <footer>
+  <div class="wrap visit-stats">
+    <span class="visit-item">오늘 <img id="badge-today" class="visit-badge" alt="오늘 방문자 수"></span>
+    <span class="visit-item">누적 <img id="badge-total" class="visit-badge" alt="누적 방문자 수"></span>
+  </div>
   <div class="wrap">
     <span>© <span id="year"></span> 성광감리교회</span>
     <span>강원특별자치도 삼척시 도계읍 도계우회로2길 48 · 010-4730-5012</span>
@@ -533,6 +543,14 @@
     var day = ('0' + d.getDate()).slice(-2);
     return d.getFullYear() + '-' + m + '-' + day;
   }
+
+  (function(){
+    var base = 'https://visitor-badge.laobi.icu/badge?left_color=%23232c47&right_color=%23c99a3c&left_text=';
+    var todayKey = 'guk7608.skchurch.daily.' + ymd(new Date());
+    var totalKey = 'guk7608.skchurch.total';
+    document.getElementById('badge-today').src = base + '%EB%B0%A9%EB%AC%B8&page_id=' + todayKey;
+    document.getElementById('badge-total').src = base + '%EB%B0%A9%EB%AC%B8&page_id=' + totalKey;
+  })();
   function dayOfYear(d){
     var start = new Date(d.getFullYear(), 0, 0);
     var diff = d - start;

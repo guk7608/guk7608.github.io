@@ -261,11 +261,11 @@
   function listenUrl(seg){
     return 'https://www.bskorea.or.kr/bible/listen.php?version=GAE&book=' + seg.code + '&chap=' + seg.from + '&chap2=' + seg.to + '&sex=m';
   }
-  // 대한성서공회 성경플랫폼(개역개정 전문)을 우리 사이트 안(bible-read.html)에 임베드해서 보여준다.
-  // 여러 장이어도 첫 장으로 연결하고, 이후 장은 그 안에서 다음 장 이동 버튼으로 넘겨서 볼 수 있다.
+  // 대한성서공회 성경플랫폼(개역개정 전문) — 이 사이트는 자체 CSP(frame-ancestors)로
+  // 외부 임베드를 막고 있어 새 창으로 직접 연결한다. 여러 장이어도 첫 장으로 연결하고,
+  // 이후 장은 그 페이지 자체의 다음 장 이동 버튼으로 넘겨서 볼 수 있다.
   function textUrl(seg){
-    var label = seg.book + ' ' + (seg.from === seg.to ? seg.from + '장' : seg.from + '~' + seg.to + '장');
-    return 'bible-read.html?book=' + seg.code + '&chap=' + seg.from + '&chap2=' + seg.to + '&label=' + encodeURIComponent(label);
+    return 'https://bible.bskorea.or.kr/bible/NKRV/' + seg.code.toUpperCase() + '.' + seg.from;
   }
 
   var todayEntry = biblePlan[todayDoy - 1];
@@ -278,6 +278,8 @@
     var readA = document.createElement('a');
     readA.className = 'listen-btn read-btn';
     readA.href = textUrl(seg);
+    readA.target = '_blank';
+    readA.rel = 'noopener';
     readA.textContent = label + ' 본문 보기';
     listenHost.appendChild(readA);
 
@@ -381,6 +383,8 @@
         var readA = document.createElement('a');
         readA.className = 'p-listen';
         readA.href = textUrl(seg);
+        readA.target = '_blank';
+        readA.rel = 'noopener';
         readA.textContent = '📖 ' + seg.book;
         row.appendChild(readA);
 

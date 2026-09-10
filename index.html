@@ -223,6 +223,31 @@
   .verse-ref{font-weight:700; color:#f4dfae; font-size:0.95rem;}
   .verse-series{font-size:0.85rem; color:#efe3c8cc; margin-top:4px;}
 
+  /* this week's word */
+  .week-card{
+    display:block; position:relative; overflow:hidden;
+    background:linear-gradient(160deg, var(--dawn-1), var(--dawn-2) 55%, var(--dawn-3) 100%);
+    color:#f7f1e4; border-radius:6px;
+    padding:40px clamp(24px,5vw,52px);
+    box-shadow:var(--shadow);
+    margin-bottom:24px;
+  }
+  .week-date{
+    font-size:0.82rem; letter-spacing:0.08em; color:#f4dfae; font-weight:700;
+    display:flex; align-items:center; gap:10px; margin-bottom:16px;
+  }
+  .week-date::before{content:"📖"; font-size:1rem;}
+  .week-ref{font-weight:700; color:#f4dfae; font-size:0.95rem; margin:0 0 10px;}
+  blockquote.week-passage{
+    margin:0; font-size:1rem; line-height:1.75; color:#efe3c8;
+  }
+  .week-summary{
+    background:var(--surface); border:1px solid var(--line); border-radius:6px;
+    padding:clamp(22px,5vw,34px);
+  }
+  .week-summary .kicker{margin-bottom:12px;}
+  .week-summary p:not(.kicker){margin:0; font-size:1rem; color:var(--ink);}
+
   /* about */
   .about-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:40px; align-items:start; margin-bottom:48px;}
   .about-grid p{color:var(--ink-soft); margin:0 0 14px;}
@@ -334,8 +359,9 @@
       성광감리교회
     </div>
     <nav class="links">
-      <a href="#verse">오늘의 새벽묵상</a>
       <a href="#about">교회소개</a>
+      <a href="#verse">오늘의 새벽묵상</a>
+      <a href="#thisweek">이주의 말씀</a>
       <a href="#service">예배시간</a>
       <a href="#location">오시는길</a>
     </nav>
@@ -361,47 +387,6 @@
         <a class="btn btn-ghost" href="#location">오시는 길 안내</a>
       </div>
     </div>
-  </div>
-</section>
-
-<section id="verse">
-  <div class="wrap">
-    <div class="section-head">
-      <p class="kicker">Daily Dawn Devotion</p>
-      <h2>오늘의 새벽묵상</h2>
-      <p class="lede">새벽설교(사사기 강해)에서 함께 나눈 본문 중 오늘 하루 붙잡을 한 구절입니다.</p>
-    </div>
-    <a class="verse-card" id="verse-card" href="devotion.html">
-      <div class="card-motif" aria-hidden="true">
-        <svg viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax slice">
-          <g stroke="#f4dfae" stroke-width="1" opacity="0.35">
-            <line x1="320" y1="6" x2="70" y2="210"/>
-            <line x1="320" y1="6" x2="150" y2="210"/>
-            <line x1="320" y1="6" x2="230" y2="210"/>
-            <line x1="320" y1="6" x2="320" y2="210"/>
-            <line x1="320" y1="6" x2="410" y2="210"/>
-            <line x1="320" y1="6" x2="490" y2="210"/>
-            <line x1="320" y1="6" x2="570" y2="210"/>
-          </g>
-          <g stroke="#f4dfae" stroke-width="3" stroke-linecap="round" opacity="0.55">
-            <line x1="320" y1="0" x2="320" y2="34"/>
-            <line x1="306" y1="12" x2="334" y2="12"/>
-          </g>
-          <g stroke="#f4dfae" stroke-width="1.6" fill="none" opacity="0.3">
-            <path d="M215,220 v-46 a35,35 0 0 1 70,0 v46 z"/>
-            <path d="M285,220 v-46 a35,35 0 0 1 70,0 v46 z"/>
-            <path d="M355,220 v-46 a35,35 0 0 1 70,0 v46 z"/>
-          </g>
-        </svg>
-      </div>
-      <div class="card-body">
-        <div class="verse-date" id="verse-date">불러오는 중…</div>
-        <blockquote class="verse-text" id="verse-text">말씀을 준비하고 있습니다.</blockquote>
-        <div class="verse-ref" id="verse-ref"></div>
-        <div class="verse-series" id="verse-series"></div>
-        <div class="verse-more">묵상문 읽기 →</div>
-      </div>
-    </a>
   </div>
 </section>
 
@@ -450,6 +435,90 @@
     <p class="about-transition">예배에서 삶으로,<br>사랑에서 하나 됨으로,<br>교회에서 세상으로,<br>믿음에서 성숙함으로.</p>
 
     <p class="about-closing">성광교회는 오늘도<br>복음의 빛으로 세상을 비추며<br>하나님의 나라를 함께 세워갑니다.</p>
+  </div>
+</section>
+
+<section id="verse">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Daily Dawn Devotion</p>
+      <h2>오늘의 새벽묵상</h2>
+      <p class="lede">새벽설교(사사기 강해)에서 함께 나눈 본문 중 오늘 하루 붙잡을 한 구절입니다.</p>
+    </div>
+    <a class="verse-card" id="verse-card" href="devotion.html">
+      <div class="card-motif" aria-hidden="true">
+        <svg viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax slice">
+          <g stroke="#f4dfae" stroke-width="1" opacity="0.35">
+            <line x1="320" y1="6" x2="70" y2="210"/>
+            <line x1="320" y1="6" x2="150" y2="210"/>
+            <line x1="320" y1="6" x2="230" y2="210"/>
+            <line x1="320" y1="6" x2="320" y2="210"/>
+            <line x1="320" y1="6" x2="410" y2="210"/>
+            <line x1="320" y1="6" x2="490" y2="210"/>
+            <line x1="320" y1="6" x2="570" y2="210"/>
+          </g>
+          <g stroke="#f4dfae" stroke-width="3" stroke-linecap="round" opacity="0.55">
+            <line x1="320" y1="0" x2="320" y2="34"/>
+            <line x1="306" y1="12" x2="334" y2="12"/>
+          </g>
+          <g stroke="#f4dfae" stroke-width="1.6" fill="none" opacity="0.3">
+            <path d="M215,220 v-46 a35,35 0 0 1 70,0 v46 z"/>
+            <path d="M285,220 v-46 a35,35 0 0 1 70,0 v46 z"/>
+            <path d="M355,220 v-46 a35,35 0 0 1 70,0 v46 z"/>
+          </g>
+        </svg>
+      </div>
+      <div class="card-body">
+        <div class="verse-date" id="verse-date">불러오는 중…</div>
+        <blockquote class="verse-text" id="verse-text">말씀을 준비하고 있습니다.</blockquote>
+        <div class="verse-ref" id="verse-ref"></div>
+        <div class="verse-series" id="verse-series"></div>
+        <div class="verse-more">묵상문 읽기 →</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<section id="thisweek">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">This Week's Word</p>
+      <h2>이주의 말씀</h2>
+      <p class="lede">주일설교(창세기와 복음 시리즈)의 본문과 말씀 요약입니다. 매 주일 오후 3시에 갱신됩니다.</p>
+    </div>
+    <div class="week-card">
+      <div class="card-motif" aria-hidden="true">
+        <svg viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax slice">
+          <g stroke="#f4dfae" stroke-width="1" opacity="0.35">
+            <line x1="320" y1="6" x2="70" y2="210"/>
+            <line x1="320" y1="6" x2="150" y2="210"/>
+            <line x1="320" y1="6" x2="230" y2="210"/>
+            <line x1="320" y1="6" x2="320" y2="210"/>
+            <line x1="320" y1="6" x2="410" y2="210"/>
+            <line x1="320" y1="6" x2="490" y2="210"/>
+            <line x1="320" y1="6" x2="570" y2="210"/>
+          </g>
+          <g stroke="#f4dfae" stroke-width="3" stroke-linecap="round" opacity="0.55">
+            <line x1="320" y1="0" x2="320" y2="34"/>
+            <line x1="306" y1="12" x2="334" y2="12"/>
+          </g>
+          <g stroke="#f4dfae" stroke-width="1.6" fill="none" opacity="0.3">
+            <path d="M215,220 v-46 a35,35 0 0 1 70,0 v46 z"/>
+            <path d="M285,220 v-46 a35,35 0 0 1 70,0 v46 z"/>
+            <path d="M355,220 v-46 a35,35 0 0 1 70,0 v46 z"/>
+          </g>
+        </svg>
+      </div>
+      <div class="card-body">
+        <div class="week-date" id="week-date">불러오는 중…</div>
+        <p class="week-ref" id="week-ref"></p>
+        <blockquote class="week-passage" id="week-passage"></blockquote>
+      </div>
+    </div>
+    <div class="week-summary">
+      <p class="kicker">말씀 요약</p>
+      <p id="week-summary"></p>
+    </div>
   </div>
 </section>
 
@@ -540,6 +609,7 @@
 </footer>
 
 <script src="verses-data.js"></script>
+<script src="sunday-word-data.js"></script>
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -576,6 +646,18 @@
   document.getElementById('verse-ref').textContent = v.ref;
   document.getElementById('verse-series').textContent = v.series;
   document.getElementById('verse-card').href = 'devotion.html?date=' + v.date;
+
+  // "이주의 말씀"은 매 주일 오후 3시(해당 날짜의 15:00)가 지나야 그 주의 말씀으로 넘어갑니다.
+  // 그 전까지는 지난 주 말씀을 계속 보여줍니다.
+  var currentWeek = sundayWords[0];
+  for (var i = 0; i < sundayWords.length; i++) {
+    var threshold = new Date(sundayWords[i].date + 'T15:00:00');
+    if (today >= threshold) currentWeek = sundayWords[i];
+  }
+  document.getElementById('week-date').textContent = currentWeek.series;
+  document.getElementById('week-ref').textContent = currentWeek.ref;
+  document.getElementById('week-passage').textContent = currentWeek.passage;
+  document.getElementById('week-summary').textContent = currentWeek.summary;
 </script>
 </body>
 </html>

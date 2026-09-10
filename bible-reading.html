@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>성경통독 · 성광감리교회</title>
+<meta name="description" content="성경 66권 전체를 1년에 한 번 통독하는 성광감리교회 성경통독표. 매일 새벽 5시에 그날의 본문으로 갱신되며, 대한성서공회 공식 오디오 성경으로 바로 들을 수 있습니다.">
+<link rel="canonical" href="https://guk7608.github.io/bible-reading.html">
+<link rel="icon" type="image/png" href="https://guk7608.github.io/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f6f4ef;
+    --surface:#fffdf9;
+    --ink:#20242c;
+    --ink-soft:#565b66;
+    --line:#e1dccf;
+    --gold:#c99a3c;
+    --gold-ink:#5a4213;
+    --brick:#a85a3c;
+    --dawn-1:#232c47;
+    --dawn-2:#5c4a6e;
+    --dawn-3:#c9793f;
+    --dawn-4:#eec468;
+    --shadow: 0 18px 40px -22px rgba(32,36,44,0.35);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#14161c; --surface:#1b1e26; --ink:#eae7de; --ink-soft:#a9a79e;
+      --line:#31353f; --gold:#e3b357; --gold-ink:#241a08; --brick:#d98a68;
+      --dawn-1:#171b2c; --dawn-2:#3c3150; --dawn-3:#a5623a; --dawn-4:#e3b357;
+      --shadow: 0 18px 40px -20px rgba(0,0,0,0.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#14161c; --surface:#1b1e26; --ink:#eae7de; --ink-soft:#a9a79e;
+    --line:#31353f; --gold:#e3b357; --gold-ink:#241a08; --brick:#d98a68;
+    --dawn-1:#171b2c; --dawn-2:#3c3150; --dawn-3:#a5623a; --dawn-4:#e3b357;
+    --shadow: 0 18px 40px -20px rgba(0,0,0,0.6);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Noto Sans KR", -apple-system, sans-serif; line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+    word-break:keep-all;
+    overflow-wrap:break-word;
+  }
+  h1,h2,.serif{font-family:"Noto Serif KR", serif; text-wrap:balance; letter-spacing:-0.01em;}
+  a{color:inherit;}
+  .wrap{max-width:760px; margin:0 auto; padding:0 24px;}
+
+  header.site{
+    position:sticky; top:0; z-index:20;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .navbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 24px; max-width:760px; margin:0 auto;
+  }
+  .brand{display:flex; align-items:center; gap:10px; font-family:"Noto Serif KR",serif; font-weight:700; font-size:1.1rem; text-decoration:none;}
+  .brand img{width:22px; height:22px; flex:none;}
+  .home-link{font-size:0.88rem; font-weight:600; color:var(--ink-soft); text-decoration:none;}
+  .home-link:hover{color:var(--brick);}
+
+  main{padding:48px 0 80px;}
+  .page-head{margin-bottom:32px;}
+  .page-head .kicker{
+    font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--brick); font-weight:700; margin:0 0 10px;
+  }
+  .page-head h1{font-size:clamp(1.6rem,4vw,2.1rem); margin:0 0 10px; font-weight:700;}
+  .page-head p{color:var(--ink-soft); margin:0; max-width:62ch;}
+
+  /* 오늘의 통독 카드 */
+  .today-card{
+    position:relative; overflow:hidden;
+    background:linear-gradient(160deg, var(--dawn-1), var(--dawn-2) 55%, var(--dawn-3) 100%);
+    color:#f7f1e4; border-radius:8px;
+    padding:clamp(28px,6vw,44px);
+    box-shadow:var(--shadow);
+    margin-bottom:28px;
+  }
+  .today-date{
+    font-size:0.82rem; letter-spacing:0.08em; color:#f4dfae; font-weight:700;
+    display:flex; align-items:center; gap:10px; margin-bottom:14px;
+  }
+  .today-date::before{content:"📖"; font-size:1rem;}
+  .today-text{margin:0 0 20px; font-size:clamp(1.3rem,3.4vw,1.7rem); font-weight:600;}
+  .today-listen{display:flex; flex-wrap:wrap; gap:10px;}
+  .listen-btn{
+    display:inline-flex; align-items:center; gap:6px;
+    background:rgba(244,223,174,0.18); border:1px solid #f4dfae66;
+    color:#f7f1e4; text-decoration:none; font-weight:700; font-size:0.86rem;
+    padding:9px 16px; border-radius:20px;
+  }
+  .listen-btn:hover{background:rgba(244,223,174,0.32);}
+  .listen-btn::before{content:"🔊";}
+
+  /* 진행률 */
+  .progress-block{
+    background:var(--surface); border:1px solid var(--line); border-radius:8px;
+    padding:20px 24px; margin-bottom:32px;
+    display:flex; align-items:center; gap:18px; flex-wrap:wrap;
+  }
+  .progress-bar{flex:1; min-width:140px; height:10px; border-radius:5px; background:var(--bg); overflow:hidden;}
+  .progress-fill{height:100%; background:var(--gold); width:0%; transition:width 0.3s ease;}
+  .progress-label{font-size:0.88rem; font-weight:700; color:var(--ink); white-space:nowrap;}
+  .progress-reset{
+    background:none; border:1px solid var(--line); border-radius:4px;
+    padding:6px 12px; cursor:pointer; color:var(--ink-soft);
+    font-family:inherit; font-size:0.8rem; font-weight:600;
+  }
+  .progress-reset:hover{border-color:var(--brick); color:var(--brick);}
+
+  /* 월별 목록 */
+  .month-group{
+    background:var(--surface); border:1px solid var(--line); border-radius:8px;
+    margin-bottom:14px; overflow:hidden;
+  }
+  .month-group summary{
+    padding:14px 20px; cursor:pointer; font-weight:700; font-size:0.98rem;
+    display:flex; justify-content:space-between; align-items:center;
+    list-style:none;
+  }
+  .month-group summary::-webkit-details-marker{display:none;}
+  .month-group summary::after{content:"▾"; color:var(--ink-soft); transition:transform 0.15s ease;}
+  .month-group[open] summary::after{transform:rotate(180deg);}
+  .month-group summary .m-count{font-weight:600; font-size:0.8rem; color:var(--ink-soft);}
+  .plan-row{
+    display:flex; align-items:center; gap:12px;
+    padding:10px 20px; border-top:1px solid var(--line);
+    font-size:0.92rem;
+  }
+  .plan-row.today{background:color-mix(in srgb, var(--gold) 16%, var(--surface));}
+  .plan-row input[type="checkbox"]{width:17px; height:17px; flex:none; accent-color:var(--brick); cursor:pointer;}
+  .plan-row .p-date{color:var(--ink-soft); font-variant-numeric:tabular-nums; width:52px; flex:none;}
+  .plan-row .p-text{flex:1;}
+  .plan-row .p-text.done{color:var(--ink-soft); text-decoration:line-through;}
+  .plan-row .p-listen{
+    flex:none; text-decoration:none; color:var(--brick); font-size:0.8rem; font-weight:700;
+    white-space:nowrap;
+  }
+  .plan-row .p-listen:hover{text-decoration:underline;}
+
+  footer{border-top:1px solid var(--line); padding:28px 0 40px; color:var(--ink-soft); font-size:0.85rem; text-align:center;}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="navbar">
+    <a class="brand" href="index.html">
+      <img src="kmc-logo.svg" alt="기독교대한감리회">
+      성광감리교회
+    </a>
+    <a class="home-link" href="index.html">← 홈으로</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="page-head">
+      <p class="kicker">Bible Reading Plan</p>
+      <h1>성경통독</h1>
+      <p>성경 66권 전체를 하루 평균 3~4장씩 읽어 1년에 한 번 통독하는 계획표입니다. 매일 새벽 5시에 그날의 본문으로 갱신되며, 대한성서공회 공식 음성(개역개정)으로 바로 들을 수 있습니다.</p>
+    </div>
+
+    <div class="today-card">
+      <div class="today-date" id="today-date">불러오는 중…</div>
+      <h2 class="today-text" id="today-text"></h2>
+      <div class="today-listen" id="today-listen"></div>
+    </div>
+
+    <div class="progress-block">
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+      <div class="progress-label" id="progress-label">0 / 365일 완료</div>
+      <button class="progress-reset" id="progress-reset" type="button">체크 초기화</button>
+    </div>
+
+    <div id="month-groups"></div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">© <span id="year"></span> 성광감리교회 · 강원특별자치도 삼척시 도계읍 도계우회로2길 48</div>
+</footer>
+
+<script src="bible-plan-data.js"></script>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  function dayOfYear(d){
+    var start = new Date(d.getFullYear(), 0, 0);
+    return Math.floor((d - start) / 86400000);
+  }
+  // 새벽 5시를 기준으로 그날의 본문으로 갱신(자정이 아니라 새벽 5시에 넘어감)
+  var effective = new Date();
+  if (effective.getHours() < 5) effective.setDate(effective.getDate() - 1);
+  var todayDoy = Math.min(Math.max(dayOfYear(effective), 1), biblePlan.length);
+
+  var params = new URLSearchParams(location.search);
+  var requestedDay = parseInt(params.get('day'), 10);
+  var highlightDay = (requestedDay >= 1 && requestedDay <= biblePlan.length) ? requestedDay : todayDoy;
+
+  function listenUrl(seg){
+    return 'https://www.bskorea.or.kr/bible/listen.php?version=GAE&book=' + seg.code + '&chap=' + seg.from + '&chap2=' + seg.to + '&sex=m';
+  }
+
+  var todayEntry = biblePlan[todayDoy - 1];
+  document.getElementById('today-date').textContent = todayEntry.label + ' 통독 본문';
+  document.getElementById('today-text').textContent = todayEntry.text;
+  var listenHost = document.getElementById('today-listen');
+  todayEntry.segs.forEach(function(seg){
+    var a = document.createElement('a');
+    a.className = 'listen-btn';
+    a.href = listenUrl(seg);
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.textContent = seg.book + ' ' + (seg.from === seg.to ? seg.from + '장 듣기' : seg.from + '~' + seg.to + '장 듣기');
+    listenHost.appendChild(a);
+  });
+
+  var STORAGE_KEY = 'skchurch-bible-plan-checked';
+  function loadChecked(){
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) { return {}; }
+  }
+  function saveChecked(map){
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(map)); } catch (e) {}
+  }
+  var checked = loadChecked();
+
+  var fillEl = document.getElementById('progress-fill');
+  var labelEl = document.getElementById('progress-label');
+  function updateProgress(){
+    var count = Object.keys(checked).filter(function(k){ return checked[k]; }).length;
+    fillEl.style.width = Math.round((count / biblePlan.length) * 100) + '%';
+    labelEl.textContent = count + ' / ' + biblePlan.length + '일 완료';
+  }
+
+  var monthNames = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+  var groupsHost = document.getElementById('month-groups');
+  var todayMonth = todayEntry.month;
+
+  for (let m = 1; m <= 12; m++) {
+    let monthEntries = biblePlan.filter(function(e){ return e.month === m; });
+    let details = document.createElement('details');
+    details.className = 'month-group';
+    if (m === todayMonth) details.open = true;
+
+    let summary = document.createElement('summary');
+    let doneInMonth = monthEntries.filter(function(e){ return checked[e.day]; }).length;
+    summary.innerHTML = '<span>' + monthNames[m - 1] + '</span><span class="m-count">' + doneInMonth + ' / ' + monthEntries.length + '</span>';
+    details.appendChild(summary);
+
+    monthEntries.forEach(function(entry){
+      var row = document.createElement('div');
+      row.className = 'plan-row' + (entry.day === highlightDay ? ' today' : '');
+
+      var cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.checked = !!checked[entry.day];
+      cb.addEventListener('change', function(){
+        checked[entry.day] = cb.checked;
+        saveChecked(checked);
+        textEl.classList.toggle('done', cb.checked);
+        updateProgress();
+        var countEl = summary.querySelector('.m-count');
+        var n = monthEntries.filter(function(e){ return checked[e.day]; }).length;
+        countEl.textContent = n + ' / ' + monthEntries.length;
+      });
+
+      var dateEl = document.createElement('span');
+      dateEl.className = 'p-date';
+      dateEl.textContent = entry.label.replace(/^\d+월 /, '');
+
+      var textEl = document.createElement('span');
+      textEl.className = 'p-text' + (checked[entry.day] ? ' done' : '');
+      textEl.textContent = entry.text;
+
+      row.appendChild(cb);
+      row.appendChild(dateEl);
+      row.appendChild(textEl);
+
+      entry.segs.forEach(function(seg){
+        var listenA = document.createElement('a');
+        listenA.className = 'p-listen';
+        listenA.href = listenUrl(seg);
+        listenA.target = '_blank';
+        listenA.rel = 'noopener';
+        listenA.textContent = '🔊 ' + seg.book;
+        row.appendChild(listenA);
+      });
+
+      details.appendChild(row);
+    });
+
+    groupsHost.appendChild(details);
+  }
+
+  updateProgress();
+
+  document.getElementById('progress-reset').addEventListener('click', function(){
+    if (!confirm('체크한 통독 기록을 모두 초기화할까요?')) return;
+    checked = {};
+    saveChecked(checked);
+    document.querySelectorAll('.plan-row input[type="checkbox"]').forEach(function(cb){ cb.checked = false; });
+    document.querySelectorAll('.plan-row .p-text').forEach(function(t){ t.classList.remove('done'); });
+    document.querySelectorAll('.month-group').forEach(function(g){
+      var count = g.querySelectorAll('.plan-row').length;
+      g.querySelector('.m-count').textContent = '0 / ' + count;
+    });
+    updateProgress();
+  });
+</script>
+</body>
+</html>

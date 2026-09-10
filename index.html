@@ -253,6 +253,30 @@
   .week-ref{font-weight:700; color:#f4dfae; font-size:0.95rem; margin:0;}
   .week-more{margin-top:20px; font-size:0.88rem; font-weight:700; color:var(--gold);}
 
+  /* bible reading plan */
+  .bible-card{
+    display:block; position:relative; overflow:hidden; text-decoration:none;
+    background:linear-gradient(160deg, var(--dawn-1), var(--dawn-2) 55%, var(--dawn-3) 100%);
+    color:#f7f1e4; border-radius:6px;
+    padding:40px clamp(24px,5vw,52px);
+    box-shadow:var(--shadow);
+    transition:transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .bible-card:hover, .bible-card:focus-visible{
+    transform:translateY(-2px);
+    box-shadow:0 22px 46px -20px rgba(32,36,44,0.45);
+  }
+  .bible-date{
+    font-size:0.82rem; letter-spacing:0.08em; color:#f4dfae; font-weight:700;
+    display:flex; align-items:center; gap:10px; margin-bottom:16px;
+  }
+  .bible-date::before{content:"📖"; font-size:1rem;}
+  .bible-text{
+    margin:0; font-family:"Noto Serif KR",serif;
+    font-size:clamp(1.3rem,3vw,1.6rem); font-weight:600;
+  }
+  .bible-more{margin-top:20px; font-size:0.88rem; font-weight:700; color:var(--gold);}
+
   /* album */
   .album-card{
     display:block; text-decoration:none; color:inherit;
@@ -384,6 +408,7 @@
       <a href="#about">교회소개</a>
       <a href="#verse">오늘의 말씀</a>
       <a href="#thisweek">이주의 말씀</a>
+      <a href="#bible-plan">성경통독</a>
       <a href="#album">앨범</a>
       <a href="#service">예배시간</a>
       <a href="#location">오시는길</a>
@@ -533,6 +558,45 @@
   </div>
 </section>
 
+<section id="bible-plan">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Bible Reading Plan</p>
+      <h2>성경통독</h2>
+      <p class="lede">성경 66권 전체를 하루 평균 3~4장씩 읽어 1년에 한 번 통독하는 계획표입니다. 매일 새벽 5시에 그날의 본문으로 갱신됩니다.</p>
+    </div>
+    <a class="bible-card" id="bible-card" href="bible-reading.html">
+      <div class="card-motif" aria-hidden="true">
+        <svg viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax slice">
+          <g stroke="#f4dfae" stroke-width="1" opacity="0.35">
+            <line x1="320" y1="6" x2="70" y2="210"/>
+            <line x1="320" y1="6" x2="150" y2="210"/>
+            <line x1="320" y1="6" x2="230" y2="210"/>
+            <line x1="320" y1="6" x2="320" y2="210"/>
+            <line x1="320" y1="6" x2="410" y2="210"/>
+            <line x1="320" y1="6" x2="490" y2="210"/>
+            <line x1="320" y1="6" x2="570" y2="210"/>
+          </g>
+          <g stroke="#f4dfae" stroke-width="3" stroke-linecap="round" opacity="0.55">
+            <line x1="320" y1="0" x2="320" y2="34"/>
+            <line x1="306" y1="12" x2="334" y2="12"/>
+          </g>
+          <g stroke="#f4dfae" stroke-width="1.6" fill="none" opacity="0.3">
+            <path d="M215,220 v-46 a35,35 0 0 1 70,0 v46 z"/>
+            <path d="M285,220 v-46 a35,35 0 0 1 70,0 v46 z"/>
+            <path d="M355,220 v-46 a35,35 0 0 1 70,0 v46 z"/>
+          </g>
+        </svg>
+      </div>
+      <div class="card-body">
+        <div class="bible-date" id="bible-date">불러오는 중…</div>
+        <h3 class="bible-text" id="bible-text"></h3>
+        <div class="bible-more">전체 통독표·음성으로 듣기 →</div>
+      </div>
+    </a>
+  </div>
+</section>
+
 <section id="album">
   <div class="wrap">
     <div class="section-head">
@@ -639,6 +703,7 @@
 <script src="verses-data.js"></script>
 <script src="sunday-word-data.js"></script>
 <script src="album-data.js"></script>
+<script src="bible-plan-data.js"></script>
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -684,6 +749,21 @@
   document.getElementById('week-title').textContent = weekParts[1] || currentWeek.series;
   document.getElementById('week-ref').textContent = currentWeek.ref;
   document.getElementById('week-card').href = 'sunday-word.html?date=' + currentWeek.date;
+
+  (function(){
+    // 성경통독: 매일 새벽 5시를 기준으로 그날의 본문으로 갱신(자정이 아니라 새벽 5시에 넘어감)
+    function dayOfYear(d){
+      var start = new Date(d.getFullYear(), 0, 0);
+      return Math.floor((d - start) / 86400000);
+    }
+    var effective = new Date();
+    if (effective.getHours() < 5) effective.setDate(effective.getDate() - 1);
+    var doy = Math.min(Math.max(dayOfYear(effective), 1), biblePlan.length);
+    var bibleToday = biblePlan[doy - 1];
+    document.getElementById('bible-date').textContent = bibleToday.label + ' 통독';
+    document.getElementById('bible-text').textContent = bibleToday.text;
+    document.getElementById('bible-card').href = 'bible-reading.html?day=' + bibleToday.day;
+  })();
 
   (function(){
     var preview = document.getElementById('album-preview');

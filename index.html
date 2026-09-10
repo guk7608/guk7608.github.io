@@ -657,19 +657,15 @@
     document.getElementById('badge-today').src = base + '%EB%B0%A9%EB%AC%B8&page_id=' + todayKey;
     document.getElementById('badge-total').src = base + '%EB%B0%A9%EB%AC%B8&page_id=' + totalKey;
   })();
-  function dayOfYear(d){
-    var start = new Date(d.getFullYear(), 0, 0);
-    var diff = d - start;
-    return Math.floor(diff / 86400000);
-  }
-
   var today = new Date();
   var todayKey = ymd(today);
-  var v = sermonVerses.filter(function(item){ return item.date === todayKey; })[0];
-  if(!v){
-    // 시리즈에 없는 날짜는 지금까지의 새벽설교 구절을 순서대로 돌려 보여줍니다.
-    v = sermonVerses[dayOfYear(today) % sermonVerses.length];
+  // 아직 오지 않은 날짜(다음 날 이후)의 묵상은 미리 보여주지 않는다 — 오늘 이하 날짜 중 가장 최근 항목까지만 노출.
+  var verseActiveIdx = 0;
+  for (var vi = 0; vi < sermonVerses.length; vi++) {
+    if (sermonVerses[vi].date <= todayKey) verseActiveIdx = vi;
   }
+  var v = sermonVerses.filter(function(item){ return item.date === todayKey; })[0];
+  if (!v) v = sermonVerses[verseActiveIdx];
 
   var dateStr = today.toLocaleDateString('ko-KR', { year:'numeric', month:'long', day:'numeric', weekday:'long' });
   document.getElementById('verse-date').textContent = dateStr + ' 말씀';

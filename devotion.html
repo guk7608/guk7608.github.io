@@ -224,9 +224,12 @@
     var day = ('0' + d.getDate()).slice(-2);
     return d.getFullYear() + '-' + m + '-' + day;
   }
-  function dayOfYear(d){
-    var start = new Date(d.getFullYear(), 0, 0);
-    return Math.floor((d - start) / 86400000);
+
+  // 아직 오지 않은 날짜(다음 날 이후)의 묵상은 다음글/게시판 어디서도 노출하지 않는다.
+  var todayKey = ymd(new Date());
+  var activeIdx = 0;
+  for (var ai = 0; ai < sermonVerses.length; ai++) {
+    if (sermonVerses[ai].date <= todayKey) activeIdx = ai;
   }
 
   var params = new URLSearchParams(location.search);
@@ -236,11 +239,8 @@
   if (requestedDate) {
     idx = sermonVerses.findIndex(function(item){ return item.date === requestedDate; });
   }
-  if (idx === -1) {
-    var today = new Date();
-    var todayKey = ymd(today);
-    idx = sermonVerses.findIndex(function(item){ return item.date === todayKey; });
-    if (idx === -1) idx = dayOfYear(today) % sermonVerses.length;
+  if (idx === -1 || idx > activeIdx) {
+    idx = activeIdx;
   }
 
   var v = sermonVerses[idx];
@@ -268,7 +268,7 @@
   } else {
     prevEl.classList.add('disabled');
   }
-  if (idx < sermonVerses.length - 1) {
+  if (idx < activeIdx) {
     nextEl.href = 'devotion.html?date=' + sermonVerses[idx + 1].date;
   } else {
     nextEl.classList.add('disabled');
@@ -280,13 +280,14 @@
     var pageInfo = document.getElementById('board-page-info');
     var prevBtn = document.getElementById('board-prev');
     var nextBtn = document.getElementById('board-next');
-    var totalPages = Math.ceil(sermonVerses.length / PAGE_SIZE);
+    var visibleCount = activeIdx + 1;
+    var totalPages = Math.ceil(visibleCount / PAGE_SIZE);
     var currentPage = 0;
 
     function render(page){
       currentPage = Math.max(0, Math.min(page, totalPages - 1));
       boardBody.innerHTML = '';
-      var startIdxDesc = sermonVerses.length - 1 - currentPage * PAGE_SIZE;
+      var startIdxDesc = visibleCount - 1 - currentPage * PAGE_SIZE;
       for (var i = 0; i < PAGE_SIZE; i++) {
         var itemIdx = startIdxDesc - i;
         if (itemIdx < 0) break;
@@ -310,7 +311,7 @@
       nextBtn.disabled = currentPage >= totalPages - 1;
     }
 
-    var descIndex = sermonVerses.length - 1 - idx;
+    var descIndex = visibleCount - 1 - idx;
     render(Math.floor(descIndex / PAGE_SIZE));
 
     prevBtn.addEventListener('click', function(){ render(currentPage - 1); });

@@ -143,7 +143,7 @@
   .hero{
     position:relative;
     background-image:
-      linear-gradient(175deg, color-mix(in srgb, var(--dawn-1) 92%, transparent) 0%, color-mix(in srgb, var(--dawn-2) 80%, transparent) 42%, color-mix(in srgb, var(--dawn-3) 68%, transparent) 74%, color-mix(in srgb, var(--dawn-4) 55%, transparent) 100%),
+      linear-gradient(175deg, color-mix(in srgb, var(--dawn-1) 66%, transparent) 0%, color-mix(in srgb, var(--dawn-2) 52%, transparent) 42%, color-mix(in srgb, var(--dawn-3) 40%, transparent) 74%, color-mix(in srgb, var(--dawn-4) 28%, transparent) 100%),
       var(--hero-photo);
     background-size:cover;
     background-position:center;
@@ -159,13 +159,14 @@
     display:inline-flex; align-items:center; gap:8px;
     font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase;
     color:#f4dfae; font-weight:700; margin-bottom:18px;
+    text-shadow:0 1px 10px rgba(15,15,25,0.55);
   }
   .hero .eyebrow::before{content:""; width:22px; height:1px; background:#f4dfae;}
-  .hero h1{font-size:clamp(2rem,4.4vw,2.7rem); margin:0 0 14px; font-weight:700; text-shadow:0 2px 18px rgba(20,20,30,0.4);}
-  .hero p{font-size:1.02rem; color:#efe3c8; max-width:46ch; margin:0 0 26px; text-shadow:0 1px 12px rgba(20,20,30,0.35);}
+  .hero h1{font-size:clamp(2rem,4.4vw,2.7rem); margin:0 0 14px; font-weight:700; text-shadow:0 2px 20px rgba(10,10,20,0.65);}
+  .hero p{font-size:1.02rem; color:#efe3c8; max-width:46ch; margin:0 0 26px; text-shadow:0 1px 14px rgba(10,10,20,0.55);}
   .hero-address{
     font-size:0.92rem; font-weight:600; color:#f4dfae; margin:-10px 0 26px;
-    text-shadow:0 1px 12px rgba(20,20,30,0.35);
+    text-shadow:0 1px 14px rgba(10,10,20,0.55);
   }
   .hero-actions{display:flex; gap:12px; flex-wrap:wrap;}
   .btn{

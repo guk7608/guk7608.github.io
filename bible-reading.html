@@ -100,6 +100,7 @@
   }
   .listen-btn:hover{background:rgba(244,223,174,0.32);}
   .listen-btn::before{content:"🔊";}
+  .listen-btn.read-btn::before{content:"📖";}
 
   /* 진행률 */
   .progress-block{
@@ -162,10 +163,11 @@
   .month-group[open] summary::after{transform:rotate(180deg);}
   .month-group summary .m-count{font-weight:600; font-size:0.8rem; color:var(--ink-soft);}
   .plan-row{
-    display:flex; align-items:center; gap:12px;
+    display:flex; align-items:center; gap:8px 12px; flex-wrap:wrap;
     padding:10px 20px; border-top:1px solid var(--line);
     font-size:0.92rem;
   }
+  .plan-row .p-text{min-width:120px;}
   .plan-row.today{background:color-mix(in srgb, var(--gold) 16%, var(--surface));}
   .plan-row input[type="checkbox"]{width:17px; height:17px; flex:none; accent-color:var(--brick); cursor:pointer;}
   .plan-row .p-date{color:var(--ink-soft); font-variant-numeric:tabular-nums; width:52px; flex:none;}
@@ -259,18 +261,33 @@
   function listenUrl(seg){
     return 'https://www.bskorea.or.kr/bible/listen.php?version=GAE&book=' + seg.code + '&chap=' + seg.from + '&chap2=' + seg.to + '&sex=m';
   }
+  // 대한성서공회 성경플랫폼(개역개정 전문) — 여러 장이어도 첫 장으로 연결하고,
+  // 이후 장은 그 페이지 자체의 다음 장 이동 버튼으로 넘겨서 볼 수 있다.
+  function textUrl(seg){
+    return 'https://bible.bskorea.or.kr/bible/NKRV/' + seg.code.toUpperCase() + '.' + seg.from;
+  }
 
   var todayEntry = biblePlan[todayDoy - 1];
   document.getElementById('today-date').textContent = todayEntry.label + ' 통독 본문';
   document.getElementById('today-text').textContent = todayEntry.text;
   var listenHost = document.getElementById('today-listen');
   todayEntry.segs.forEach(function(seg){
+    var label = seg.book + ' ' + (seg.from === seg.to ? seg.from + '장' : seg.from + '~' + seg.to + '장');
+
+    var readA = document.createElement('a');
+    readA.className = 'listen-btn read-btn';
+    readA.href = textUrl(seg);
+    readA.target = '_blank';
+    readA.rel = 'noopener';
+    readA.textContent = label + ' 본문 보기';
+    listenHost.appendChild(readA);
+
     var a = document.createElement('a');
     a.className = 'listen-btn';
     a.href = listenUrl(seg);
     a.target = '_blank';
     a.rel = 'noopener';
-    a.textContent = seg.book + ' ' + (seg.from === seg.to ? seg.from + '장 듣기' : seg.from + '~' + seg.to + '장 듣기');
+    a.textContent = label + ' 듣기';
     listenHost.appendChild(a);
   });
 
@@ -362,6 +379,14 @@
       row.appendChild(textEl);
 
       entry.segs.forEach(function(seg){
+        var readA = document.createElement('a');
+        readA.className = 'p-listen';
+        readA.href = textUrl(seg);
+        readA.target = '_blank';
+        readA.rel = 'noopener';
+        readA.textContent = '📖 ' + seg.book;
+        row.appendChild(readA);
+
         var listenA = document.createElement('a');
         listenA.className = 'p-listen';
         listenA.href = listenUrl(seg);

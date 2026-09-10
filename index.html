@@ -307,11 +307,13 @@
     color:var(--ink-soft); font-size:0.88rem;
   }
   footer .wrap{display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;}
-  .visit-stats{
-    justify-content:center; gap:24px; margin-bottom:18px;
-    padding-bottom:18px; border-bottom:1px solid var(--line);
+  .visit-bar{
+    background:var(--surface-2); border-bottom:1px solid var(--line);
   }
-  .visit-item{display:flex; align-items:center; gap:8px; font-size:0.82rem; font-weight:600;}
+  .visit-stats{
+    justify-content:center; gap:28px; padding:10px 24px;
+  }
+  .visit-item{display:flex; align-items:center; gap:8px; font-size:0.82rem; font-weight:600; color:var(--ink-soft);}
   .visit-badge{height:18px; width:auto; display:block; border-radius:3px;}
 
   @media (max-width:760px){
@@ -339,6 +341,13 @@
     </nav>
   </div>
 </header>
+
+<div class="visit-bar">
+  <div class="wrap visit-stats">
+    <span class="visit-item">오늘 방문 <img id="badge-today" class="visit-badge" alt="오늘 방문자 수"></span>
+    <span class="visit-item">누적 방문 <img id="badge-total" class="visit-badge" alt="누적 방문자 수"></span>
+  </div>
+</div>
 
 <section class="hero">
   <div class="hero-inner">
@@ -524,10 +533,6 @@
 </section>
 
 <footer>
-  <div class="wrap visit-stats">
-    <span class="visit-item">오늘 <img id="badge-today" class="visit-badge" alt="오늘 방문자 수"></span>
-    <span class="visit-item">누적 <img id="badge-total" class="visit-badge" alt="누적 방문자 수"></span>
-  </div>
   <div class="wrap">
     <span>© <span id="year"></span> 성광감리교회</span>
     <span>강원특별자치도 삼척시 도계읍 도계우회로2길 48 · 010-4730-5012</span>

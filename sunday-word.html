@@ -236,6 +236,15 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
+  // 매 주일 오후 3시 기준으로 "이번 주" 말씀의 인덱스를 구한다.
+  // 이 인덱스를 넘어서는(아직 공개 시점이 안 된) 항목은 다음글/게시판 어디에서도 노출하지 않는다.
+  var now = new Date();
+  var activeIdx = 0;
+  for (var i = 0; i < sundayWords.length; i++) {
+    var threshold = new Date(sundayWords[i].date + 'T15:00:00');
+    if (now >= threshold) activeIdx = i;
+  }
+
   var params = new URLSearchParams(location.search);
   var requestedDate = params.get('date');
 
@@ -243,14 +252,8 @@
   if (requestedDate) {
     idx = sundayWords.findIndex(function(item){ return item.date === requestedDate; });
   }
-  if (idx === -1) {
-    // 지정된 날짜가 없으면, 매 주일 오후 3시 기준으로 현재 주의 말씀을 찾는다.
-    var now = new Date();
-    idx = 0;
-    for (var i = 0; i < sundayWords.length; i++) {
-      var threshold = new Date(sundayWords[i].date + 'T15:00:00');
-      if (now >= threshold) idx = i;
-    }
+  if (idx === -1 || idx > activeIdx) {
+    idx = activeIdx;
   }
 
   var w = sundayWords[idx];
@@ -280,7 +283,7 @@
   } else {
     prevEl.classList.add('disabled');
   }
-  if (idx < sundayWords.length - 1) {
+  if (idx < activeIdx) {
     nextEl.href = 'sunday-word.html?date=' + sundayWords[idx + 1].date;
   } else {
     nextEl.classList.add('disabled');
@@ -292,13 +295,14 @@
     var pageInfo = document.getElementById('board-page-info');
     var prevBtn = document.getElementById('board-prev');
     var nextBtn = document.getElementById('board-next');
-    var totalPages = Math.ceil(sundayWords.length / PAGE_SIZE);
+    var visibleCount = activeIdx + 1;
+    var totalPages = Math.ceil(visibleCount / PAGE_SIZE);
     var currentPage = 0;
 
     function render(page){
       currentPage = Math.max(0, Math.min(page, totalPages - 1));
       boardBody.innerHTML = '';
-      var startIdxDesc = sundayWords.length - 1 - currentPage * PAGE_SIZE;
+      var startIdxDesc = visibleCount - 1 - currentPage * PAGE_SIZE;
       for (var i = 0; i < PAGE_SIZE; i++) {
         var itemIdx = startIdxDesc - i;
         if (itemIdx < 0) break;
@@ -323,7 +327,7 @@
       nextBtn.disabled = currentPage >= totalPages - 1;
     }
 
-    var descIndex = sundayWords.length - 1 - idx;
+    var descIndex = visibleCount - 1 - idx;
     render(Math.floor(descIndex / PAGE_SIZE));
 
     prevBtn.addEventListener('click', function(){ render(currentPage - 1); });

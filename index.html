@@ -324,7 +324,9 @@
     padding:34px 0 44px;
     color:var(--ink-soft); font-size:0.88rem;
   }
-  footer .wrap{display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;}
+  footer .wrap{display:flex; justify-content:center; flex-wrap:wrap; gap:4px 12px;}
+  .footer-info{flex-direction:column; align-items:center; text-align:center; gap:4px;}
+  .footer-copyright{margin-top:8px; font-size:0.82rem; opacity:0.85;}
   .visit-bar{
     background:var(--surface-2); border-bottom:1px solid var(--line);
   }
@@ -585,9 +587,11 @@
 </section>
 
 <footer>
-  <div class="wrap">
-    <span>© <span id="year"></span> 성광감리교회</span>
-    <span>강원특별자치도 삼척시 도계읍 도계우회로2길 48 · 010-4730-5012</span>
+  <div class="wrap footer-info">
+    <span>소속 : 기독교대한감리회</span>
+    <span>교회명 : 성광감리교회</span>
+    <span>강원특별자치도 삼척시 도계읍 도계우회로2길 48</span>
+    <span class="footer-copyright">© <span id="year"></span> 성광감리교회</span>
   </div>
 </footer>
 

@@ -220,25 +220,42 @@
   .verse-series{font-size:0.85rem; color:#efe3c8cc; margin-top:4px;}
 
   /* about */
-  .about-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:40px; align-items:start;}
+  .about-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:40px; align-items:start; margin-bottom:48px;}
   .about-grid p{color:var(--ink-soft); margin:0 0 14px;}
   .motto{
     font-family:"Noto Serif KR",serif; font-weight:600;
     font-size:1.2rem; color:var(--brick); margin:2px 0 16px;
   }
-  .mission-list{
-    list-style:none; margin:18px 0 20px; padding:0;
-    display:flex; flex-direction:column; gap:14px;
+
+  .pillar-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:6px;
+    overflow:hidden; margin-bottom:44px;
   }
-  .mission-list li{
-    display:flex; align-items:baseline; gap:14px;
-    font-weight:600; color:var(--ink); font-size:1.02rem;
+  .pillar-card{
+    background:var(--surface); padding:28px 30px;
   }
-  .mission-num{
+  .pillar-num{
     font-family:"Noto Serif KR",serif; font-weight:700; color:var(--gold);
-    font-size:0.95rem; flex:none; width:26px;
+    font-size:0.85rem; letter-spacing:0.06em;
   }
-  .about-closing{font-size:0.95rem;}
+  .pillar-card h3{
+    margin:8px 0 10px; font-size:1.08rem; font-weight:600;
+  }
+  .pillar-card p{margin:0; color:var(--ink-soft); font-size:0.95rem;}
+
+  .about-transition, .about-closing{
+    text-align:center; font-family:"Noto Serif KR",serif;
+    line-height:1.9; margin:0 auto;
+  }
+  .about-transition{
+    font-size:1.05rem; color:var(--ink-soft); font-weight:500;
+    max-width:32ch; margin-bottom:36px;
+  }
+  .about-closing{
+    font-size:1.3rem; font-weight:700; color:var(--brick);
+    max-width:26ch;
+  }
   .fact-box{
     background:var(--surface); border:1px solid var(--line); border-radius:6px;
     padding:22px 24px;
@@ -293,7 +310,7 @@
 
   @media (max-width:760px){
     .hero-inner{padding-top:64px; padding-bottom:56px;}
-    .about-grid, .location-grid{grid-template-columns:1fr;}
+    .about-grid, .location-grid, .pillar-grid{grid-template-columns:1fr;}
     nav.links{gap:14px; font-size:0.85rem;}
     .service-row{grid-template-columns:1fr; row-gap:4px;}
   }
@@ -379,14 +396,7 @@
       <p class="kicker">About</p>
       <h2>교회소개</h2>
       <p class="motto">“복음의 빛으로 세상을 비추는 교회”</p>
-      <p>성광감리교회는 강원특별자치도 삼척시 도계읍에 자리한 감리교회입니다. 아래 네 가지 방향을 따라 오늘도 한 걸음씩 나아갑니다.</p>
-      <ol class="mission-list">
-        <li><span class="mission-num">01</span>복음의 빛으로 세상을 비추는 교회</li>
-        <li><span class="mission-num">02</span>예수님의 사람으로 날마다 성장하는 성도</li>
-        <li><span class="mission-num">03</span>지역과 나라를 넘어 세계선교를 향하여 전진하는 교회</li>
-        <li><span class="mission-num">04</span>주님 다시 오실 때까지 멈추지 않고 끝까지 나아가는 교회</li>
-      </ol>
-      <p class="about-closing">삼척, 도계 지역에서 함께 예배드릴 교회를 찾고 계시다면 언제든 성광감리교회로 오세요.</p>
+      <p>성광교회는 예배에서 받은 은혜가 삶으로 이어지고, 사랑으로 하나 되어 세상을 섬기며, 그리스도의 장성한 분량까지 함께 자라가는 교회입니다.</p>
     </div>
     <dl class="fact-box">
       <dt>담임목사</dt>
@@ -396,6 +406,35 @@
       <dt>위치</dt>
       <dd>강원특별자치도 삼척시 도계읍</dd>
     </dl>
+  </div>
+
+  <div class="wrap">
+    <div class="pillar-grid">
+      <div class="pillar-card">
+        <span class="pillar-num">01</span>
+        <h3>예배가 삶으로 열매 맺는 교회</h3>
+        <p>하나님을 예배하는 기쁨이 우리의 일상으로 이어지고, 말씀을 따라 살아가는 삶의 열매가 나타나길 소망합니다.</p>
+      </div>
+      <div class="pillar-card">
+        <span class="pillar-num">02</span>
+        <h3>날마다 사랑으로 하나 되는 교회</h3>
+        <p>서로를 귀하게 여기고 품어주며, 그리스도의 사랑 안에서 함께 웃고 함께 우는 공동체가 되길 소망합니다.</p>
+      </div>
+      <div class="pillar-card">
+        <span class="pillar-num">03</span>
+        <h3>선교적 소명을 멈추지 않는 교회</h3>
+        <p>복음의 빛을 우리 안에만 머물게 하지 않고 지역사회와 세상을 향해 전하며, 주님 오시는 그날까지 복음의 사명을 멈추지 않겠습니다.</p>
+      </div>
+      <div class="pillar-card">
+        <span class="pillar-num">04</span>
+        <h3>그리스도의 장성한 분량으로 자라가는 교회</h3>
+        <p>믿음에 머물지 않고 말씀과 기도로 날마다 성장하여 예수 그리스도를 닮아가는 성숙한 제자로 세워지길 소망합니다.</p>
+      </div>
+    </div>
+
+    <p class="about-transition">예배에서 삶으로,<br>사랑에서 하나 됨으로,<br>교회에서 세상으로,<br>믿음에서 성숙함으로.</p>
+
+    <p class="about-closing">성광교회는 오늘도<br>복음의 빛으로 세상을 비추며<br>하나님의 나라를 함께 세워갑니다.</p>
   </div>
 </section>
 

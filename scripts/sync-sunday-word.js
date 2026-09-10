@@ -89,7 +89,12 @@ function parseOne(filePath, fileName, date, gang, title) {
 }
 
 function jsStringLiteral(s) {
-  return '"' + String(s).replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '"';
+  return '"' + String(s)
+    .replace(/\\/g, '\\\\')
+    .replace(/"/g, '\\"')
+    .replace(/\r\n/g, '\\n')
+    .replace(/\n/g, '\\n')
+    .replace(/\r/g, '\\n') + '"';
 }
 
 function buildDataFile(entries) {

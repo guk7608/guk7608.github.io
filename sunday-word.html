@@ -123,6 +123,34 @@
   .word-nav a:hover{color:var(--brick);}
   .word-nav .disabled{visibility:hidden;}
 
+  .board{margin-top:48px;}
+  .board .kicker{
+    font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--brick); font-weight:700; margin:0 0 14px;
+  }
+  .board-table{
+    width:100%; border-collapse:collapse;
+    background:var(--surface); border:1px solid var(--line); border-radius:8px;
+    overflow:hidden;
+  }
+  .board-table td{padding:13px 16px; border-bottom:1px solid var(--line); font-size:0.92rem;}
+  .board-table tr:last-child td{border-bottom:none;}
+  .board-table tr{cursor:pointer;}
+  .board-table tr:hover td{background:var(--bg);}
+  .board-table tr.current td{background:color-mix(in srgb, var(--gold) 18%, var(--surface)); font-weight:700;}
+  .board-date{color:var(--ink-soft); font-variant-numeric:tabular-nums; white-space:nowrap; width:1%;}
+  .board-pager{
+    display:flex; justify-content:space-between; align-items:center;
+    margin-top:14px; font-size:0.85rem; color:var(--ink-soft);
+  }
+  .board-pager button{
+    background:none; border:1px solid var(--line); border-radius:4px;
+    padding:7px 16px; cursor:pointer; color:var(--ink);
+    font-family:inherit; font-size:0.85rem; font-weight:600;
+  }
+  .board-pager button:disabled{opacity:0.4; cursor:default;}
+  .board-pager button:hover:not(:disabled){border-color:var(--brick); color:var(--brick);}
+
   footer{border-top:1px solid var(--line); padding:28px 0 40px; color:var(--ink-soft); font-size:0.85rem; text-align:center;}
 </style>
 </head>
@@ -187,6 +215,16 @@
       <a id="nav-prev" href="#">← 이전 주 말씀</a>
       <a id="nav-next" href="#">다음 주 말씀 →</a>
     </div>
+
+    <div class="board">
+      <p class="kicker">전체 목록</p>
+      <table class="board-table"><tbody id="board-body"></tbody></table>
+      <div class="board-pager">
+        <button id="board-prev" type="button">← 이전 목록</button>
+        <span id="board-page-info"></span>
+        <button id="board-next" type="button">다음 목록 →</button>
+      </div>
+    </div>
   </div>
 </main>
 
@@ -247,6 +285,50 @@
   } else {
     nextEl.classList.add('disabled');
   }
+
+  (function(){
+    var PAGE_SIZE = 7;
+    var boardBody = document.getElementById('board-body');
+    var pageInfo = document.getElementById('board-page-info');
+    var prevBtn = document.getElementById('board-prev');
+    var nextBtn = document.getElementById('board-next');
+    var totalPages = Math.ceil(sundayWords.length / PAGE_SIZE);
+    var currentPage = 0;
+
+    function render(page){
+      currentPage = Math.max(0, Math.min(page, totalPages - 1));
+      boardBody.innerHTML = '';
+      var startIdxDesc = sundayWords.length - 1 - currentPage * PAGE_SIZE;
+      for (var i = 0; i < PAGE_SIZE; i++) {
+        var itemIdx = startIdxDesc - i;
+        if (itemIdx < 0) break;
+        var item = sundayWords[itemIdx];
+        var itemParts = item.series.split(' · ');
+        var tr = document.createElement('tr');
+        if (itemIdx === idx) tr.className = 'current';
+        var d = new Date(item.date + 'T00:00:00');
+        var dLabel = d.toLocaleDateString('ko-KR', { month:'short', day:'numeric' });
+        var tdDate = document.createElement('td');
+        tdDate.className = 'board-date';
+        tdDate.textContent = dLabel;
+        var tdTitle = document.createElement('td');
+        tdTitle.textContent = itemParts[1] || item.series;
+        tr.appendChild(tdDate);
+        tr.appendChild(tdTitle);
+        tr.addEventListener('click', (function(dt){ return function(){ location.href = 'sunday-word.html?date=' + dt; }; })(item.date));
+        boardBody.appendChild(tr);
+      }
+      pageInfo.textContent = (currentPage + 1) + ' / ' + totalPages;
+      prevBtn.disabled = currentPage <= 0;
+      nextBtn.disabled = currentPage >= totalPages - 1;
+    }
+
+    var descIndex = sundayWords.length - 1 - idx;
+    render(Math.floor(descIndex / PAGE_SIZE));
+
+    prevBtn.addEventListener('click', function(){ render(currentPage - 1); });
+    nextBtn.addEventListener('click', function(){ render(currentPage + 1); });
+  })();
 </script>
 </body>
 </html>

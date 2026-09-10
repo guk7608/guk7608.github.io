@@ -249,8 +249,8 @@
   .week-summary p:not(.kicker){margin:0; font-size:1rem; color:var(--ink);}
 
   /* about */
-  .about-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:40px; align-items:start; margin-bottom:48px;}
-  .about-grid p{color:var(--ink-soft); margin:0 0 14px;}
+  .about-intro{max-width:60ch; margin-bottom:48px;}
+  .about-intro p{color:var(--ink-soft); margin:0 0 14px;}
   .motto{
     font-family:"Noto Serif KR",serif; font-weight:600;
     font-size:1.2rem; color:var(--brick); margin:2px 0 16px;
@@ -285,13 +285,6 @@
     font-size:1.3rem; font-weight:700; color:var(--brick);
     max-width:26ch;
   }
-  .fact-box{
-    background:var(--surface); border:1px solid var(--line); border-radius:6px;
-    padding:22px 24px;
-  }
-  .fact-box dt{font-size:0.78rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-soft); margin-top:14px;}
-  .fact-box dt:first-child{margin-top:0;}
-  .fact-box dd{margin:4px 0 0; font-weight:600;}
 
   /* service schedule: 2열 4행 grid */
   .service-grid{
@@ -343,7 +336,7 @@
 
   @media (max-width:760px){
     .hero-inner{padding-top:64px; padding-bottom:56px;}
-    .about-grid, .location-grid, .pillar-grid, .service-grid{grid-template-columns:1fr;}
+    .location-grid, .pillar-grid, .service-grid{grid-template-columns:1fr;}
     nav.links{gap:14px; font-size:0.85rem;}
   }
 </style>
@@ -391,21 +384,11 @@
 </section>
 
 <section id="about">
-  <div class="wrap about-grid">
-    <div>
-      <p class="kicker">About</p>
-      <h2>교회소개</h2>
-      <p class="motto">“복음의 빛으로 세상을 비추는 교회”</p>
-      <p>성광교회는 예배에서 받은 은혜가 삶으로 이어지고, 사랑으로 하나 되어 세상을 섬기며, 그리스도의 장성한 분량까지 함께 자라가는 교회입니다.</p>
-    </div>
-    <dl class="fact-box">
-      <dt>담임목사</dt>
-      <dd>김영국 목사</dd>
-      <dt>소속</dt>
-      <dd>기독교대한감리회</dd>
-      <dt>위치</dt>
-      <dd>강원특별자치도 삼척시 도계읍</dd>
-    </dl>
+  <div class="wrap about-intro">
+    <p class="kicker">About</p>
+    <h2>교회소개</h2>
+    <p class="motto">“복음의 빛으로 세상을 비추는 교회”</p>
+    <p>성광교회는 예배에서 받은 은혜가 삶으로 이어지고, 사랑으로 하나 되어 세상을 섬기며, 그리스도의 장성한 분량까지 함께 자라가는 교회입니다.</p>
   </div>
 
   <div class="wrap">

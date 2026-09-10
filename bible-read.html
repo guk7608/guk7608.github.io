@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>본문 읽기 · 성광감리교회</title>
+<meta name="description" content="성경통독 본문을 대한성서공회 개역개정 전문으로 바로 읽습니다.">
+<link rel="canonical" href="https://guk7608.github.io/bible-read.html">
+<link rel="icon" type="image/png" href="https://guk7608.github.io/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f6f4ef;
+    --surface:#fffdf9;
+    --ink:#20242c;
+    --ink-soft:#565b66;
+    --line:#e1dccf;
+    --gold:#c99a3c;
+    --gold-ink:#5a4213;
+    --brick:#a85a3c;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#14161c; --surface:#1b1e26; --ink:#eae7de; --ink-soft:#a9a79e;
+      --line:#31353f; --gold:#e3b357; --gold-ink:#241a08; --brick:#d98a68;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#14161c; --surface:#1b1e26; --ink:#eae7de; --ink-soft:#a9a79e;
+    --line:#31353f; --gold:#e3b357; --gold-ink:#241a08; --brick:#d98a68;
+  }
+  *{box-sizing:border-box;}
+  html, body{height:100%;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Noto Sans KR", -apple-system, sans-serif; line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    word-break:keep-all;
+    overflow-wrap:break-word;
+    display:flex; flex-direction:column;
+  }
+  h1,.serif{font-family:"Noto Serif KR", serif; text-wrap:balance; letter-spacing:-0.01em;}
+  a{color:inherit;}
+  .wrap{max-width:900px; margin:0 auto; padding:0 24px; width:100%;}
+
+  header.site{
+    border-bottom:1px solid var(--line);
+    flex:none;
+  }
+  .navbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 24px; max-width:900px; margin:0 auto;
+  }
+  .brand{display:flex; align-items:center; gap:10px; font-family:"Noto Serif KR",serif; font-weight:700; font-size:1.05rem; text-decoration:none;}
+  .brand img{width:20px; height:20px; flex:none;}
+  .home-link{font-size:0.85rem; font-weight:600; color:var(--ink-soft); text-decoration:none;}
+  .home-link:hover{color:var(--brick);}
+
+  .read-toolbar{
+    flex:none; border-bottom:1px solid var(--line); background:var(--surface);
+  }
+  .read-toolbar-inner{
+    max-width:900px; margin:0 auto; padding:14px 24px;
+    display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+  }
+  .read-title{font-family:"Noto Serif KR",serif; font-weight:700; font-size:1.15rem;}
+  .read-title .kicker{
+    display:block; font-family:"Noto Sans KR",sans-serif; font-weight:700;
+    font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--brick);
+    margin-bottom:2px;
+  }
+  .read-actions{display:flex; gap:10px; flex-wrap:wrap;}
+  .read-btn{
+    display:inline-flex; align-items:center; gap:6px;
+    border:1px solid var(--line); border-radius:20px; background:var(--surface);
+    color:var(--ink); text-decoration:none; font-weight:700; font-size:0.85rem;
+    padding:8px 16px;
+  }
+  .read-btn:hover{border-color:var(--brick); color:var(--brick);}
+  .read-btn.listen::before{content:"🔊";}
+
+  .frame-host{flex:1; min-height:0; position:relative; background:var(--surface);}
+  .frame-host iframe{position:absolute; inset:0; width:100%; height:100%; border:0;}
+  .frame-fallback{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    flex-direction:column; gap:14px; text-align:center; padding:32px; color:var(--ink-soft);
+  }
+  .frame-fallback[hidden]{display:none;}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="navbar">
+    <a class="brand" href="index.html">
+      <img src="kmc-logo.svg" alt="기독교대한감리회">
+      성광감리교회
+    </a>
+    <a class="home-link" href="bible-reading.html">← 성경통독으로</a>
+  </div>
+</header>
+
+<div class="read-toolbar">
+  <div class="read-toolbar-inner">
+    <div class="read-title">
+      <span class="kicker">개역개정 본문</span>
+      <span id="read-title-text">불러오는 중…</span>
+    </div>
+    <div class="read-actions">
+      <a class="read-btn listen" id="listen-link" href="#" target="_blank" rel="noopener">듣기(음성)</a>
+      <a class="read-btn" id="external-link" href="#" target="_blank" rel="noopener">새 창에서 열기 ↗</a>
+    </div>
+  </div>
+</div>
+
+<div class="frame-host">
+  <iframe id="bible-frame" title="성경 본문" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  <div class="frame-fallback" id="frame-fallback" hidden>
+    <p>이 화면에서 바로 표시할 수 없어 새 창에서 열어야 합니다.</p>
+    <a class="read-btn" id="fallback-link" href="#" target="_blank" rel="noopener">대한성서공회에서 열기 ↗</a>
+  </div>
+</div>
+
+<script>
+  var params = new URLSearchParams(location.search);
+  var book = (params.get('book') || 'gen').toLowerCase();
+  var chap = parseInt(params.get('chap'), 10) || 1;
+  var chap2 = parseInt(params.get('chap2'), 10) || chap;
+  var label = params.get('label') || '';
+
+  var readUrl = 'https://bible.bskorea.or.kr/bible/NKRV/' + book.toUpperCase() + '.' + chap;
+  var listenUrl = 'https://www.bskorea.or.kr/bible/listen.php?version=GAE&book=' + book + '&chap=' + chap + '&chap2=' + chap2 + '&sex=m';
+
+  document.title = (label || '본문 읽기') + ' · 성광감리교회';
+  document.getElementById('read-title-text').textContent = label || (book.toUpperCase() + ' ' + chap + '장');
+  document.getElementById('listen-link').href = listenUrl;
+  document.getElementById('external-link').href = readUrl;
+  document.getElementById('fallback-link').href = readUrl;
+
+  var frame = document.getElementById('bible-frame');
+  var fallback = document.getElementById('frame-fallback');
+  var loaded = false;
+  frame.addEventListener('load', function(){ loaded = true; });
+  frame.src = readUrl;
+
+  // 일부 환경에서 임베드가 차단될 경우를 대비해, 잠시 후에도 로드 신호가 없으면 새 창 안내로 전환
+  setTimeout(function(){
+    if (!loaded) {
+      fallback.hidden = false;
+    }
+  }, 4000);
+</script>
+</body>
+</html>

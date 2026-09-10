@@ -79,6 +79,15 @@ function main() {
 
   entries.sort((a, b) => a.date.localeCompare(b.date) || a.file.localeCompare(b.file));
 
+  const keepNames = new Set(entries.map(e => path.basename(e.file)));
+  keepNames.add('.gitkeep');
+  for (const existing of fs.readdirSync(PHOTOS_DIR)) {
+    if (!keepNames.has(existing)) {
+      fs.unlinkSync(path.join(PHOTOS_DIR, existing));
+      log(`원본 폴더에서 사라진 사진 삭제: ${existing}`);
+    }
+  }
+
   const newData = buildDataFile(entries);
   const oldData = fs.existsSync(DATA_JS) ? fs.readFileSync(DATA_JS, 'utf8') : '';
 

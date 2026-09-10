@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이주의 말씀 · 성광감리교회</title>
+<meta name="description" content="성광감리교회 주일설교(창세기와 복음 시리즈) — 이번 주 본문 성구 전체와 말씀 요약.">
+<link rel="canonical" href="https://guk7608.github.io/sunday-word.html">
+<link rel="icon" type="image/png" href="https://guk7608.github.io/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f6f4ef;
+    --surface:#fffdf9;
+    --ink:#20242c;
+    --ink-soft:#565b66;
+    --line:#e1dccf;
+    --gold:#c99a3c;
+    --gold-ink:#5a4213;
+    --brick:#a85a3c;
+    --dawn-1:#232c47;
+    --dawn-2:#5c4a6e;
+    --dawn-3:#c9793f;
+    --dawn-4:#eec468;
+    --shadow: 0 18px 40px -22px rgba(32,36,44,0.35);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#14161c; --surface:#1b1e26; --ink:#eae7de; --ink-soft:#a9a79e;
+      --line:#31353f; --gold:#e3b357; --gold-ink:#241a08; --brick:#d98a68;
+      --dawn-1:#171b2c; --dawn-2:#3c3150; --dawn-3:#a5623a; --dawn-4:#e3b357;
+      --shadow: 0 18px 40px -20px rgba(0,0,0,0.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#14161c; --surface:#1b1e26; --ink:#eae7de; --ink-soft:#a9a79e;
+    --line:#31353f; --gold:#e3b357; --gold-ink:#241a08; --brick:#d98a68;
+    --dawn-1:#171b2c; --dawn-2:#3c3150; --dawn-3:#a5623a; --dawn-4:#e3b357;
+    --shadow: 0 18px 40px -20px rgba(0,0,0,0.6);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Noto Sans KR", -apple-system, sans-serif; line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+    word-break:keep-all;
+    overflow-wrap:break-word;
+  }
+  h1,h2,.serif{font-family:"Noto Serif KR", serif; text-wrap:balance; letter-spacing:-0.01em;}
+  a{color:inherit;}
+  .wrap{max-width:680px; margin:0 auto; padding:0 24px;}
+
+  header.site{
+    position:sticky; top:0; z-index:20;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .navbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 24px; max-width:680px; margin:0 auto;
+  }
+  .brand{display:flex; align-items:center; gap:10px; font-family:"Noto Serif KR",serif; font-weight:700; font-size:1.1rem; text-decoration:none;}
+  .brand svg{width:22px; height:22px; flex:none;}
+  .home-link{font-size:0.88rem; font-weight:600; color:var(--ink-soft); text-decoration:none;}
+  .home-link:hover{color:var(--brick);}
+
+  main{padding:48px 0 80px;}
+
+  /* 주보 스타일 레터헤드 */
+  .bulletin-head{
+    text-align:center; margin-bottom:32px;
+  }
+  .bulletin-head .eyebrow{
+    font-size:0.78rem; letter-spacing:0.16em; text-transform:uppercase;
+    color:var(--brick); font-weight:700; margin-bottom:10px;
+  }
+  .bulletin-head h1{font-size:clamp(1.5rem,4vw,1.9rem); font-weight:700; margin:0 0 8px;}
+  .bulletin-head .bulletin-date{font-size:0.92rem; color:var(--ink-soft);}
+  .bulletin-rule{
+    width:64px; height:2px; background:var(--gold); margin:20px auto 0; border:none;
+  }
+
+  .word-card{
+    position:relative; overflow:hidden;
+    background:linear-gradient(160deg, var(--dawn-1), var(--dawn-2) 55%, var(--dawn-3) 100%);
+    color:#f7f1e4; border-radius:8px;
+    padding:clamp(28px,6vw,52px);
+    box-shadow:var(--shadow);
+    margin-bottom:32px;
+  }
+  .card-motif{position:absolute; inset:0; z-index:0; pointer-events:none;}
+  .card-motif svg{position:absolute; bottom:0; left:0; width:100%; height:auto; display:block;}
+  .card-body{position:relative; z-index:1;}
+  .word-label{
+    font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase;
+    color:#f4dfae; font-weight:700; margin-bottom:14px;
+  }
+  blockquote.word-passage{
+    margin:0; font-family:"Noto Serif KR",serif;
+    font-size:1.05rem; line-height:1.85; color:#f7f1e4;
+  }
+
+  .summary-block{
+    background:var(--surface); border:1px solid var(--line); border-radius:8px;
+    padding:clamp(26px,5vw,40px);
+    margin-bottom:32px;
+  }
+  .summary-block .kicker{
+    font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--brick); font-weight:700; margin:0 0 16px;
+  }
+  .summary-block p{margin:0 0 16px; font-size:1.03rem; color:var(--ink);}
+  .summary-block p:last-child{margin-bottom:0;}
+
+  .word-nav{
+    display:flex; justify-content:space-between; gap:16px; margin-top:8px;
+    font-size:0.9rem; font-weight:600;
+  }
+  .word-nav a{text-decoration:none; color:var(--ink-soft); padding:8px 4px;}
+  .word-nav a:hover{color:var(--brick);}
+  .word-nav .disabled{visibility:hidden;}
+
+  footer{border-top:1px solid var(--line); padding:28px 0 40px; color:var(--ink-soft); font-size:0.85rem; text-align:center;}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="navbar">
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M12 2v20M6 8h12" stroke="var(--brick)" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      성광감리교회
+    </a>
+    <a class="home-link" href="index.html">← 홈으로</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="bulletin-head">
+      <p class="eyebrow">주일예배 주보 · 창세기와 복음</p>
+      <h1 id="word-title">불러오는 중…</h1>
+      <p class="bulletin-date" id="word-date"></p>
+      <hr class="bulletin-rule">
+    </div>
+
+    <div class="word-card">
+      <div class="card-motif" aria-hidden="true">
+        <svg viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax slice">
+          <g stroke="#f4dfae" stroke-width="1" opacity="0.35">
+            <line x1="320" y1="6" x2="70" y2="210"/>
+            <line x1="320" y1="6" x2="150" y2="210"/>
+            <line x1="320" y1="6" x2="230" y2="210"/>
+            <line x1="320" y1="6" x2="320" y2="210"/>
+            <line x1="320" y1="6" x2="410" y2="210"/>
+            <line x1="320" y1="6" x2="490" y2="210"/>
+            <line x1="320" y1="6" x2="570" y2="210"/>
+          </g>
+          <g stroke="#f4dfae" stroke-width="3" stroke-linecap="round" opacity="0.55">
+            <line x1="320" y1="0" x2="320" y2="34"/>
+            <line x1="306" y1="12" x2="334" y2="12"/>
+          </g>
+          <g stroke="#f4dfae" stroke-width="1.6" fill="none" opacity="0.3">
+            <path d="M215,220 v-46 a35,35 0 0 1 70,0 v46 z"/>
+            <path d="M285,220 v-46 a35,35 0 0 1 70,0 v46 z"/>
+            <path d="M355,220 v-46 a35,35 0 0 1 70,0 v46 z"/>
+          </g>
+        </svg>
+      </div>
+      <div class="card-body">
+        <div class="word-label" id="word-ref">본문</div>
+        <blockquote class="word-passage" id="word-passage"></blockquote>
+      </div>
+    </div>
+
+    <div class="summary-block">
+      <p class="kicker">말씀 요약</p>
+      <div id="word-summary"></div>
+    </div>
+
+    <div class="word-nav">
+      <a id="nav-prev" href="#">← 이전 주 말씀</a>
+      <a id="nav-next" href="#">다음 주 말씀 →</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">소속 : 기독교대한감리회 · 강원특별자치도 삼척시 도계읍 도계우회로2길 48 · © <span id="year"></span> 성광감리교회</div>
+</footer>
+
+<script src="sunday-word-data.js"></script>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  var params = new URLSearchParams(location.search);
+  var requestedDate = params.get('date');
+
+  var idx = -1;
+  if (requestedDate) {
+    idx = sundayWords.findIndex(function(item){ return item.date === requestedDate; });
+  }
+  if (idx === -1) {
+    // 지정된 날짜가 없으면, 매 주일 오후 3시 기준으로 현재 주의 말씀을 찾는다.
+    var now = new Date();
+    idx = 0;
+    for (var i = 0; i < sundayWords.length; i++) {
+      var threshold = new Date(sundayWords[i].date + 'T15:00:00');
+      if (now >= threshold) idx = i;
+    }
+  }
+
+  var w = sundayWords[idx];
+  var displayDate = new Date(w.date + 'T00:00:00');
+  var dateStr = displayDate.toLocaleDateString('ko-KR', { year:'numeric', month:'long', day:'numeric' });
+
+  var titleParts = w.series.split(' · ');
+
+  document.title = (titleParts[1] || w.series) + ' · 성광감리교회';
+  document.getElementById('word-title').textContent = titleParts[1] || w.series;
+  document.getElementById('word-date').textContent = dateStr + ' 주일예배 · ' + (titleParts[0] || '');
+  document.getElementById('word-ref').textContent = '본문 · ' + w.ref;
+  document.getElementById('word-passage').textContent = '“' + w.passage + '”';
+
+  var summaryHost = document.getElementById('word-summary');
+  var paragraphs = w.summary ? w.summary.split(/\n\s*\n/) : ['이 주간의 말씀 요약은 아직 준비되지 않았습니다.'];
+  paragraphs.forEach(function(para){
+    var p = document.createElement('p');
+    p.textContent = para.trim();
+    summaryHost.appendChild(p);
+  });
+
+  var prevEl = document.getElementById('nav-prev');
+  var nextEl = document.getElementById('nav-next');
+  if (idx > 0) {
+    prevEl.href = 'sunday-word.html?date=' + sundayWords[idx - 1].date;
+  } else {
+    prevEl.classList.add('disabled');
+  }
+  if (idx < sundayWords.length - 1) {
+    nextEl.href = 'sunday-word.html?date=' + sundayWords[idx + 1].date;
+  } else {
+    nextEl.classList.add('disabled');
+  }
+</script>
+</body>
+</html>

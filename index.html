@@ -227,28 +227,28 @@
 
   /* this week's word */
   .week-card{
-    display:block; position:relative; overflow:hidden;
+    display:block; position:relative; overflow:hidden; text-decoration:none;
     background:linear-gradient(160deg, var(--dawn-1), var(--dawn-2) 55%, var(--dawn-3) 100%);
     color:#f7f1e4; border-radius:6px;
     padding:40px clamp(24px,5vw,52px);
     box-shadow:var(--shadow);
-    margin-bottom:24px;
+    transition:transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .week-card:hover, .week-card:focus-visible{
+    transform:translateY(-2px);
+    box-shadow:0 22px 46px -20px rgba(32,36,44,0.45);
   }
   .week-date{
     font-size:0.82rem; letter-spacing:0.08em; color:#f4dfae; font-weight:700;
     display:flex; align-items:center; gap:10px; margin-bottom:16px;
   }
   .week-date::before{content:"📖"; font-size:1rem;}
-  .week-ref{font-weight:700; color:#f4dfae; font-size:0.95rem; margin:0 0 10px;}
-  blockquote.week-passage{
-    margin:0; font-size:1rem; line-height:1.75; color:#efe3c8;
+  .week-title{
+    margin:0 0 10px; font-family:"Noto Serif KR",serif;
+    font-size:clamp(1.3rem,3vw,1.6rem); font-weight:600;
   }
-  .week-summary{
-    background:var(--surface); border:1px solid var(--line); border-radius:6px;
-    padding:clamp(22px,5vw,34px);
-  }
-  .week-summary .kicker{margin-bottom:12px;}
-  .week-summary p:not(.kicker){margin:0; font-size:1rem; color:var(--ink);}
+  .week-ref{font-weight:700; color:#f4dfae; font-size:0.95rem; margin:0;}
+  .week-more{margin-top:20px; font-size:0.88rem; font-weight:700; color:var(--gold);}
 
   /* about */
   .about-intro{max-width:60ch; margin-bottom:48px;}
@@ -470,9 +470,9 @@
     <div class="section-head">
       <p class="kicker">This Week's Word</p>
       <h2>이주의 말씀</h2>
-      <p class="lede">주일설교(창세기와 복음 시리즈)의 본문과 말씀 요약입니다. 매 주일 오후 3시에 갱신됩니다.</p>
+      <p class="lede">주일설교(창세기와 복음 시리즈)의 이번 주 말씀입니다. 매 주일 오후 3시에 갱신됩니다.</p>
     </div>
-    <div class="week-card">
+    <a class="week-card" id="week-card" href="sunday-word.html">
       <div class="card-motif" aria-hidden="true">
         <svg viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax slice">
           <g stroke="#f4dfae" stroke-width="1" opacity="0.35">
@@ -497,14 +497,11 @@
       </div>
       <div class="card-body">
         <div class="week-date" id="week-date">불러오는 중…</div>
+        <h3 class="week-title" id="week-title"></h3>
         <p class="week-ref" id="week-ref"></p>
-        <blockquote class="week-passage" id="week-passage"></blockquote>
+        <div class="week-more">본문 전체·말씀 요약 보기 →</div>
       </div>
-    </div>
-    <div class="week-summary">
-      <p class="kicker">말씀 요약</p>
-      <p id="week-summary"></p>
-    </div>
+    </a>
   </div>
 </section>
 
@@ -643,10 +640,11 @@
     var threshold = new Date(sundayWords[i].date + 'T15:00:00');
     if (today >= threshold) currentWeek = sundayWords[i];
   }
-  document.getElementById('week-date').textContent = currentWeek.series;
+  var weekParts = currentWeek.series.split(' · ');
+  document.getElementById('week-date').textContent = weekParts[0] || currentWeek.series;
+  document.getElementById('week-title').textContent = weekParts[1] || currentWeek.series;
   document.getElementById('week-ref').textContent = currentWeek.ref;
-  document.getElementById('week-passage').textContent = currentWeek.passage;
-  document.getElementById('week-summary').textContent = currentWeek.summary;
+  document.getElementById('week-card').href = 'sunday-word.html?date=' + currentWeek.date;
 </script>
 </body>
 </html>

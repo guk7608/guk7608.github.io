@@ -1,0 +1,16 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 성경통독 "동기화 코드" 전용 — 로그인 없이 코드를 아는 사람만 자신의 진행률을
+    // 읽고 쓸 수 있도록 이 컬렉션에 한해서만 공개 read/write를 허용한다.
+    // 코드는 6자리 랜덤 문자열(약 8억 8천만 경우의 수)이라 무작위 추측 위험이 낮고,
+    // 저장되는 정보도 통독 체크 여부뿐이라 민감정보가 없다.
+    match /syncCodes/{code} {
+      allow read, write: if true;
+    }
+    // 다른 모든 컬렉션은 기본적으로 차단(추후 회원관리 기능 도입 시 별도 규칙 추가)
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

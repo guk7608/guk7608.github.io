@@ -546,7 +546,7 @@
     <div class="section-head">
       <p class="kicker">This Week's Word</p>
       <h2>이주의 말씀</h2>
-      <p class="lede">주일설교(창세기와 복음 시리즈)의 이번 주 말씀입니다. 매 주일 오후 3시에 갱신됩니다.</p>
+      <p class="lede">주일설교(창세기와 복음 시리즈)의 이번 주 말씀입니다.</p>
     </div>
     <a class="week-card" id="week-card" href="sunday-word.html">
       <div class="card-body">
@@ -716,11 +716,11 @@
   document.getElementById('verse-series').textContent = v.series;
   document.getElementById('verse-card').href = 'devotion.html?date=' + v.date;
 
-  // "이주의 말씀"은 매 주일 오후 3시(해당 날짜의 15:00)가 지나야 그 주의 말씀으로 넘어갑니다.
+  // "이주의 말씀"은 매 주일 오전 7시(해당 날짜의 07:00)가 지나야 그 주의 말씀으로 넘어갑니다.
   // 그 전까지는 지난 주 말씀을 계속 보여줍니다.
   var currentWeek = sundayWords[0];
   for (var i = 0; i < sundayWords.length; i++) {
-    var threshold = new Date(sundayWords[i].date + 'T15:00:00');
+    var threshold = new Date(sundayWords[i].date + 'T07:00:00');
     if (today >= threshold) currentWeek = sundayWords[i];
   }
   var weekParts = currentWeek.series.split(' · ');

@@ -275,12 +275,12 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // 매 주일 오후 3시 기준으로 "이번 주" 말씀의 인덱스를 구한다.
+  // 매 주일 오전 7시 기준으로 "이번 주" 말씀의 인덱스를 구한다.
   // 이 인덱스를 넘어서는(아직 공개 시점이 안 된) 항목은 다음글/게시판 어디에서도 노출하지 않는다.
   var now = new Date();
   var activeIdx = 0;
   for (var i = 0; i < sundayWords.length; i++) {
-    var threshold = new Date(sundayWords[i].date + 'T15:00:00');
+    var threshold = new Date(sundayWords[i].date + 'T07:00:00');
     if (now >= threshold) activeIdx = i;
   }
 

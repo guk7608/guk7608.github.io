@@ -21,6 +21,12 @@
 <meta name="twitter:description" content="강원 삼척 도계 성광감리교회 — 예배 안내와 매일 새벽 말씀">
 <meta name="twitter:image" content="https://guk7608.github.io/og-image.jpg">
 <link rel="icon" type="image/png" href="https://guk7608.github.io/favicon.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#a85a3c">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="성광감리교회">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -718,6 +724,13 @@
       preview.appendChild(img);
     });
   })();
+</script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('service-worker.js').catch(function(){});
+    });
+  }
 </script>
 </body>
 </html>

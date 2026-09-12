@@ -7,6 +7,12 @@
 <meta name="description" content="성광감리교회 새벽설교(사사기 강해) — 본문 성구 전체와 700-800자 말씀 요약.">
 <link rel="canonical" href="https://guk7608.github.io/devotion.html">
 <link rel="icon" type="image/png" href="https://guk7608.github.io/favicon.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#a85a3c">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="성광감리교회">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
@@ -352,6 +358,13 @@
     prevBtn.addEventListener('click', function(){ render(currentPage - 1); });
     nextBtn.addEventListener('click', function(){ render(currentPage + 1); });
   })();
+</script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('service-worker.js').catch(function(){});
+    });
+  }
 </script>
 </body>
 </html>

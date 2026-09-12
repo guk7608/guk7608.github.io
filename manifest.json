@@ -1,0 +1,15 @@
+{
+  "name": "성광감리교회",
+  "short_name": "성광감리교회",
+  "description": "성광감리교회 — 오늘의 말씀, 이주의 말씀, 성경통독, 교회 앨범",
+  "start_url": "index.html",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#f6f4ef",
+  "theme_color": "#a85a3c",
+  "lang": "ko",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

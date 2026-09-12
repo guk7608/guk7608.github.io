@@ -147,6 +147,16 @@
   nav.links{display:flex; gap:22px; font-size:0.92rem; font-weight:500;}
   nav.links a{text-decoration:none; color:var(--ink-soft); padding:4px 2px; border-bottom:2px solid transparent;}
   nav.links a:hover, nav.links a:focus-visible{color:var(--ink); border-color:var(--gold);}
+  .nav-right{display:flex; align-items:center; gap:18px;}
+  .install-btn{
+    display:inline-flex; align-items:center; gap:6px;
+    padding:7px 14px; border-radius:20px;
+    background:var(--gold); color:var(--gold-ink);
+    border:none; font-family:inherit; font-weight:700; font-size:0.85rem;
+    cursor:pointer; white-space:nowrap; flex:none;
+  }
+  .install-btn:hover{filter:brightness(1.06);}
+  .install-btn svg{width:15px; height:15px; flex:none;}
 
   /* hero */
   .hero{
@@ -397,6 +407,9 @@
   .visit-badge{height:18px; width:auto; display:block; border-radius:3px;}
 
   @media (max-width:760px){
+    .install-btn span{display:none;}
+    .install-btn{padding:8px; border-radius:50%;}
+    .install-btn svg{width:17px; height:17px;}
     .hero-inner{padding-top:64px; padding-bottom:56px;}
     .location-grid, .pillar-grid, .service-grid{grid-template-columns:1fr;}
     nav.links{gap:14px; font-size:0.85rem;}
@@ -411,15 +424,21 @@
       <img src="kmc-logo.gif" alt="기독교대한감리회">
       성광감리교회
     </div>
-    <nav class="links">
-      <a href="#about">교회소개</a>
-      <a href="#verse">오늘의 말씀</a>
-      <a href="#thisweek">이주의 말씀</a>
-      <a href="#bible-plan">성경통독</a>
-      <a href="#album">앨범</a>
-      <a href="#service">예배시간</a>
-      <a href="#location">오시는길</a>
-    </nav>
+    <div class="nav-right">
+      <nav class="links">
+        <a href="#about">교회소개</a>
+        <a href="#verse">오늘의 말씀</a>
+        <a href="#thisweek">이주의 말씀</a>
+        <a href="#bible-plan">성경통독</a>
+        <a href="#album">앨범</a>
+        <a href="#service">예배시간</a>
+        <a href="#location">오시는길</a>
+      </nav>
+      <button id="install-btn" class="install-btn" type="button" hidden aria-label="앱 설치">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
+        <span>앱 설치</span>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -731,6 +750,45 @@
       navigator.serviceWorker.register('service-worker.js').catch(function(){});
     });
   }
+</script>
+<script>
+  (function(){
+    var installBtn = document.getElementById('install-btn');
+    if (!installBtn) return;
+    var deferredPrompt = null;
+
+    function isStandalone(){
+      return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    }
+    if (isStandalone()) return; // 이미 앱으로 설치되어 실행 중이면 버튼을 보이지 않는다.
+
+    var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
+
+    if (isIOS) {
+      // iOS Safari는 설치를 코드로 띄울 수 없어 "공유 → 홈 화면에 추가" 안내만 보여준다.
+      installBtn.hidden = false;
+      installBtn.addEventListener('click', function(){
+        alert('아이폰/아이패드에서 앱처럼 설치하기\n\n하단(또는 상단) 공유 버튼을 누른 뒤 "홈 화면에 추가"를 선택해 주세요.');
+      });
+    } else {
+      window.addEventListener('beforeinstallprompt', function(e){
+        e.preventDefault();
+        deferredPrompt = e;
+        installBtn.hidden = false;
+      });
+      installBtn.addEventListener('click', function(){
+        if (!deferredPrompt) return;
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.finally(function(){
+          deferredPrompt = null;
+          installBtn.hidden = true;
+        });
+      });
+      window.addEventListener('appinstalled', function(){
+        installBtn.hidden = true;
+      });
+    }
+  })();
 </script>
 </body>
 </html>

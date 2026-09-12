@@ -8,6 +8,14 @@ service cloud.firestore {
     match /syncCodes/{code} {
       allow read, write: if true;
     }
+    // 오늘의 말씀/이주의 말씀 페이지의 "묵상 나눔"(댓글) 전용 — 로그인 없이 누구나
+    // 읽고 쓸 수 있다. 문서 ID는 "devotion-YYYY-MM-DD" / "sunday-YYYY-MM-DD" 형태이고,
+    // 각 문서는 댓글 배열(comments)만 담는다. 스팸 차단은 클라이언트(comments.js) 단어
+    // 목록 검사뿐이라 완전하지 않다 — 문제가 생기면 이 컬렉션을 Firebase 콘솔에서
+    // 직접 조회/삭제하거나, 필요시 이 규칙 자체를 잠글 것.
+    match /pageComments/{pageKey} {
+      allow read, write: if true;
+    }
     // 다른 모든 컬렉션은 기본적으로 차단(추후 회원관리 기능 도입 시 별도 규칙 추가)
     match /{document=**} {
       allow read, write: if false;

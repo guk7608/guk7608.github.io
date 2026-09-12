@@ -123,6 +123,35 @@
   .word-nav a:hover{color:var(--brick);}
   .word-nav .disabled{visibility:hidden;}
 
+  .comments{
+    margin-top:36px; background:var(--surface); border:1px solid var(--line);
+    border-radius:8px; padding:clamp(22px,5vw,34px);
+  }
+  .comments .kicker{
+    font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--brick); font-weight:700; margin:0 0 16px;
+  }
+  .comment-list{display:flex; flex-direction:column; gap:14px; margin-bottom:20px;}
+  .comment-empty{color:var(--ink-soft); font-size:0.92rem; margin:0;}
+  .comment-item{border-bottom:1px solid var(--line); padding-bottom:14px;}
+  .comment-item:last-child{border-bottom:none; padding-bottom:0;}
+  .comment-meta{font-size:0.82rem; color:var(--ink-soft); font-weight:600; margin-bottom:4px;}
+  .comment-text{font-size:0.95rem; white-space:pre-wrap;}
+  .comment-form{display:flex; flex-direction:column; gap:10px;}
+  .comment-form input, .comment-form textarea{
+    width:100%; border:1px solid var(--line); border-radius:6px; background:var(--bg);
+    color:var(--ink); font-family:inherit; font-size:0.92rem; padding:10px 12px; resize:vertical;
+  }
+  .comment-form input:focus, .comment-form textarea:focus{outline:2px solid var(--gold); outline-offset:1px;}
+  .comment-form-row{display:flex; align-items:center; justify-content:flex-end; gap:12px;}
+  .comment-error{font-size:0.82rem; color:#c0392b; flex:1;}
+  .comment-form button{
+    background:var(--brick); color:#fff8ee; border:none; border-radius:6px;
+    padding:9px 20px; font-family:inherit; font-size:0.9rem; font-weight:700; cursor:pointer;
+  }
+  .comment-form button:disabled{opacity:0.6; cursor:default;}
+  .comment-form button:hover:not(:disabled){filter:brightness(1.08);}
+
   .board{margin-top:48px;}
   .board .kicker{
     font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase;
@@ -214,6 +243,8 @@
       <a id="nav-next" href="#">다음 주 말씀 →</a>
     </div>
 
+    <div class="comments" id="comments"></div>
+
     <div class="board">
       <p class="kicker">전체 목록</p>
       <table class="board-table"><tbody id="board-body"></tbody></table>
@@ -231,6 +262,10 @@
 </footer>
 
 <script src="sunday-word-data.js"></script>
+<script src="firebase-config.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="comments.js"></script>
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -273,6 +308,8 @@
     p.textContent = para.trim();
     summaryHost.appendChild(p);
   });
+
+  initCommentBox('comments', 'sunday-' + w.date);
 
   var prevEl = document.getElementById('nav-prev');
   var nextEl = document.getElementById('nav-next');

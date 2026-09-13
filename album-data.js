@@ -4,5 +4,7 @@ var albumPhotos = [
   {date:"2026-09-10", file:"photos/본당 _2_.jpg", caption:"본당 (2)"},
   {date:"2026-09-10", file:"photos/본당 _3_.jpg", caption:"본당 (3)"},
   {date:"2026-09-10", file:"photos/카페 _1_.jpg", caption:"카페 (1)"},
-  {date:"2026-09-10", file:"photos/카페 _2_.jpg", caption:"카페 (2)"}
+  {date:"2026-09-10", file:"photos/카페 _2_.jpg", caption:"카페 (2)"},
+  {date:"2026-09-12", file:"photos/20260912_192412.jpg", caption:"20260912_192412"},
+  {date:"2026-09-12", file:"photos/20260912_192433.jpg", caption:"20260912_192433"}
 ];

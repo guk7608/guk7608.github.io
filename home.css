@@ -205,3 +205,7 @@ section{padding:50px 0}
 .hero-photo:after{display:none}
 .hero-photo figcaption{position:static;padding:16px 20px;color:var(--ink);font-size:13px}
 .hero-photo figcaption span+span{color:var(--ink-soft);opacity:1}
+
+/* Visitor counts remain visible directly below the header. */
+.visit-bar{background:var(--surface);border-top:0;border-bottom:1px solid var(--line)}
+.visit-stats{padding-top:10px;padding-bottom:10px}

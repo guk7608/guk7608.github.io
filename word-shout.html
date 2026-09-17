@@ -244,8 +244,9 @@
 
   var filterRow = document.getElementById('filter-row');
   var currentFilter = 'all';
-  var lastIndex = -1;
   var shownCount = 0;
+  var queue = [];
+  var lastRef = null;
 
   CATEGORIES.forEach(function(c){
     var btn = document.createElement('button');
@@ -257,6 +258,7 @@
       currentFilter = c.key;
       filterRow.querySelectorAll('.filter-chip').forEach(function(b){ b.setAttribute('aria-pressed', 'false'); });
       btn.setAttribute('aria-pressed', 'true');
+      queue = [];
       showNext();
     });
     filterRow.appendChild(btn);
@@ -264,6 +266,18 @@
 
   function pool(){
     return currentFilter === 'all' ? VERSES : VERSES.filter(function(v){ return v.cat === currentFilter; });
+  }
+
+  // 셔플백 방식: 현재 필터의 구절을 전부 한 번씩 다 보여준 뒤에만 다시 채워서
+  // 카드가 적어도 한 바퀴(pool 전체) 돌기 전에는 같은 구절이 반복되지 않게 한다.
+  function shuffledIndexes(n){
+    var idxs = [];
+    for (var i = 0; i < n; i++) idxs.push(i);
+    for (var i = idxs.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = idxs[i]; idxs[i] = idxs[j]; idxs[j] = tmp;
+    }
+    return idxs;
   }
 
   var cardEl = document.getElementById('shout-card');
@@ -275,12 +289,18 @@
   function showNext(){
     var list = pool();
     if (list.length === 0) return;
-    var idx = Math.floor(Math.random() * list.length);
-    if (list.length > 1) {
-      while (idx === lastIndex) idx = Math.floor(Math.random() * list.length);
+
+    if (queue.length === 0) {
+      queue = shuffledIndexes(list.length);
+      // 이전 카드와 새 바퀴의 첫 카드가 우연히 같으면 순서를 바꿔 이어서 반복되는 것을 막는다.
+      if (queue.length > 1 && list[queue[0]].ref === lastRef) {
+        queue.push(queue.shift());
+      }
     }
-    lastIndex = idx;
+
+    var idx = queue.shift();
     var v = list[idx];
+    lastRef = v.ref;
 
     cardEl.classList.add('fading');
     setTimeout(function(){

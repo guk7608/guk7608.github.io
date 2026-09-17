@@ -817,18 +817,23 @@
         alert('아이폰/아이패드에서 앱처럼 설치하기\n\n하단(또는 상단) 공유 버튼을 누른 뒤 "홈 화면에 추가"를 선택해 주세요.');
       });
     } else {
+      // beforeinstallprompt는 크롬이 자체 기준(재방문 이력, 이전 설치/거절 여부 등)으로
+      // 판단해 아예 안 뜨는 경우가 많아, 그 이벤트만 기다리면 버튼이 계속 숨어 있게 된다.
+      // 그래서 버튼은 항상 보이게 하고, 이벤트를 못 받았을 때는 수동 설치 방법을 안내한다.
+      installBtn.hidden = false;
       window.addEventListener('beforeinstallprompt', function(e){
         e.preventDefault();
         deferredPrompt = e;
-        installBtn.hidden = false;
       });
       installBtn.addEventListener('click', function(){
-        if (!deferredPrompt) return;
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.finally(function(){
-          deferredPrompt = null;
-          installBtn.hidden = true;
-        });
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.finally(function(){
+            deferredPrompt = null;
+          });
+        } else {
+          alert('앱처럼 설치하기\n\n주소창 오른쪽의 설치 아이콘(⊕ 또는 컴퓨터 모양)을 클릭하시거나,\n오른쪽 위 메뉴(⋮) → "성광감리교회 설치..."를 선택해 주세요.');
+        }
       });
       window.addEventListener('appinstalled', function(){
         installBtn.hidden = true;

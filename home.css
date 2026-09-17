@@ -198,3 +198,10 @@ section{padding:50px 0}
 *,*:before,*:after{transition:none!important}
 }
 
+
+/* Keep the complete church and courtyard visible at every screen size. */
+.hero-photo{align-self:center;min-height:0;border-radius:10px;background:var(--surface)}
+.hero-photo img{display:block;position:static;width:100%;height:auto;object-fit:contain;object-position:center}
+.hero-photo:after{display:none}
+.hero-photo figcaption{position:static;padding:16px 20px;color:var(--ink);font-size:13px}
+.hero-photo figcaption span+span{color:var(--ink-soft);opacity:1}

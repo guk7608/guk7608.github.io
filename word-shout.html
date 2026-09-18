@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>말씀샤우팅 · 성광감리교회</title>
-<meta name="description" content="영상 한 편과 함께, 확신·선포·감사·찬양·치유·축복의 말씀을 소리 내어 선포합니다.">
+<meta name="description" content="성광감리교회 말씀샤우팅 — 성경암송구절을 하루 한 구절씩 순서대로 암송합니다.">
 <link rel="canonical" href="https://guk7608.github.io/word-shout.html">
 <link rel="icon" type="image/png" href="https://guk7608.github.io/favicon.png">
 <link rel="manifest" href="manifest.json">
@@ -18,14 +18,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#f6f4ef;
-    --surface:#fffdf9;
-    --ink:#20242c;
-    --ink-soft:#565b66;
-    --line:#e1dccf;
-    --gold:#c99a3c;
-    --gold-ink:#5a4213;
-    --brick:#a85a3c;
+    --bg:#f6f4ef; --surface:#fffdf9; --ink:#20242c; --ink-soft:#565b66;
+    --line:#e1dccf; --gold:#c99a3c; --gold-ink:#5a4213; --brick:#a85a3c;
     --shadow: 0 18px 40px -22px rgba(32,36,44,0.35);
   }
   @media (prefers-color-scheme: dark){
@@ -44,98 +38,50 @@
   body{
     margin:0; background:var(--bg); color:var(--ink);
     font-family:"Noto Sans KR", -apple-system, sans-serif; line-height:1.75;
-    -webkit-font-smoothing:antialiased;
-    word-break:keep-all;
-    overflow-wrap:break-word;
+    -webkit-font-smoothing:antialiased; word-break:keep-all; overflow-wrap:break-word;
   }
-  h1,h2,.serif{font-family:"Noto Serif KR", serif; text-wrap:balance; letter-spacing:-0.01em;}
+  h1,.serif{font-family:"Noto Serif KR", serif; text-wrap:balance; letter-spacing:-0.01em;}
   a{color:inherit;}
-  .wrap{max-width:900px; margin:0 auto; padding:0 24px;}
+  .wrap{max-width:720px; margin:0 auto; padding:0 24px;}
 
   header.site{
     position:sticky; top:0; z-index:20;
     background:color-mix(in srgb, var(--bg) 88%, transparent);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--line);
+    backdrop-filter:blur(10px); border-bottom:1px solid var(--line);
   }
-  .navbar{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:16px 24px; max-width:900px; margin:0 auto;
-  }
+  .navbar{display:flex; align-items:center; justify-content:space-between; padding:16px 24px; max-width:720px; margin:0 auto;}
   .brand{display:flex; align-items:center; gap:10px; font-family:"Noto Serif KR",serif; font-weight:700; font-size:1.1rem; text-decoration:none;}
   .brand img{width:22px; height:22px; flex:none;}
   .home-link{font-size:0.88rem; font-weight:600; color:var(--ink-soft); text-decoration:none;}
   .home-link:hover{color:var(--brick);}
 
   main{padding:48px 0 80px;}
-  .page-head{margin-bottom:36px;}
-  .page-head .kicker{
-    font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase;
-    color:var(--brick); font-weight:700; margin:0 0 10px;
-  }
+  .page-head{margin-bottom:32px;}
+  .page-head .kicker{font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--brick); font-weight:700; margin:0 0 10px;}
   .page-head h1{font-size:clamp(1.6rem,4vw,2.1rem); margin:0 0 10px; font-weight:700;}
   .page-head p{color:var(--ink-soft); margin:0; max-width:60ch;}
 
-  .video-frame{
-    position:relative; width:100%; aspect-ratio:16/9;
-    background:#12141a; border-radius:10px; overflow:hidden;
-    box-shadow:var(--shadow); margin-bottom:44px;
-  }
-  .video-frame iframe{position:absolute; inset:0; width:100%; height:100%; border:0;}
-  .video-empty{
-    position:absolute; inset:0; display:flex; flex-direction:column; align-items:center;
-    justify-content:center; gap:8px; color:#cfc9ba; text-align:center; padding:24px;
-    border:1px dashed rgba(255,255,255,0.25); border-radius:10px;
-  }
-  .video-empty strong{font-size:1rem; color:#f2ecdc;}
-  .video-empty span{font-size:0.85rem; color:#9d968a;}
-
-  .shout-intro{text-align:center; margin-bottom:28px;}
-  .shout-intro p{color:var(--brick); font-weight:700; font-size:1.02rem; margin:0;}
-
-  .filter-row{display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-bottom:28px;}
-  .filter-chip{
-    padding:8px 18px; border-radius:20px; border:1px solid var(--line);
-    background:var(--surface); color:var(--ink-soft); font-size:0.85rem; font-weight:600;
-    cursor:pointer; transition:background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
-  }
-  .filter-chip:hover{border-color:var(--brick);}
-  .filter-chip[aria-pressed="true"]{background:var(--brick); color:#fff; border-color:var(--brick);}
-
   .shout-card{
     background:var(--surface); border:1px solid var(--line); border-radius:16px;
-    box-shadow:var(--shadow); padding:52px 36px; text-align:center;
-    min-height:280px; display:flex; flex-direction:column; align-items:center; justify-content:center;
-    gap:22px; transition:opacity 0.18s ease;
+    box-shadow:var(--shadow); padding:48px 36px; text-align:center;
   }
-  .shout-card.fading{opacity:0;}
+  .shout-date{font-size:0.85rem; font-weight:700; color:var(--brick); letter-spacing:.04em; margin-bottom:22px;}
   .shout-tag{
     display:inline-block; padding:5px 14px; border-radius:14px; font-size:0.78rem;
-    font-weight:700; letter-spacing:0.04em; background:var(--gold); color:var(--gold-ink);
+    font-weight:700; letter-spacing:0.04em; background:var(--gold); color:var(--gold-ink); margin-bottom:18px;
   }
   .shout-text{
     font-family:"Noto Serif KR", serif; font-weight:600; letter-spacing:-0.01em;
-    font-size:clamp(1.35rem, 3.4vw, 1.9rem); line-height:1.6; margin:0; max-width:34ch;
+    font-size:clamp(1.35rem, 3.4vw, 1.9rem); line-height:1.75; margin:0 0 18px;
   }
+  .shout-text .line + .line{margin-top:6px;}
   .shout-ref{color:var(--ink-soft); font-size:0.95rem; font-weight:700;}
-  .shout-niv{font-size:0.9rem; color:var(--ink-soft); font-style:italic; margin:6px 0 0; max-width:34ch;}
+  .shout-topic{color:var(--ink-soft); font-size:0.82rem; margin-top:4px;}
 
-  .shout-actions{display:flex; justify-content:center; margin-top:28px;}
-  .shout-next{
-    padding:14px 32px; border-radius:30px; border:none; background:var(--brick);
-    color:#fff; font-size:1rem; font-weight:700; cursor:pointer; box-shadow:var(--shadow);
-    transition:transform 0.15s ease, filter 0.15s ease;
-  }
-  .shout-next:hover{filter:brightness(1.08); transform:translateY(-1px);}
-  .shout-next:active{transform:translateY(0);}
-
-  .shout-count{text-align:center; margin-top:14px; color:var(--ink-soft); font-size:0.82rem;}
+  .shout-progress{text-align:center; margin-top:18px; color:var(--ink-soft); font-size:0.82rem;}
+  .shout-empty{padding:32px 20px; text-align:center; color:var(--ink-soft); border:1px dashed var(--line); border-radius:8px; font-size:0.95rem;}
 
   footer{border-top:1px solid var(--line); padding:28px 0 40px; color:var(--ink-soft); font-size:0.85rem; text-align:center;}
-
-  @media (max-width:600px){
-    .shout-card{padding:38px 22px;}
-  }
 </style>
 </head>
 <body>
@@ -153,38 +99,12 @@
 <main>
   <div class="wrap">
     <div class="page-head">
-      <p class="kicker">Word Shouting</p>
+      <p class="kicker">Word Shouting · 한 구절 매일암송</p>
       <h1>말씀샤우팅</h1>
-      <p>영상 한 편을 먼저 보고, 이어지는 말씀선포카드를 소리 내어 읽으며 오늘의 소망을 선포해보세요.</p>
+      <p>성경암송구절을 구약과 신약 순서대로 매일 한 구절씩 소리 내어 외워봅시다.</p>
     </div>
 
-    <div class="video-frame">
-      <!-- 영상 링크가 정해지면 위 div 대신 아래 형태의 iframe으로 교체:
-      <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="말씀샤우팅 영상" allowfullscreen loading="lazy"></iframe>
-      -->
-      <div class="video-empty">
-        <strong>영상 준비 중입니다</strong>
-        <span>말씀샤우팅에 함께할 영상이 정해지면 이 자리에 채워집니다.</span>
-      </div>
-    </div>
-
-    <div class="shout-intro">
-      <p>소리 내어 함께 선포해보세요</p>
-    </div>
-
-    <div class="filter-row" id="filter-row" role="group" aria-label="말씀 종류 선택"></div>
-
-    <div class="shout-card" id="shout-card">
-      <span class="shout-tag" id="shout-tag"></span>
-      <p class="shout-text" id="shout-text"></p>
-      <span class="shout-ref" id="shout-ref"></span>
-      <p class="shout-niv" id="shout-niv"></p>
-    </div>
-
-    <div class="shout-actions">
-      <button type="button" class="shout-next" id="shout-next">다음 말씀 보기 →</button>
-    </div>
-    <p class="shout-count" id="shout-count"></p>
+    <div id="shout-host"></div>
   </div>
 </main>
 
@@ -192,153 +112,50 @@
   <div class="wrap">© <span id="year"></span> 성광감리교회 · 강원특별자치도 삼척시 도계읍 도계우회로2길 48</div>
 </footer>
 
+<script src="word-shout-data.js"></script>
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  var CATEGORIES = [
-    { key:'all', label:'전체' },
-    { key:'assurance', label:'확신' },
-    { key:'proclaim', label:'선포형' },
-    { key:'thanks', label:'감사' },
-    { key:'praise', label:'찬양' },
-    { key:'healing', label:'치유' },
-    { key:'blessing', label:'축복' }
-  ];
+  var ALL_VERSES = (window.OT_VERSES || []).concat(window.NT_VERSES || []);
+  var host = document.getElementById('shout-host');
 
-  // 한글 구절은 개역개정(대한성서공회) 원문을 대한성서공회 성경플랫폼(bible.bskorea.or.kr)에서 대조해 그대로 옮김.
-  // 영문(NIV) 구절은 biblegateway.com의 NIV 본문을 대조해 그대로 옮김(문장 중간부터 시작하는 절은 인용문 첫 글자만 대문자로 표기).
-  var VERSES = [
-    { cat:'assurance', ref:'빌립보서 4:13', text:'내게 능력 주시는 자 안에서 내가 모든 것을 할 수 있느니라', niv:'I can do all this through him who gives me strength.' },
-    { cat:'assurance', ref:'로마서 8:28', text:'우리가 알거니와 하나님을 사랑하는 자 곧 그의 뜻대로 부르심을 입은 자들에게는 모든 것이 합력하여 선을 이루느니라', niv:'And we know that in all things God works for the good of those who love him, who have been called according to his purpose.' },
-    { cat:'assurance', ref:'이사야 41:10', text:'두려워하지 말라 내가 너와 함께 함이라 놀라지 말라 나는 네 하나님이 됨이라 내가 너를 굳세게 하리라 참으로 너를 도와 주리라 참으로 나의 의로운 오른손으로 너를 붙들리라', niv:'So do not fear, for I am with you; do not be dismayed, for I am your God. I will strengthen you and help you; I will uphold you with my righteous right hand.' },
-    { cat:'assurance', ref:'시편 23:1', text:'여호와는 나의 목자시니 내게 부족함이 없으리로다', niv:'The Lord is my shepherd, I lack nothing.' },
-    { cat:'assurance', ref:'요한복음 14:27', text:'평안을 너희에게 끼치노니 곧 나의 평안을 너희에게 주노라 내가 너희에게 주는 것은 세상이 주는 것과 같지 아니하니라 너희는 마음에 근심하지도 말고 두려워하지도 말라', niv:'Peace I leave with you; my peace I give you. I do not give to you as the world gives. Do not let your hearts be troubled and do not be afraid.' },
-
-    { cat:'proclaim', ref:'로마서 8:37', text:'그러나 이 모든 일에 우리를 사랑하시는 이로 말미암아 우리가 넉넉히 이기느니라', niv:'No, in all these things we are more than conquerors through him who loved us.' },
-    { cat:'proclaim', ref:'여호수아 1:9', text:'내가 네게 명령한 것이 아니냐 강하고 담대하라 두려워하지 말며 놀라지 말라 네가 어디로 가든지 네 하나님 여호와가 너와 함께 하느니라', niv:'Have I not commanded you? Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.' },
-    { cat:'proclaim', ref:'시편 118:17', text:'내가 죽지 않고 살아서 여호와께서 하시는 일을 선포하리로다', niv:'I will not die but live, and will proclaim what the Lord has done.' },
-    { cat:'proclaim', ref:'이사야 54:17', text:'너를 치려고 제조된 모든 연장이 쓸모가 없을 것이라 일어나 너를 대적하여 송사하는 모든 혀는 네게 정죄를 당하리니 이는 여호와의 종들의 기업이요 이는 그들이 내게서 얻은 공의니라', niv:'No weapon forged against you will prevail, and you will refute every tongue that accuses you. This is the heritage of the servants of the Lord, and this is their vindication from me, declares the Lord.' },
-    { cat:'proclaim', ref:'히브리서 13:6', text:'주는 나를 돕는 이시니 내가 무서워하지 아니하겠노라 사람이 내게 어찌하리요', niv:'The Lord is my helper; I will not be afraid. What can mere mortals do to me?' },
-
-    { cat:'thanks', ref:'데살로니가전서 5:18', text:'범사에 감사하라 이것이 그리스도 예수 안에서 너희를 향하신 하나님의 뜻이니라', niv:'Give thanks in all circumstances; for this is God’s will for you in Christ Jesus.' },
-    { cat:'thanks', ref:'시편 100:4', text:'감사함으로 그의 문에 들어가며 찬송함으로 그의 궁정에 들어가서 그에게 감사하며 그의 이름을 송축할지어다', niv:'Enter his gates with thanksgiving and his courts with praise; give thanks to him and praise his name.' },
-    { cat:'thanks', ref:'골로새서 3:17', text:'무엇을 하든지 말에나 일에나 다 주 예수의 이름으로 하고 그를 힘입어 하나님 아버지께 감사하라', niv:'And whatever you do, whether in word or deed, do it all in the name of the Lord Jesus, giving thanks to God the Father through him.' },
-    { cat:'thanks', ref:'시편 136:1', text:'여호와께 감사하라 그는 선하시며 그 인자하심이 영원함이로다', niv:'Give thanks to the Lord, for he is good. His love endures forever.' },
-
-    { cat:'praise', ref:'시편 150:6', text:'호흡이 있는 자마다 여호와를 찬양할지어다 할렐루야', niv:'Let everything that has breath praise the Lord. Praise the Lord.' },
-    { cat:'praise', ref:'시편 34:1', text:'내가 여호와를 항상 송축함이여 내 입술로 항상 주를 찬양하리이다', niv:'I will extol the Lord at all times; his praise will always be on my lips.' },
-    { cat:'praise', ref:'시편 103:1', text:'내 영혼아 여호와를 송축하라 내 속에 있는 것들아 다 그의 거룩한 이름을 송축하라', niv:'Praise the Lord, my soul; all my inmost being, praise his holy name.' },
-    { cat:'praise', ref:'이사야 12:5', text:'여호와를 찬송할 것은 극히 아름다운 일을 하셨음이니 이를 온 땅에 알게 할지어다', niv:'Sing to the Lord, for he has done glorious things; let this be known to all the world.' },
-
-    { cat:'healing', ref:'이사야 53:5', text:'그가 찔림은 우리의 허물 때문이요 그가 상함은 우리의 죄악 때문이라 그가 징계를 받으므로 우리는 평화를 누리고 그가 채찍에 맞으므로 우리는 나음을 받았도다', niv:'But he was pierced for our transgressions, he was crushed for our iniquities; the punishment that brought us peace was on him, and by his wounds we are healed.' },
-    { cat:'healing', ref:'예레미야 17:14', text:'여호와여 주는 나의 찬송이시오니 나를 고치소서 그리하시면 내가 낫겠나이다 나를 구원하소서 그리하시면 내가 구원을 얻으리이다', niv:'Heal me, Lord, and I will be healed; save me and I will be saved, for you are the one I praise.' },
-    { cat:'healing', ref:'시편 147:3', text:'상심한 자들을 고치시며 그들의 상처를 싸매시는도다', niv:'He heals the brokenhearted and binds up their wounds.' },
-    { cat:'healing', ref:'말라기 4:2', text:'내 이름을 경외하는 너희에게는 공의로운 해가 떠올라서 치료하는 광선을 비추리니 너희가 나가서 외양간에서 나온 송아지 같이 뛰리라', niv:'But for you who revere my name, the sun of righteousness will rise with healing in its rays. And you will go out and frolic like well-fed calves.' },
-
-    { cat:'blessing', ref:'민수기 6:24-26', text:'여호와는 네게 복을 주시고 너를 지키시기를 원하며 여호와는 그의 얼굴을 네게 비추사 은혜 베푸시기를 원하며 여호와는 그 얼굴을 네게로 향하여 드사 평강 주시기를 원하노라', niv:'The Lord bless you and keep you; the Lord make his face shine on you and be gracious to you; the Lord turn his face toward you and give you peace.' },
-    { cat:'blessing', ref:'창세기 12:2', text:'내가 너로 큰 민족을 이루고 네게 복을 주어 네 이름을 창대하게 하리니 너는 복이 될지라', niv:'I will make you into a great nation, and I will bless you; I will make your name great, and you will be a blessing.' },
-    { cat:'blessing', ref:'시편 1:3', text:'그는 시냇가에 심은 나무가 철을 따라 열매를 맺으며 그 잎사귀가 마르지 아니함 같으니 그가 하는 모든 일이 다 형통하리로다', niv:'That person is like a tree planted by streams of water, which yields its fruit in season and whose leaf does not wither—whatever they do prospers.' },
-    { cat:'blessing', ref:'잠언 10:22', text:'여호와께서 주시는 복은 사람을 부하게 하고 근심을 겸하여 주지 아니하시느니라', niv:'The blessing of the Lord brings wealth, without painful toil for it.' },
-    { cat:'blessing', ref:'에베소서 1:3', text:'찬송하리로다 하나님 곧 우리 주 예수 그리스도의 아버지께서 그리스도 안에서 하늘에 속한 모든 신령한 복을 우리에게 주시되', niv:'Praise be to the God and Father of our Lord Jesus Christ, who has blessed us in the heavenly realms with every spiritual blessing in Christ.' }
-  ];
-
-  var CAT_LABEL = {};
-  CATEGORIES.forEach(function(c){ if (c.key !== 'all') CAT_LABEL[c.key] = c.label; });
-
-  var filterRow = document.getElementById('filter-row');
-  var currentFilter = 'all';
-  var shownCount = 0;
-  var queue = [];
-  var lastRef = null;
-
-  CATEGORIES.forEach(function(c){
-    var btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'filter-chip';
-    btn.textContent = c.label;
-    btn.setAttribute('aria-pressed', c.key === 'all' ? 'true' : 'false');
-    btn.addEventListener('click', function(){
-      currentFilter = c.key;
-      filterRow.querySelectorAll('.filter-chip').forEach(function(b){ b.setAttribute('aria-pressed', 'false'); });
-      btn.setAttribute('aria-pressed', 'true');
-      queue = [];
-      showNext();
-    });
-    filterRow.appendChild(btn);
-  });
-
-  function pool(){
-    return currentFilter === 'all' ? VERSES : VERSES.filter(function(v){ return v.cat === currentFilter; });
-  }
-
-  // 셔플백 방식: 현재 필터의 구절을 전부 한 번씩 다 보여준 뒤에만 다시 채워서
-  // 카드가 적어도 한 바퀴(pool 전체) 돌기 전에는 같은 구절이 반복되지 않게 한다.
-  function shuffledIndexes(n){
-    var idxs = [];
-    for (var i = 0; i < n; i++) idxs.push(i);
-    for (var i = idxs.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = idxs[i]; idxs[i] = idxs[j]; idxs[j] = tmp;
-    }
-    return idxs;
-  }
-
-  var cardEl = document.getElementById('shout-card');
-  var tagEl = document.getElementById('shout-tag');
-  var textEl = document.getElementById('shout-text');
-  var refEl = document.getElementById('shout-ref');
-  var nivEl = document.getElementById('shout-niv');
-  var countEl = document.getElementById('shout-count');
-
-  function renderVerse(v){
-    tagEl.textContent = CAT_LABEL[v.cat];
-    textEl.textContent = '“' + v.text + '”';
-    refEl.textContent = v.ref;
-    nivEl.textContent = v.niv ? '“' + v.niv + '” (NIV)' : '';
-  }
-
-  function showNext(){
-    var list = pool();
-    if (list.length === 0) return;
-
-    if (queue.length === 0) {
-      queue = shuffledIndexes(list.length);
-      // 이전 카드와 새 바퀴의 첫 카드가 우연히 같으면 순서를 바꿔 이어서 반복되는 것을 막는다.
-      if (queue.length > 1 && list[queue[0]].ref === lastRef) {
-        queue.push(queue.shift());
-      }
-    }
-
-    var idx = queue.shift();
-    var v = list[idx];
-    lastRef = v.ref;
-
-    cardEl.classList.add('fading');
-    setTimeout(function(){
-      renderVerse(v);
-      cardEl.classList.remove('fading');
-    }, 140);
-
-    shownCount += 1;
-    countEl.textContent = shownCount + '번째 말씀';
-  }
-
-  document.getElementById('shout-next').addEventListener('click', showNext);
-
-  // 첫 화면은 매일 한 구절씩(VERSES 전체를 날짜순으로 순환) 정해지는 "오늘의 암송구절"을 보여준다.
-  // 그 후 "다음 말씀 보기"를 누르면 기존처럼 카테고리별 셔플 방식으로 넘어간다.
-  // "오늘의 말씀"과 동일하게 전날 오후 11시부터 다음 날짜 구절로 미리 넘어간다.
-  (function showToday(){
+  if (ALL_VERSES.length === 0) {
+    host.innerHTML = '<p class="shout-empty">아직 준비된 암송구절이 없습니다.</p>';
+  } else {
+    // 매일 새벽 5시를 기준으로 그 날의 구절로 갱신(성경통독과 동일한 방식).
+    // 2026-01-01을 0번째 날로 삼아, 구약 329개+신약 267개=총 591개 구절을 순서대로
+    // 하루 한 구절씩 돌며, 다 돌면(약 1년 7개월) 처음부터 다시 순환한다.
+    var EPOCH = new Date(2026, 0, 1);
     var now = new Date();
-    if (now.getHours() >= 23) now.setDate(now.getDate() + 1);
-    var start = new Date(now.getFullYear(), 0, 0);
-    var dayOfYear = Math.floor((now - start) / 86400000);
-    var v = VERSES[dayOfYear % VERSES.length];
-    lastRef = v.ref;
-    renderVerse(v);
-    var dateStr = now.toLocaleDateString('ko-KR', { month:'long', day:'numeric', weekday:'long' });
-    countEl.textContent = '오늘의 암송구절 · ' + dateStr;
-  })();
+    if (now.getHours() < 5) now.setDate(now.getDate() - 1);
+    now.setHours(0, 0, 0, 0);
+    var epochMidnight = new Date(EPOCH.getFullYear(), EPOCH.getMonth(), EPOCH.getDate());
+    var daysSinceEpoch = Math.floor((now - epochMidnight) / 86400000);
+    var idx = ((daysSinceEpoch % ALL_VERSES.length) + ALL_VERSES.length) % ALL_VERSES.length;
+    var v = ALL_VERSES[idx];
+
+    var dateStr = new Date().toLocaleDateString('ko-KR', { year:'numeric', month:'long', day:'numeric', weekday:'long' });
+
+    var card = document.createElement('div');
+    card.className = 'shout-card';
+
+    var textHtml = v.text.split(' / ').map(function (part) {
+      return '<span class="line">' + part.trim() + '</span>';
+    }).join('<br>');
+
+    card.innerHTML =
+      '<div class="shout-date">' + dateStr + '</div>' +
+      '<span class="shout-tag">' + v.book + '</span>' +
+      '<p class="shout-text">“' + textHtml + '”</p>' +
+      '<div class="shout-ref">' + v.ref + '</div>' +
+      '<div class="shout-topic">' + v.topic + '</div>';
+    host.appendChild(card);
+
+    var progress = document.createElement('p');
+    progress.className = 'shout-progress';
+    progress.textContent = '전체 ' + ALL_VERSES.length + '구절 중 ' + (idx + 1) + '번째';
+    host.appendChild(progress);
+  }
 </script>
 <script>
   if ('serviceWorker' in navigator) {

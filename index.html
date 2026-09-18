@@ -334,6 +334,8 @@
     document.getElementById('badge-total').src = base + '%EB%B0%A9%EB%AC%B8&page_id=' + totalKey;
   })();
   var today = new Date();
+  // "오늘의 말씀"은 전날 오후 11시부터 다음 날짜 묵상으로 미리 넘어간다(자정이 아니라 밤 11시에 갱신).
+  if (today.getHours() >= 23) today.setDate(today.getDate() + 1);
   var todayKey = ymd(today);
   // 아직 오지 않은 날짜(다음 날 이후)의 묵상은 미리 보여주지 않는다 — 오늘 이하 날짜 중 가장 최근 항목까지만 노출.
   var verseActiveIdx = 0;

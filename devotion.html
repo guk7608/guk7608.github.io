@@ -265,7 +265,10 @@
   }
 
   // 아직 오지 않은 날짜(다음 날 이후)의 묵상은 다음글/게시판 어디서도 노출하지 않는다.
-  var todayKey = ymd(new Date());
+  // "오늘의 말씀"과 동일하게 전날 오후 11시부터 다음 날짜 묵상으로 미리 넘어간다.
+  var nowForToday = new Date();
+  if (nowForToday.getHours() >= 23) nowForToday.setDate(nowForToday.getDate() + 1);
+  var todayKey = ymd(nowForToday);
   var activeIdx = 0;
   for (var ai = 0; ai < sermonVerses.length; ai++) {
     if (sermonVerses[ai].date <= todayKey) activeIdx = ai;

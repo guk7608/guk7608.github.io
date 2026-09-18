@@ -72,13 +72,7 @@
         <a href="#thisweek">이주의 말씀</a>
         <a href="#bible-plan">성경통독</a>
         <a href="#album">앨범</a>
-        <div class="nav-item has-submenu" id="dept-news-item">
-          <button type="button" class="nav-parent" id="dept-news-toggle" aria-haspopup="true" aria-expanded="false">부서 소식</button>
-          <div class="submenu">
-            <a href="board.html?dept=worship">엘리사마 찬양단</a>
-            <a href="board.html?dept=youth">마하나님 청년부</a>
-          </div>
-        </div>
+        <a href="dept-news.html">부서 소식</a>
         <a href="#service">예배시간</a>
         <a href="#location">오시는길</a>
       </nav>
@@ -428,7 +422,7 @@
       menuToggle.setAttribute('aria-label', isOpen ? '메뉴 닫기' : '메뉴 열기');
     });
 
-    navLinksEl.querySelectorAll(':scope > a, .submenu a').forEach(function(a){
+    navLinksEl.querySelectorAll('a').forEach(function(a){
       a.addEventListener('click', closeMenu);
     });
 
@@ -441,22 +435,6 @@
       if (navLinksEl.contains(e.target) || menuToggle.contains(e.target)) return;
       closeMenu();
     });
-
-    var deptItem = document.getElementById('dept-news-item');
-    var deptToggle = document.getElementById('dept-news-toggle');
-    if (deptItem && deptToggle) {
-      deptToggle.addEventListener('click', function(e){
-        e.stopPropagation();
-        var isOpen = deptItem.classList.toggle('open');
-        deptToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      });
-      document.addEventListener('click', function(e){
-        if (!deptItem.classList.contains('open')) return;
-        if (deptItem.contains(e.target)) return;
-        deptItem.classList.remove('open');
-        deptToggle.setAttribute('aria-expanded', 'false');
-      });
-    }
   })();
 </script>
 <script>

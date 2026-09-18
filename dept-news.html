@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>부서 소식 · 성광감리교회</title>
+<meta name="description" content="성광감리교회 엘리사마 찬양단·마하나님 청년부 소식 게시판 바로가기.">
+<link rel="canonical" href="https://guk7608.github.io/dept-news.html">
+<link rel="icon" type="image/png" href="https://guk7608.github.io/favicon.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#a85a3c">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="성광감리교회">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f6f4ef; --surface:#fffdf9; --ink:#20242c; --ink-soft:#565b66;
+    --line:#e1dccf; --gold:#c99a3c; --gold-ink:#5a4213; --brick:#a85a3c;
+    --shadow: 0 18px 40px -22px rgba(32,36,44,0.35);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#14161c; --surface:#1b1e26; --ink:#eae7de; --ink-soft:#a9a79e;
+      --line:#31353f; --gold:#e3b357; --gold-ink:#241a08; --brick:#d98a68;
+      --shadow: 0 18px 40px -20px rgba(0,0,0,0.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#14161c; --surface:#1b1e26; --ink:#eae7de; --ink-soft:#a9a79e;
+    --line:#31353f; --gold:#e3b357; --gold-ink:#241a08; --brick:#d98a68;
+    --shadow: 0 18px 40px -20px rgba(0,0,0,0.6);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Noto Sans KR", -apple-system, sans-serif; line-height:1.75;
+    -webkit-font-smoothing:antialiased; word-break:keep-all; overflow-wrap:break-word;
+  }
+  h1,.serif{font-family:"Noto Serif KR", serif; text-wrap:balance; letter-spacing:-0.01em;}
+  a{color:inherit;}
+  .wrap{max-width:720px; margin:0 auto; padding:0 24px;}
+
+  header.site{
+    position:sticky; top:0; z-index:20;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter:blur(10px); border-bottom:1px solid var(--line);
+  }
+  .navbar{display:flex; align-items:center; justify-content:space-between; padding:16px 24px; max-width:720px; margin:0 auto;}
+  .brand{display:flex; align-items:center; gap:10px; font-family:"Noto Serif KR",serif; font-weight:700; font-size:1.1rem; text-decoration:none;}
+  .brand img{width:22px; height:22px; flex:none;}
+  .home-link{font-size:0.88rem; font-weight:600; color:var(--ink-soft); text-decoration:none;}
+  .home-link:hover{color:var(--brick);}
+
+  main{padding:48px 0 80px;}
+  .page-head{margin-bottom:32px;}
+  .page-head .kicker{font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--brick); font-weight:700; margin:0 0 10px;}
+  .page-head h1{font-size:clamp(1.6rem,4vw,2.1rem); margin:0 0 10px; font-weight:700;}
+  .page-head p{color:var(--ink-soft); margin:0; max-width:60ch;}
+
+  .dept-list{display:flex; flex-direction:column; gap:14px;}
+  .dept-card{
+    display:flex; align-items:center; gap:18px; text-decoration:none;
+    background:var(--surface); border:1px solid var(--line); border-radius:12px;
+    box-shadow:var(--shadow); padding:22px 24px; transition:transform .15s ease, border-color .15s ease;
+  }
+  .dept-card:hover{transform:translateY(-2px); border-color:var(--brick);}
+  .dept-icon{
+    width:44px; height:44px; flex:none; border-radius:50%; border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; font-size:1.2rem; color:var(--brick);
+  }
+  .dept-card strong{display:block; font-size:1.05rem; font-weight:700;}
+  .dept-card small{display:block; font-size:0.85rem; color:var(--ink-soft); margin-top:4px;}
+  .dept-arrow{margin-left:auto; color:var(--brick); font-weight:400; flex:none;}
+
+  footer{border-top:1px solid var(--line); padding:28px 0 40px; color:var(--ink-soft); font-size:0.85rem; text-align:center;}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="navbar">
+    <a class="brand" href="index.html">
+      <img src="kmc-logo.gif" alt="기독교대한감리회">
+      성광감리교회
+    </a>
+    <a class="home-link" href="index.html">← 홈으로</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="page-head">
+      <p class="kicker">Department News</p>
+      <h1>부서 소식</h1>
+      <p>부서를 선택하시면 소식과 영상을 나누는 게시판으로 이동합니다.</p>
+    </div>
+
+    <div class="dept-list">
+      <a class="dept-card" href="board.html?dept=worship">
+        <span class="dept-icon" aria-hidden="true">🎵</span>
+        <span>
+          <strong>엘리사마 찬양단</strong>
+          <small>찬양단 소식과 연습 영상을 나눕니다</small>
+        </span>
+        <b class="dept-arrow" aria-hidden="true">↗</b>
+      </a>
+      <a class="dept-card" href="board.html?dept=youth">
+        <span class="dept-icon" aria-hidden="true">🌱</span>
+        <span>
+          <strong>마하나님 청년부</strong>
+          <small>청년부 소식과 모임 영상을 나눕니다</small>
+        </span>
+        <b class="dept-arrow" aria-hidden="true">↗</b>
+      </a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">© <span id="year"></span> 성광감리교회 · 강원특별자치도 삼척시 도계읍 도계우회로2길 48</div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('service-worker.js').catch(function(){});
+    });
+  }
+</script>
+</body>
+</html>

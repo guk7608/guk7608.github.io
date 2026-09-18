@@ -28,6 +28,14 @@ header.site{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--
 .links a:hover{color:var(--primary)}
 .menu-toggle{display:none;background:none;border:0;color:var(--ink);padding:10px;cursor:pointer}
 .menu-toggle svg{width:24px;height:24px;display:block}
+.nav-item.has-submenu{position:relative}
+.nav-parent{display:flex;align-items:center;gap:4px;background:none;border:0;font:inherit;font-size:13px;font-weight:500;color:var(--ink-soft);padding:8px 0;cursor:pointer}
+.nav-parent:hover{color:var(--primary)}
+.nav-parent:after{content:"";width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:5px solid currentColor;opacity:.6}
+.submenu{display:none;position:absolute;top:100%;left:0;min-width:170px;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);padding:6px;z-index:20}
+.submenu a{display:block;padding:9px 10px;font-size:13px;color:var(--ink-soft);text-decoration:none;border-radius:6px;white-space:nowrap}
+.submenu a:hover{background:var(--surface-2);color:var(--primary)}
+.nav-item.has-submenu:hover .submenu,.nav-item.has-submenu:focus-within .submenu,.nav-item.has-submenu.open .submenu{display:block}
 
 section{padding:82px 0;scroll-margin-top:16px}
 .hero{padding:0;background:var(--surface-2);overflow:hidden}
@@ -142,6 +150,11 @@ footer{padding:22px 0 30px;color:var(--ink-soft);font-size:11px}
 .links.open{display:flex;flex-direction:column;gap:0}
 .links a{padding:12px 4px;border-bottom:1px solid var(--line);font-size:14px}
 .links a:last-child{border:0}
+.nav-item.has-submenu{position:static}
+.nav-parent{width:100%;justify-content:space-between;padding:12px 4px;border-bottom:1px solid var(--line);font-size:14px}
+.submenu{position:static;display:none;box-shadow:none;border:0;padding:0 0 0 14px;background:none;min-width:0}
+.nav-item.has-submenu.open .submenu{display:block}
+.submenu a{padding:11px 4px;border-bottom:1px solid var(--line);font-size:13px}
 .quick-links a{gap:12px;padding:10px 18px}
 .quick-icon{display:none}
 .hero-inner{padding-top:48px;padding-bottom:48px}

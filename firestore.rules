@@ -16,6 +16,13 @@ service cloud.firestore {
     match /pageComments/{pageKey} {
       allow read, write: if true;
     }
+    // 부서 소식 게시판(엘리사마 찬양단 / 마하나님 청년부) 전용 — 위와 같은 이유로
+    // 로그인 없이 공개 read/write를 허용한다. 부서 글쓰기 비밀번호·관리자 삭제 비밀번호는
+    // 클라이언트(board.js)에서만 검사하는 최소한의 문턱이며, 이 저장소가 공개 저장소이므로
+    // 그 비밀번호 값 자체도 누구나 볼 수 있다는 점을 인지할 것.
+    match /boardPosts/{dept}/posts/{postId} {
+      allow read, write: if true;
+    }
     // 다른 모든 컬렉션은 기본적으로 차단(추후 회원관리 기능 도입 시 별도 규칙 추가)
     match /{document=**} {
       allow read, write: if false;

@@ -5,10 +5,10 @@
 // (firestore.rules 참고, syncCodes/pageComments와 같은 개방 방식).
 
 var BOARD_DEPTS = {
-  worship: { name: '엘리사마 찬양단', writePass: 'chanyang1004' },
-  youth:   { name: '마하나님 청년부', writePass: 'youth1004' }
+  worship: { name: '엘리사마 찬양단', writePass: 'tjdrhkd2539' },
+  youth:   { name: '마하나님 청년부', writePass: 'tjdrhkd2539' }
 };
-var BOARD_ADMIN_PASS = 'admin5012';
+var BOARD_ADMIN_PASS = 'tjdrhkd5012';
 
 function extractYouTubeId(url) {
   if (!url) return null;

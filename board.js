@@ -65,7 +65,7 @@ function initBoard(dept) {
       var meta = document.createElement('div');
       meta.className = 'board-meta';
       var d = new Date(p.createdAt);
-      meta.textContent = (p.author || '익명') + ' · ' + d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'numeric', day: 'numeric' });
+      meta.textContent = (p.author || '익명') + ' · ' + d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'numeric', day: 'numeric' }) + (p.editedAt ? ' · 수정됨' : '');
       item.appendChild(meta);
 
       var h3 = document.createElement('h3');
@@ -104,9 +104,24 @@ function initBoard(dept) {
         }
       }
 
+      var actions = document.createElement('div');
+      actions.className = 'board-actions';
+
+      var editBtn = document.createElement('button');
+      editBtn.type = 'button';
+      editBtn.className = 'board-action-btn';
+      editBtn.textContent = '수정';
+      editBtn.addEventListener('click', function () {
+        var pass = window.prompt('관리자 비밀번호를 입력하세요.');
+        if (pass === null) return;
+        if (pass !== BOARD_ADMIN_PASS) { window.alert('비밀번호가 올바르지 않습니다.'); return; }
+        showEditForm(item, doc.id, p);
+      });
+      actions.appendChild(editBtn);
+
       var delBtn = document.createElement('button');
       delBtn.type = 'button';
-      delBtn.className = 'board-delete';
+      delBtn.className = 'board-action-btn';
       delBtn.textContent = '삭제';
       delBtn.addEventListener('click', function () {
         var pass = window.prompt('관리자 비밀번호를 입력하세요.');
@@ -116,9 +131,84 @@ function initBoard(dept) {
           window.alert('삭제에 실패했습니다: ' + err.message);
         });
       });
-      item.appendChild(delBtn);
+      actions.appendChild(delBtn);
+
+      item.appendChild(actions);
 
       listEl.appendChild(item);
+    });
+  }
+
+  function showEditForm(item, postId, p) {
+    item.innerHTML = '';
+
+    var form = document.createElement('form');
+    form.className = 'board-form board-edit-form';
+
+    var titleInput = document.createElement('input');
+    titleInput.type = 'text';
+    titleInput.maxLength = 60;
+    titleInput.placeholder = '제목';
+    titleInput.value = p.title || '';
+    titleInput.required = true;
+
+    var contentInput = document.createElement('textarea');
+    contentInput.rows = 4;
+    contentInput.maxLength = 1000;
+    contentInput.placeholder = '내용을 입력해 주세요.';
+    contentInput.value = p.content || '';
+
+    var videoInput = document.createElement('input');
+    videoInput.type = 'url';
+    videoInput.placeholder = '영상 링크 (선택, 유튜브 주소)';
+    videoInput.value = p.videoUrl || '';
+
+    var row = document.createElement('div');
+    row.className = 'board-form-row';
+
+    var errorSpan = document.createElement('span');
+    errorSpan.className = 'board-error';
+
+    var cancelBtn = document.createElement('button');
+    cancelBtn.type = 'button';
+    cancelBtn.className = 'board-action-btn';
+    cancelBtn.textContent = '취소';
+    cancelBtn.addEventListener('click', loadPosts);
+
+    var saveBtn = document.createElement('button');
+    saveBtn.type = 'submit';
+    saveBtn.textContent = '저장';
+
+    row.appendChild(errorSpan);
+    row.appendChild(cancelBtn);
+    row.appendChild(saveBtn);
+
+    form.appendChild(titleInput);
+    form.appendChild(contentInput);
+    form.appendChild(videoInput);
+    form.appendChild(row);
+    item.appendChild(form);
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      errorSpan.textContent = '';
+      var newTitle = titleInput.value.trim();
+      var newContent = contentInput.value.trim();
+      var newVideo = videoInput.value.trim();
+      if (!newTitle) { errorSpan.textContent = '제목을 입력해 주세요.'; return; }
+      if (newTitle.length > 60) { errorSpan.textContent = '제목은 60자 이내로 작성해 주세요.'; return; }
+      if (newContent.length > 1000) { errorSpan.textContent = '내용은 1000자 이내로 작성해 주세요.'; return; }
+
+      saveBtn.disabled = true;
+      colRef.doc(postId).update({
+        title: newTitle,
+        content: newContent,
+        videoUrl: newVideo || null,
+        editedAt: Date.now()
+      }).then(loadPosts).catch(function (err) {
+        errorSpan.textContent = '저장에 실패했습니다: ' + err.message;
+        saveBtn.disabled = false;
+      });
     });
   }
 

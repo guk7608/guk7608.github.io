@@ -71,11 +71,14 @@
   .board-video{position:relative; width:100%; padding-top:56.25%; border-radius:8px; overflow:hidden; margin-bottom:8px;}
   .board-video iframe{position:absolute; inset:0; width:100%; height:100%; border:0;}
   .board-video-link{display:inline-block; font-size:0.9rem; font-weight:600; color:var(--brick); text-decoration:none;}
-  .board-delete{
-    position:absolute; top:16px; right:16px; background:none; border:1px solid var(--line);
+  .board-actions{position:absolute; top:16px; right:16px; display:flex; gap:8px;}
+  .board-action-btn{
+    background:none; border:1px solid var(--line);
     border-radius:6px; padding:4px 10px; font-size:0.78rem; color:var(--ink-soft); cursor:pointer;
   }
-  .board-delete:hover{color:var(--brick); border-color:var(--brick);}
+  .board-action-btn:hover{color:var(--brick); border-color:var(--brick);}
+  .board-edit-form{margin-top:4px;}
+  .board-form-row .board-action-btn{background:none; color:var(--ink-soft); font-weight:400;}
 
   .board-write{background:var(--surface); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow); padding:24px;}
   .board-write h2{font-size:1.05rem; margin:0 0 16px;}

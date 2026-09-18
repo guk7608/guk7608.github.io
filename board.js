@@ -141,7 +141,7 @@ function initBoard(dept) {
     var title = document.getElementById('board-post-title').value.trim();
     var content = document.getElementById('board-content').value.trim();
     var videoUrl = document.getElementById('board-video-url').value.trim();
-    var pass = document.getElementById('board-write-pass').value;
+    var pass = document.getElementById('board-write-pass').value.trim();
 
     if (!title) { errorEl.textContent = '제목을 입력해 주세요.'; return; }
     if (title.length > 60) { errorEl.textContent = '제목은 60자 이내로 작성해 주세요.'; return; }

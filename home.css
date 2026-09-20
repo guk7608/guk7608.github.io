@@ -74,10 +74,10 @@ section{padding:82px 0;scroll-margin-top:16px}
 .verse-card,.week-card,.bible-card{display:block;position:relative;text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:30px 32px;background:var(--surface);flex:1;transition:transform .2s,border-color .2s}
 .verse-card{background:var(--pastel-card);padding:38px 42px;border-color:transparent}
 .verse-card:hover,.week-card:hover,.bible-card:hover{transform:translateY(-3px);border-color:var(--brick)}
-.verse-date,.week-date,.bible-date{font-size:11px;font-weight:500;color:var(--brick);letter-spacing:.06em;margin-bottom:18px}
-.verse-text{font-family:"Noto Serif KR",serif;font-size:clamp(20px,2.2vw,27px);line-height:1.8;margin:0 0 22px;font-weight:500;max-width:55ch}
+.verse-date,.week-date,.bible-date{font-size:11px;font-weight:500;color:var(--brick);letter-spacing:.06em;margin-bottom:8px}
+.verse-text{font-family:"Noto Serif KR",serif;font-size:clamp(20px,2.2vw,27px);line-height:1.8;margin:0;font-weight:500;max-width:55ch}
 .verse-ref,.week-ref{font-size:13px;color:var(--brick);font-weight:500}
-.verse-series{font-size:12px;color:var(--ink-soft);margin-top:5px}
+.verse-series{font-size:12px;color:var(--ink-soft);margin-top:5px;margin-bottom:22px}
 .verse-more,.week-more,.bible-more,.album-more{font-size:12px;font-weight:500;color:var(--brick);margin-top:24px}
 .week-title,.bible-text{font-size:22px;font-weight:500;margin-bottom:12px}
 .week-ref{margin-bottom:0}

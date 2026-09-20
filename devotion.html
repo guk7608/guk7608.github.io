@@ -88,15 +88,15 @@
   .card-body{position:relative; z-index:1;}
   .devo-date{
     font-size:0.82rem; letter-spacing:0.08em; color:#f4dfae; font-weight:700;
-    display:flex; align-items:center; gap:10px; margin-bottom:20px;
+    display:flex; align-items:center; gap:10px; margin-bottom:10px;
   }
   .devo-date::before{content:"☀"; font-size:1rem;}
   blockquote.devo-verse{
-    margin:0 0 18px; font-family:"Noto Serif KR",serif;
+    margin:0; font-family:"Noto Serif KR",serif;
     font-size:1.05rem; font-weight:500; line-height:1.85;
   }
   .devo-ref{font-weight:700; color:#f4dfae; font-size:0.98rem;}
-  .devo-series{font-size:0.85rem; color:#efe3c8cc; margin-top:4px;}
+  .devo-series{font-size:0.85rem; color:#efe3c8cc; margin-top:4px; margin-bottom:18px;}
 
   .reflection{
     background:var(--surface); border:1px solid var(--line); border-radius:8px;
@@ -216,9 +216,9 @@
       </div>
       <div class="card-body">
         <div class="devo-date" id="devo-date">불러오는 중…</div>
-        <blockquote class="devo-verse" id="devo-verse"></blockquote>
         <div class="devo-ref" id="devo-ref"></div>
         <div class="devo-series" id="devo-series"></div>
+        <blockquote class="devo-verse" id="devo-verse"></blockquote>
       </div>
     </div>
 

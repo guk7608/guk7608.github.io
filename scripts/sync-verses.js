@@ -31,6 +31,11 @@ function parseVerseList(sectionText, startChapter) {
   return list;
 }
 
+const SUPERSCRIPT_DIGITS = { '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹' };
+function toSuperscript(numStr) {
+  return String(numStr).split('').map(c => SUPERSCRIPT_DIGITS[c] || c).join('');
+}
+
 function log(msg) {
   const line = `[${new Date().toISOString()}] ${msg}`;
   console.log(line);
@@ -83,8 +88,14 @@ function parseSermon(filePath, fileName) {
     log(`안내: ${fileName} 에 "## 새벽묵상 (700-800자 내외)" 섹션이 없어 묵상문 없이 게재됨`);
   }
 
-  // 본문 전체(모든 절)를 하나의 성구 텍스트로 합친다 — 상세페이지에서 전체 본문을 보여주기 위함.
-  const fullPassage = verseList.map(v => v.text).join(' ');
+  // 본문 전체(모든 절)를 절 번호(위첨자 숫자)와 함께 하나의 성구 텍스트로 합친다 — 상세페이지에서 보여주기 위함.
+  const fullPassage = verseList
+    .map((v, i) => {
+      const chapterChanged = i > 0 && v.chapter !== verseList[i - 1].chapter;
+      const label = chapterChanged ? `${toSuperscript(v.chapter)}:${toSuperscript(v.verse)}` : toSuperscript(v.verse);
+      return `${label} ${v.text}`;
+    })
+    .join(' ');
   const lastVerse = verseList[verseList.length - 1];
   const fullRef = verseList.length > 1
     ? `${book} ${startChapter}:${startVerse}-${lastVerse.chapter !== startChapter ? lastVerse.chapter + ':' : ''}${lastVerse.verse}`

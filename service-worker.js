@@ -3,7 +3,7 @@
 // 마지막으로 저장된 캐시를 보여준다. 새벽묵상/이주의 말씀 데이터가 30분마다 갱신되므로
 // 오래된 캐시를 우선 보여주는 방식(캐시 우선)은 쓰지 않는다.
 
-const CACHE_NAME = 'skchurch-v5';
+const CACHE_NAME = 'skchurch-v6';
 const PRECACHE_URLS = [
   './',
   'index.html',

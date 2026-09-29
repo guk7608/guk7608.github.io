@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Работа в ресторане «Кодон Тансуюк», г. Тонхэ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;800&family=Noto+Sans+KR:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sea: #0f4c5c;
+    --sea-deep: #0a3440;
+    --foam: #eef5f6;
+    --ink: #1c2629;
+    --muted: #55666b;
+    --sun: #f2a33a;
+    --line: #cfdfe2;
+    --bg: #ffffff;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --sea: #6fb7c7; --sea-deep: #0b2a33; --foam: #13262b;
+      --ink: #e7eff1; --muted: #9fb3b8; --line: #28444b; --bg: #0e1a1d;
+    }
+  }
+  :root[data-theme="dark"] {
+    --sea: #6fb7c7; --sea-deep: #0b2a33; --foam: #13262b;
+    --ink: #e7eff1; --muted: #9fb3b8; --line: #28444b; --bg: #0e1a1d;
+  }
+  *, *::before, *::after { box-sizing: inherit; }
+  html, body { margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Noto Sans", "Noto Sans KR", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+  .ko { font-family: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
+
+  header {
+    background: var(--sea-deep);
+    color: #fff;
+    padding: 2.5rem 1.25rem 2rem;
+  }
+  .wrap { max-width: 40rem; margin: 0 auto; }
+  .place { color: #bfe0e6; font-size: .95rem; margin: 0 0 .5rem; }
+  h1 { font-size: clamp(1.6rem, 6vw, 2.2rem); line-height: 1.2; margin: 0 0 .4rem; font-weight: 800; }
+  h1 .ko { display: block; font-size: .6em; font-weight: 600; color: #bfe0e6; margin-top: .35rem; }
+  .pay {
+    margin-top: 1.5rem;
+    display: flex; align-items: baseline; gap: .6rem; flex-wrap: wrap;
+  }
+  .pay strong { font-size: clamp(2rem, 9vw, 2.8rem); color: var(--sun); font-weight: 800; line-height: 1; }
+  .pay span { color: #dbeef1; }
+
+  main { padding: 1.5rem 1.25rem 3rem; }
+  section { margin-bottom: 2rem; }
+  h2 { font-size: 1.2rem; margin: 0 0 .75rem; color: var(--sea); }
+
+  ul.facts { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--line); }
+  ul.facts li { padding: .8rem 0; border-bottom: 1px solid var(--line); }
+
+  .warn {
+    background: var(--foam);
+    border-left: 4px solid var(--sun);
+    padding: 1rem 1.1rem;
+    border-radius: 0 6px 6px 0;
+  }
+  .warn p { margin: 0; }
+
+  .call {
+    display: block; text-align: center; text-decoration: none;
+    background: var(--sea); color: #fff;
+    font-weight: 800; font-size: 1.25rem;
+    padding: 1rem; border-radius: 10px; margin: .5rem 0 1rem;
+  }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .call { color: #0b2a33; } }
+  .call:focus-visible, button:focus-visible { outline: 3px solid var(--sun); outline-offset: 3px; }
+
+  address { font-style: normal; }
+  address .ko { display: block; font-weight: 600; }
+  address small { color: var(--muted); font-size: .95rem; }
+
+  .script {
+    border: 1px solid var(--line); border-radius: 10px; padding: 1.1rem;
+    font-size: 1.1rem; line-height: 1.8; margin: .75rem 0;
+  }
+  .script p { margin: 0 0 .3rem; }
+  button.copy {
+    font: inherit; font-weight: 600; cursor: pointer;
+    background: transparent; color: var(--sea);
+    border: 2px solid var(--sea); border-radius: 8px; padding: .55rem 1rem;
+  }
+  .hint { color: var(--muted); font-size: .95rem; }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <p class="place">Провинция Канвондо, город Тонхэ</p>
+    <h1>Ресторан «Кодон Тансуюк»<span class="ko">거동탕수육</span></h1>
+    <p style="margin:.5rem 0 0">Иностранцы могут подать заявку на эту работу.</p>
+    <div class="pay"><strong>3 000 000</strong><span>вон в месяц</span></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section>
+    <h2>Условия</h2>
+    <ul class="facts">
+      <li>Опыт работы не требуется, можно без опыта.</li>
+      <li>Жильё и питание можно обсудить с работодателем.</li>
+    </ul>
+  </section>
+
+  <section class="warn">
+    <p>В объявлении указана виза E-3, но, возможно, это ошибка, так как эта виза обычно не относится к работе в ресторане. Поэтому необходимо обязательно уточнить у работодателя, подходит ли ваша виза.</p>
+  </section>
+
+  <section style="margin-top:2rem">
+    <h2>Контакты</h2>
+    <a class="call" href="tel:0335324778">📞 033-532-4778</a>
+    <address>
+      <span class="ko">강원특별자치도 동해시 일출로 83</span>
+      <small>(провинция Канвондо, город Тонхэ, Ильчхуль-ро 83)</small>
+    </address>
+    <p>Лучше сначала позвонить и уточнить, принимают ли сейчас иностранных работников и подходит ли ваша виза.</p>
+  </section>
+
+  <section>
+    <h2>Что сказать по-корейски</h2>
+    <p class="hint">Можно прочитать этот текст по телефону или отправить сообщением.</p>
+    <div class="script ko" id="script">
+      <p>안녕하세요. 채용공고를 보고 연락드립니다.</p>
+      <p>저는 외국인이고 식당 일을 구하고 있습니다. 요리를 잘하고 주방 일도 할 수 있습니다.</p>
+      <p>현재 외국인도 채용하고 계신가요?</p>
+      <p>제 비자로 근무가 가능한지도 알고 싶습니다.</p>
+      <p>감사합니다.</p>
+    </div>
+    <button class="copy" id="copyBtn" type="button">Скопировать текст</button>
+  </section>
+</main>
+
+<script>
+  document.getElementById('copyBtn').addEventListener('click', async function () {
+    var text = Array.from(document.querySelectorAll('#script p')).map(function (p) { return p.textContent; }).join('\n');
+    try {
+      await navigator.clipboard.writeText(text);
+      this.textContent = 'Текст скопирован';
+    } catch (e) {
+      var r = document.createRange();
+      r.selectNodeContents(document.getElementById('script'));
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      this.textContent = 'Текст выделен — скопируйте вручную';
+    }
+  });
+</script>
+</body>
+</html>

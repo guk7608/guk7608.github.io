@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://guk7608.github.io/sitemap.xml
+Sitemap: https://guk7608.github.io/blog/sitemap.xml

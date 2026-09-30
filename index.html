@@ -342,7 +342,7 @@
   var v = sermonVerses.filter(function(item){ return item.date === todayKey; })[0];
   if (!v) v = sermonVerses[verseActiveIdx];
 
-  var dateStr = today.toLocaleDateString('ko-KR', { year:'numeric', month:'long', day:'numeric', weekday:'long' });
+  var dateStr = new Date(v.date + 'T00:00:00').toLocaleDateString('ko-KR', { year:'numeric', month:'long', day:'numeric', weekday:'long' });
   document.getElementById('verse-date').textContent = dateStr + ' 말씀';
   document.getElementById('verse-text').textContent = '“' + v.verse + '”';
   document.getElementById('verse-ref').textContent = v.ref;

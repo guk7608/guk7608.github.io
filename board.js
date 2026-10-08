@@ -6,7 +6,7 @@
 
 var BOARD_DEPTS = {
   worship: { name: '엘리사마 찬양단', writePass: 'tjdrhkd2539' },
-  youth:   { name: '마하나님 청년부', writePass: 'tjdrhkd2539' }
+  youth:   { name: '마하나님 청년부', writePass: '2539' }
 };
 var BOARD_ADMIN_PASS = 'tjdrhkd5012';
 

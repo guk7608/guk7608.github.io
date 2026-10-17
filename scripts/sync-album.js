@@ -108,6 +108,7 @@ function main() {
     execFileSync('git', ['commit', '-m',
       `앨범 사진 자동 갱신 (총 ${entries.length}장)\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>`
     ], { cwd: PROJECT_DIR });
+    execFileSync('git', ['pull', '--rebase', '--autostash', '-q'], { cwd: PROJECT_DIR });
     execFileSync('git', ['push'], { cwd: PROJECT_DIR });
     log('git commit/push 완료');
   } catch (err) {

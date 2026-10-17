@@ -170,6 +170,7 @@ function main() {
     execFileSync('git', ['commit', '-m',
       `새벽묵상 자동 갱신 (${entries[entries.length - 1].date} 기준 ${entries.length}개 구절)\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>`
     ], { cwd: PROJECT_DIR });
+    execFileSync('git', ['pull', '--rebase', '--autostash', '-q'], { cwd: PROJECT_DIR });
     execFileSync('git', ['push'], { cwd: PROJECT_DIR });
     log('git commit/push 완료');
   } catch (err) {

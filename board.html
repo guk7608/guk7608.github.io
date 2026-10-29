@@ -109,7 +109,7 @@
       <img src="kmc-logo.gif" alt="기독교대한감리회">
       성광감리교회
     </a>
-    <a class="home-link" href="index.html">← 홈으로</a>
+    <a class="home-link" id="board-back" href="index.html">← 홈으로</a>
   </div>
 </header>
 
@@ -130,7 +130,7 @@
         <textarea id="board-content" rows="4" maxlength="1000" placeholder="내용을 입력해 주세요."></textarea>
         <input type="url" id="board-video-url" placeholder="영상 링크 (선택, 유튜브 주소)">
         <input type="password" id="board-write-pass" placeholder="부서 비밀번호" required>
-        <p class="board-hint">부서원끼리 공유하는 글쓰기 비밀번호입니다. 모르시면 부서 담당자에게 문의해 주세요.</p>
+        <p class="board-hint" id="board-pass-hint">부서원끼리 공유하는 글쓰기 비밀번호입니다. 모르시면 부서 담당자에게 문의해 주세요.</p>
         <div class="board-form-row">
           <span class="board-error" id="board-error"></span>
           <button type="submit">게시하기</button>
@@ -147,7 +147,7 @@
 <script src="firebase-config.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-<script src="board.js?v=2"></script>
+<script src="board.js?v=3"></script>
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
   var dept = new URLSearchParams(location.search).get('dept');

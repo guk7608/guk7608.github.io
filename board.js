@@ -1,4 +1,4 @@
-// 부서 소식 게시판 (엘리사마 찬양단 / 마하나님 청년부) 공용 스크립트.
+// 게시판 공용 스크립트 (부서 소식: 엘리사마 찬양단 / 마하나님 청년부, 로고스: 맥체인성경공부).
 // 로그인 시스템이 없으므로, 부서 비밀번호는 스팸을 줄이기 위한 최소한의 문턱일 뿐
 // 실제 보안이 아니다(이 저장소는 공개 저장소라 이 파일의 비밀번호 값도 누구나 볼 수 있음).
 // Firestore 컬렉션 boardPosts/{dept}/posts 하나에만 공개 read/write를 허용한다
@@ -6,7 +6,12 @@
 
 var BOARD_DEPTS = {
   worship: { name: '엘리사마 찬양단', writePass: '2539' },
-  youth:   { name: '마하나님 청년부', writePass: '2539' }
+  youth:   { name: '마하나님 청년부', writePass: '2539' },
+  mccheyne: {
+    name: '맥체인성경공부', writePass: '2539', pageTitle: '맥체인성경공부',
+    desc: '맥체인 성경읽기표를 따라 함께 읽고 나눈 말씀과 묵상을 기록하는 게시판입니다.',
+    backHref: 'logos.html', backLabel: '← 로고스', passLabel: '모임'
+  }
 };
 var BOARD_ADMIN_PASS = 'tjdrhkd5012';
 
@@ -31,9 +36,19 @@ function initBoard(dept) {
     return;
   }
 
-  document.title = deptInfo.name + ' 소식 · 성광감리교회';
+  document.title = (deptInfo.pageTitle || deptInfo.name + ' 소식') + ' · 성광감리교회';
   if (titleEl) titleEl.textContent = deptInfo.name;
-  if (descEl) descEl.textContent = deptInfo.name + '의 소식과 영상을 나누는 게시판입니다.';
+  if (descEl) descEl.textContent = deptInfo.desc || deptInfo.name + '의 소식과 영상을 나누는 게시판입니다.';
+  var backEl = document.getElementById('board-back');
+  if (backEl && deptInfo.backHref) {
+    backEl.href = deptInfo.backHref;
+    backEl.textContent = deptInfo.backLabel;
+  }
+  var passLabel = deptInfo.passLabel || '부서';
+  var passEl = document.getElementById('board-write-pass');
+  if (passEl) passEl.placeholder = passLabel + ' 비밀번호';
+  var hintEl = document.getElementById('board-pass-hint');
+  if (hintEl) hintEl.textContent = passLabel + '원끼리 공유하는 글쓰기 비밀번호입니다. 모르시면 ' + passLabel + ' 담당자에게 문의해 주세요.';
 
   var db = null;
   try {
@@ -236,7 +251,7 @@ function initBoard(dept) {
     if (!title) { errorEl.textContent = '제목을 입력해 주세요.'; return; }
     if (title.length > 60) { errorEl.textContent = '제목은 60자 이내로 작성해 주세요.'; return; }
     if (content.length > 1000) { errorEl.textContent = '내용은 1000자 이내로 작성해 주세요.'; return; }
-    if (pass !== deptInfo.writePass) { errorEl.textContent = '부서 비밀번호가 올바르지 않습니다.'; return; }
+    if (pass !== deptInfo.writePass) { errorEl.textContent = passLabel + ' 비밀번호가 올바르지 않습니다.'; return; }
 
     var submitBtn = formEl.querySelector('button[type="submit"]');
     submitBtn.disabled = true;

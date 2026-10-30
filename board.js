@@ -151,6 +151,16 @@ function initBoard(dept) {
         }
       }
 
+      // 첨부 파일: 주소는 글에 드러내지 않고 "다운로드" 버튼 하나로 보여 준다.
+      if (p.attachUrl && /^https?:\/\//.test(p.attachUrl)) {
+        var attach = document.createElement('a');
+        attach.className = 'board-attach';
+        attach.href = p.attachUrl;
+        attach.setAttribute('download', '');
+        attach.textContent = '📥 ' + (p.attachName || '첨부 파일') + ' 다운로드';
+        item.appendChild(attach);
+      }
+
       var actions = document.createElement('div');
       actions.className = 'board-actions';
 

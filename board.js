@@ -21,6 +21,27 @@ function extractYouTubeId(url) {
   return m ? m[1] : null;
 }
 
+// 글 내용 속 http(s) 주소를 눌러서 열 수 있는 링크로 바꿔 붙인다.
+// innerHTML을 쓰지 않고 텍스트 노드와 <a>만 만들어서, 글 내용의 HTML은 그대로 글자로 보인다.
+function appendLinkedText(el, text) {
+  var re = /https?:\/\/[^\s<>"']+/g;
+  var last = 0, m;
+  while ((m = re.exec(text)) !== null) {
+    var url = m[0].replace(/[.,!?)\]]+$/, '');
+    if (m.index > last) el.appendChild(document.createTextNode(text.slice(last, m.index)));
+    var a = document.createElement('a');
+    a.className = 'board-text-link';
+    a.href = url;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    try { a.textContent = decodeURI(url); } catch (e) { a.textContent = url; }
+    el.appendChild(a);
+    last = m.index + url.length;
+    re.lastIndex = last;
+  }
+  if (last < text.length) el.appendChild(document.createTextNode(text.slice(last)));
+}
+
 function initBoard(dept) {
   var deptInfo = BOARD_DEPTS[dept];
   var titleEl = document.getElementById('board-title');
@@ -91,7 +112,7 @@ function initBoard(dept) {
       if (p.content) {
         var body = document.createElement('p');
         body.className = 'board-item-text';
-        body.textContent = p.content;
+        appendLinkedText(body, p.content);
         item.appendChild(body);
       }
 

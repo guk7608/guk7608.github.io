@@ -21,23 +21,34 @@ function extractYouTubeId(url) {
   return m ? m[1] : null;
 }
 
-// 글 내용 속 http(s) 주소를 눌러서 열 수 있는 링크로 바꿔 붙인다.
+// 글 내용 속 링크를 눌러서 열 수 있게 바꿔 붙인다.
+//  - [다운로드](https://...) 처럼 쓰면 "다운로드" 글자에 링크가 걸린다.
+//  - 그냥 쓴 http(s) 주소도 링크가 된다.
 // innerHTML을 쓰지 않고 텍스트 노드와 <a>만 만들어서, 글 내용의 HTML은 그대로 글자로 보인다.
 function appendLinkedText(el, text) {
-  var re = /https?:\/\/[^\s<>"']+/g;
+  var re = /\[([^\]\n]{1,40})\]\((https?:\/\/[^\s)]+)\)|https?:\/\/[^\s<>"']+/g;
   var last = 0, m;
   while ((m = re.exec(text)) !== null) {
-    var url = m[0].replace(/[.,!?)\]]+$/, '');
+    var label, url, end;
+    if (m[1]) {
+      label = m[1];
+      url = m[2];
+      end = m.index + m[0].length;
+    } else {
+      url = m[0].replace(/[.,!?)\]]+$/, '');
+      try { label = decodeURI(url); } catch (e) { label = url; }
+      end = m.index + url.length;
+    }
     if (m.index > last) el.appendChild(document.createTextNode(text.slice(last, m.index)));
     var a = document.createElement('a');
     a.className = 'board-text-link';
     a.href = url;
     a.target = '_blank';
     a.rel = 'noopener';
-    try { a.textContent = decodeURI(url); } catch (e) { a.textContent = url; }
+    a.textContent = label;
     el.appendChild(a);
-    last = m.index + url.length;
-    re.lastIndex = last;
+    last = end;
+    re.lastIndex = end;
   }
   if (last < text.length) el.appendChild(document.createTextNode(text.slice(last)));
 }

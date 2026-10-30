@@ -3,7 +3,7 @@
 // 마지막으로 저장된 캐시를 보여준다. 새벽묵상/이주의 말씀 데이터가 30분마다 갱신되므로
 // 오래된 캐시를 우선 보여주는 방식(캐시 우선)은 쓰지 않는다.
 
-const CACHE_NAME = 'skchurch-v6';
+const CACHE_NAME = 'skchurch-v7';
 const PRECACHE_URLS = [
   './',
   'index.html',
@@ -38,10 +38,19 @@ self.addEventListener('activate', function (event) {
   self.clients.claim();
 });
 
+// 같은 사이트 파일은 브라우저 HTTP 캐시(GitHub Pages는 10분 보관)를 거치지 않고
+// 서버에 바뀌었는지 확인(no-cache)해서 받아온다. 그래야 홈페이지를 고친 직후에도
+// 휴대폰에서 바로 새 화면이 보인다. 다른 사이트(Firebase, 유튜브 등) 요청은 그대로 둔다.
+function freshFetch(request) {
+  if (new URL(request.url).origin !== self.location.origin) return fetch(request);
+  if (request.mode === 'navigate') return fetch(request.url, { cache: 'no-cache', credentials: 'same-origin' });
+  return fetch(request, { cache: 'no-cache' });
+}
+
 self.addEventListener('fetch', function (event) {
   if (event.request.method !== 'GET') return;
   event.respondWith(
-    fetch(event.request)
+    freshFetch(event.request)
       .then(function (response) {
         var copy = response.clone();
         caches.open(CACHE_NAME).then(function (cache) { cache.put(event.request, copy); });

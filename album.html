@@ -187,7 +187,7 @@
       byDate[date].forEach(function(p){
         var img = document.createElement('img');
         img.className = 'album-item';
-        img.src = p.file;
+        img.src = p.thumb || p.file;
         img.alt = p.caption || date;
         img.loading = 'lazy';
         img.addEventListener('click', function(){ openLightbox(p); });

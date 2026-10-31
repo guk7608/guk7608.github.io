@@ -394,7 +394,7 @@
     recent.forEach(function(p){
       var img = document.createElement('img');
       img.className = 'album-thumb';
-      img.src = p.file;
+      img.src = p.thumb || p.file;
       img.alt = p.caption || p.date;
       img.loading = 'lazy';
       preview.appendChild(img);

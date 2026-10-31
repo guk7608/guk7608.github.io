@@ -2,3 +2,4 @@ scripts/sync.log
 scripts/task_logs/
 node_modules/
 HANDOFF.md
+scripts/.album-cache.json

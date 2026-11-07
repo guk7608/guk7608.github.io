@@ -9,5 +9,6 @@ var albumPhotos = [
   {date:"2026-09-12", file:"photos/20260912_192433.jpg", caption:"20260912_192433"},
   {date:"2026-09-13", file:"photos/20260811_075158.jpg", caption:"20260811_075158"},
   {date:"2026-09-13", file:"photos/20260913_205928.jpg", caption:"20260913_205928"},
-  {date:"2026-09-13", file:"photos/20260913_205930.jpg", caption:"20260913_205930"}
+  {date:"2026-09-13", file:"photos/20260913_205930.jpg", caption:"20260913_205930"},
+  {date:"2026-11-07", file:"photos/20261107_단체1.jpg", caption:"20261107_단체1"}
 ];

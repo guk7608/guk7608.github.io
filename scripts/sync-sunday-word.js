@@ -12,6 +12,9 @@ const PROJECT_DIR = path.join(__dirname, '..');
 const DATA_JS = path.join(PROJECT_DIR, 'sunday-word-data.js');
 
 const FILENAME_RE = /^(\d{4}-\d{2}-\d{2}), (\d+)강 (.+)\.md$/;
+// 시리즈 밖 절기·특별 주일 설교(예: "2026-11-15, 추수감사주일 여기까지 도우셨습니다.md")
+// — 강수 대신 "OO주일" 라벨을 쓴다. "주보 …" 축약본은 '주일'로 끝나지 않으므로 잡히지 않는다.
+const SPECIAL_FILENAME_RE = /^(\d{4}-\d{2}-\d{2}), (\S+주일) (.+)\.md$/;
 // 본문 인용문이 시작되는 위치를 찾는 줄(장·절 범위 추출용으로는 쓰지 않음 — 발췌 인용은 범위가 조각나 있을 수 있음)
 const BODY_LINE_RE = /본문[^\n]*?[가-힣]+\s+\d+:\d+/;
 // 실제 본문 범위는 "창세기 X:Y-Z |" 형태의 제목줄(3강부터)에서 우선 추출하고,
@@ -71,7 +74,7 @@ function extractSummary(text, fileName) {
   return m[1].trim();
 }
 
-function parseOne(filePath, fileName, date, gang, title) {
+function parseOne(filePath, fileName, date, gang, title, label) {
   const text = fs.readFileSync(filePath, 'utf8');
   const bodyInfo = extractPassage(text);
   if (!bodyInfo) {
@@ -81,7 +84,7 @@ function parseOne(filePath, fileName, date, gang, title) {
   const summary = extractSummary(text, fileName);
   return {
     date,
-    series: `창세기와 복음 ${gang}강 · ${title}`,
+    series: label ? `${label} · ${title}` : `창세기와 복음 ${gang}강 · ${title}`,
     ref: `${bodyInfo.book} ${bodyInfo.range}`,
     passage: bodyInfo.passage,
     summary
@@ -129,6 +132,12 @@ function main() {
     const m = FILENAME_RE.exec(f);
     const [, date, gang, title] = m;
     const parsed = parseOne(path.join(SERMON_DIR, f), f, date, gang, title);
+    if (parsed) entries.push(parsed);
+  }
+
+  for (const f of fs.readdirSync(SERMON_DIR).filter(f => SPECIAL_FILENAME_RE.test(f))) {
+    const [, date, label, title] = SPECIAL_FILENAME_RE.exec(f);
+    const parsed = parseOne(path.join(SERMON_DIR, f), f, date, '', title, label);
     if (parsed) entries.push(parsed);
   }
 

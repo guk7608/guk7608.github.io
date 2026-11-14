@@ -10,7 +10,9 @@ const SERMON_DIR = 'N:\\개인\\0.클로드 에이전트\\설교집\\새벽설�
 const PROJECT_DIR = path.join(__dirname, '..');
 const DATA_JS = path.join(PROJECT_DIR, 'verses-data.js');
 
-const FILENAME_RE = /^(\d{4}-\d{2}-\d{2}), (\d+)강 (.+)\.md$/;
+// 2026-11-15부터 같은 날 "… 클로드.md"와 "… 재미나이.md" 두 편을 쓴다(사용자가 비교용으로 읽음).
+// 홈페이지에는 클로드판만 올리고(제목 끝 " 클로드"는 뗀다), 재미나이판은 건너뛴다. 꼬리표 없는 예전 파일도 그대로 읽는다.
+const FILENAME_RE = /^(\d{4}-\d{2}-\d{2}), (\d+)강 (?!.* 재미나이\.md$)(.+?)(?: 클로드)?\.md$/;
 const BODY_LINE_RE = /^>\s*본문:\s*([^\s0-9][^\s]*)\s+(\d+):(\d+)/m;
 const TAG_LINE_RE = /^>\s*새벽묵상:\s*([^\s0-9][^\s]*)\s+(\d+):(\d+)/m;
 const VERSE_LINE_RE = /^(?:(\d+):)?(\d+)\.\s+(.+)$/gm;
